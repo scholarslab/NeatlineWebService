@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Plugin runner. Define constants, instantiate the mamanger class.
+ * Administrative functionality.
  *
  * PHP version 5
  *
@@ -25,30 +25,77 @@
 
 <?php
 
+class NeatlineWebService_AdminController extends Omeka_Controller_Action
+{
 
-// defines {{{
-if (!defined('NEATLINE_WEB_SERVICE_PLUGIN_VERSION')) {
-    define(
-        'NEATLINE_WEB_SERVICEPLUGIN_VERSION',
-        get_plugin_ini('NeatlineWebService', 'version')
-    );
+    /**
+     * Registration.
+     *
+     * @return void
+     */
+    public function signupAction()
+    {
+
+    }
+
+    /**
+     * Login.
+     *
+     * @return void
+     */
+    public function loginAction()
+    {
+
+    }
+
+    /**
+     * Logout.
+     *
+     * @return void
+     */
+    public function logoutAction()
+    {
+
+    }
+
+    /**
+     * Browse exhibits.
+     *
+     * @return void
+     */
+    public function browseAction()
+    {
+
+    }
+
+    /**
+     * Create exhibit.
+     *
+     * @return void
+     */
+    public function addAction()
+    {
+
+    }
+
+    /**
+     * Edit exhibit.
+     *
+     * @return void
+     */
+    public function editAction()
+    {
+
+    }
+
+    /**
+     * Delete exhibit.
+     *
+     * @return void
+     */
+    public function deleteAction()
+    {
+
+    }
+
 }
-
-if (!defined('NEATLINE_PLUGIN_DIR')) {
-    define(
-        'NEATLINE_PLUGIN_DIR',
-        dirname(__FILE__)
-    );
-}
-// }}}
-
-
-// requires {{{
-require_once NEATLINE_WEB_SERVICE_PLUGIN_DIR . '/NeatlineWebServicePlugin.php';
-// }}}
-
-
-/*
- * Run.
- */
-new NeatlinePlugin;

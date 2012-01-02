@@ -1,3 +1,3 @@
 # Neatline Web Service
 
-Backend for hosted, OpenStreetMap-based Neatline exhibits.
+Backend for hosted, OpenStreetMaps-based Neatline exhibits.
