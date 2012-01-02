@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Administrative functionality.
+ * Public exhibit views.
  *
  * PHP version 5
  *
