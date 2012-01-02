@@ -25,75 +25,15 @@
 
 <?php
 
-class NeatlineWebService_AdminController extends Omeka_Controller_Action
+class NeatlineWebService_PublicController extends Omeka_Controller_Action
 {
 
     /**
-     * Registration.
+     * Native-environment public exhibit view.
      *
      * @return void
      */
-    public function registerAction()
-    {
-
-    }
-
-    /**
-     * Login.
-     *
-     * @return void
-     */
-    public function loginAction()
-    {
-
-    }
-
-    /**
-     * Logout.
-     *
-     * @return void
-     */
-    public function logoutAction()
-    {
-
-    }
-
-    /**
-     * Browse exhibits.
-     *
-     * @return void
-     */
-    public function browseAction()
-    {
-
-    }
-
-    /**
-     * Create exhibit.
-     *
-     * @return void
-     */
-    public function addAction()
-    {
-
-    }
-
-    /**
-     * Edit exhibit.
-     *
-     * @return void
-     */
-    public function editAction()
-    {
-
-    }
-
-    /**
-     * Delete exhibit.
-     *
-     * @return void
-     */
-    public function deleteAction()
+    public function showAction()
     {
 
     }

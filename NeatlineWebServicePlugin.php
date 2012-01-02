@@ -103,8 +103,10 @@ class NeatlineWebServicePlugin
     public function defineRoutes($router)
     {
 
-        $router->addConfig(new Zend_Config_Ini(NEATLINE_PLUGIN_DIR
-            .'/routes.ini', 'routes'));
+        $router->addConfig(
+            new Zend_Config_Ini(NEATLINE_WEB_SERVICE_PLUGIN_DIR . '/routes.ini',
+            'routes')
+        );
 
     }
 
