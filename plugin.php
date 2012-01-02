@@ -34,9 +34,9 @@ if (!defined('NEATLINE_WEB_SERVICE_PLUGIN_VERSION')) {
     );
 }
 
-if (!defined('NEATLINE_PLUGIN_DIR')) {
+if (!defined('NEATLINE_WEB_SERVICE_PLUGIN_DIR')) {
     define(
-        'NEATLINE_PLUGIN_DIR',
+        'NEATLINE_WEB_SERVICE_PLUGIN_DIR',
         dirname(__FILE__)
     );
 }
@@ -51,4 +51,4 @@ require_once NEATLINE_WEB_SERVICE_PLUGIN_DIR . '/NeatlineWebServicePlugin.php';
 /*
  * Run.
  */
-new NeatlinePlugin;
+new NeatlineWebServicePlugin;
