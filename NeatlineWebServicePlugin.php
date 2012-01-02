@@ -31,7 +31,8 @@ class NeatlineWebServicePlugin
     private static $_hooks = array(
         'install',
         'uninstall',
-        'define_routes'
+        'define_routes',
+        'admin_theme_header'
     );
 
     private static $_filters = array();
@@ -104,9 +105,30 @@ class NeatlineWebServicePlugin
     {
 
         $router->addConfig(
-            new Zend_Config_Ini(NEATLINE_WEB_SERVICE_PLUGIN_DIR . '/routes.ini',
+            new Zend_Config_Ini(NLWS_PLUGIN_DIR . '/routes.ini',
             'routes')
         );
+
+    }
+
+    /**
+     * Queue file assets.
+     *
+     * @return void
+     */
+    public function adminThemeHeader($request)
+    {
+
+        // Get the route.
+        $routeName = Zend_Controller_Front
+            ::getInstance()
+            ->getRouter()
+            ->getCurrentRouteName();
+
+        // Admin.
+        if ($routeName == 'nlwsAdmin') {
+            nlws_queueCss();
+        }
 
     }
 

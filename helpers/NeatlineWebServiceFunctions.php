@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Plugin runner. Define constants, instantiate the mamanger class.
+ * Helpers.
  *
  * PHP version 5
  *
@@ -25,31 +25,16 @@
 
 <?php
 
-
-// defines {{{
-if (!defined('NLWS_PLUGIN_VERSION')) {
-    define(
-        'NLWS_PLUGIN_VERSION',
-        get_plugin_ini('NeatlineWebService', 'version')
-    );
-}
-
-if (!defined('NLWS_PLUGIN_DIR')) {
-    define(
-        'NLWS_PLUGIN_DIR',
-        dirname(__FILE__)
-    );
-}
-// }}}
-
-
-// requires {{{
-require_once NLWS_PLUGIN_DIR . '/NeatlineWebServicePlugin.php';
-require_once NLWS_PLUGIN_DIR . '/helpers/NeatlineWebServiceFunctions.php';
-// }}}
-
-
-/*
- * Run.
+/**
+ * Include admin stylesheets.
+ *
+ * @return void.
  */
-new NeatlineWebServicePlugin;
+function nlws_queueCss()
+{
+
+    // Custom CSS.
+    queue_css('bootstrap.xtra.min');
+    queue_css('_overrides');
+
+}
