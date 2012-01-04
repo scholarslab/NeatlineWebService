@@ -38,6 +38,12 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->_usersTable = $this->getTable('User');
     }
 
+
+    /**
+     * View actions.
+     */
+
+
     /**
      * Registration.
      *
@@ -81,8 +87,16 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                     $email
                 );
 
+                // Commit.
                 $user->save();
-                return $this->_redirect('webservice');
+
+                // Authenticate the new user.
+                $adapter =      $this->getAuthAdapter($username, $password);
+                $auth =         Zend_Auth::getInstance();
+                $result =       $auth->authenticate($adapter);
+
+                // Redirect to root.
+                return $this->_redirect('webservice/exhibits');
 
             }
 
@@ -109,16 +123,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     }
 
     /**
-     * Reset password.
-     *
-     * @return void
-     */
-    public function newpasswordAction()
-    {
-
-    }
-
-    /**
      * Logout.
      *
      * @return void
@@ -129,11 +133,21 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     }
 
     /**
+     * Reset password.
+     *
+     * @return void
+     */
+    public function resetpasswordAction()
+    {
+
+    }
+
+    /**
      * Browse exhibits.
      *
      * @return void
      */
-    public function browseAction()
+    public function exhibitsAction()
     {
 
     }
@@ -167,5 +181,24 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
     }
+
+
+    /**
+     * Authentication.
+     */
+
+    /**
+     * Construct the session adapter.
+     *
+     * @param string $username      Username.
+     * @param string $password      Password.
+     *
+     * @return void
+     */
+    private function getAuthAdapter($username, $password)
+    {
+        return new NeatlineAuthAdapter($username, $password);
+    }
+
 
 }

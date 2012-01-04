@@ -57,7 +57,7 @@ echo $this->partial('admin/_header.php', array(
                     <button type="submit" class="btn primary large">Submit</button>
                 </div>
 
-                <p>Forgot your password? <a href="newpassword">Click here</a>.
+                <p>Forgot your password? <a href="resetpassword">Click here</a>.
 
             </form>
 

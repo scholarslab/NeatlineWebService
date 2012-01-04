@@ -46,6 +46,7 @@ if (!defined('NLWS_PLUGIN_DIR')) {
 // requires {{{
 require_once NLWS_PLUGIN_DIR . '/NeatlineWebServicePlugin.php';
 require_once NLWS_PLUGIN_DIR . '/helpers/NeatlineWebServiceFunctions.php';
+require_once NLWS_PLUGIN_DIR . '/helpers/NeatlineAuthAdapter.php';
 // }}}
 
 
