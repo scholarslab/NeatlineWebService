@@ -35,35 +35,47 @@ echo $this->partial('admin/_header.php', array(
         </div>
 
         <div class="span12">
-            <form class="form-stacked">
+            <form class="form-stacked" method="post">
 
                 <fieldset>
 
-                    <div class="clearfix">
+                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'username', 'error'); ?>">
                         <label for="username">Username: *</label>
-                        <div class="input">
-                            <input name="username" type="text" />
+                        <div class="input username">
+                            <input name="username" type="text" value="<?php echo $user->username; ?>" />
+                            <?php if (array_key_exists('username', $errors)): ?>
+                                <span class="help-inline"><?php echo $errors['username']; ?></span>
+                            <?php endif; ?>
                         </div>
                     </div>
 
-                    <div class="clearfix">
-                        <label for="password">Password: *</label>
-                        <div class="input">
-                            <input name="password" type="password" />
-                        </div>
-                    </div>
-
-                    <div class="clearfix">
-                        <label for="confirm">Confirm Password: *</label>
-                        <div class="input">
-                            <input name="password_confirm" type="password" />
-                        </div>
-                    </div>
-
-                    <div class="clearfix">
+                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'email', 'error'); ?>">
                         <label for="email">Email: *</label>
-                        <div class="input">
-                            <input name="email" type="text" />
+                        <div class="input email">
+                            <input name="email" type="text" value="<?php echo $user->email; ?>" />
+                            <?php if (array_key_exists('email', $errors)): ?>
+                                <span class="help-inline"><?php echo $errors['email']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'password', 'error'); ?>">
+                        <label for="password">Password: *</label>
+                        <div class="input password">
+                            <input name="password" type="password" />
+                            <?php if (array_key_exists('password', $errors)): ?>
+                                <span class="help-inline"><?php echo $errors['password']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'confirm', 'error'); ?>">
+                        <label for="confirm">Confirm Password: *</label>
+                        <div class="input confirm">
+                            <input name="confirm" type="password" />
+                            <?php if (array_key_exists('confirm', $errors)): ?>
+                                <span class="help-inline"><?php echo $errors['confirm']; ?></span>
+                            <?php endif; ?>
                         </div>
                     </div>
 

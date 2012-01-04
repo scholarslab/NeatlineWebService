@@ -46,19 +46,38 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function registerAction()
     {
 
-        $user = new User;
+        $user = new NeatlineUser;
+        $errors = array();
 
         // Process submission.
         if ($this->_request->isPost()) {
 
             // Gather $_POST.
-            $_post =                $this->request->getPost();
+            $_post =                $this->_request->getPost();
             $username =             $_post['username'];
             $password =             $_post['password'];
-            $passwordConfirm =      $_post['password_confirm'];
+            $confirm =              $_post['confirm'];
             $email =                $_post['email'];
 
+            // Register the credentials, capture errors.
+            $errors = $user->_validateRegistration(
+                $username,
+                $password,
+                $confirm,
+                $email
+            );
+
+            // If no errors, save and redirect.
+            if (count($errors) == 0) {
+                $user->save();
+                return $this->_redirect('webservice');
+            }
+
         }
+
+        // Push user and errors.
+        $this->view->user =         $user;
+        $this->view->errors =       $errors;
 
     }
 

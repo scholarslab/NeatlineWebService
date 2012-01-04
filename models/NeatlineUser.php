@@ -28,14 +28,70 @@ class NeatlineUser extends User
 {
 
     /**
-     * .
+     * Validate registration.
      *
-     * @param.
+     * @param string $username  Username.
+     * @param string $password  Password.
+     * @param string $confirm   Password confirmation.
+     * @param string $email     Email.
      *
      * @return.
      */
-    public function getItem()
+    public function _validateRegistration(
+        $username,
+        $password,
+        $confirm,
+        $email
+    )
     {
+
+        // Errors array.
+        $errors = array();
+
+        // ** USERNAME
+        if ($username == '') {
+            $errors['username'] = get_plugin_ini(
+                'NeatlineWebService',
+                'username_absent'
+            );
+        }
+
+        // ** PASSWORD
+        if ($password == '') {
+            $errors['password'] = get_plugin_ini(
+                'NeatlineWebService',
+                'password_absent'
+            );
+        }
+
+        // ** PASSWORD CONFIRM
+        else {
+
+            if ($confirm == '') {
+                $errors['confirm'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'password_confirm_absent'
+                );
+            }
+
+            elseif ($confirm != $password) {
+                $errors['confirm'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'password_mismatch'
+                );
+            }
+
+        }
+
+        // ** EMAIL
+        if ($password == '') {
+            $errors['email'] = get_plugin_ini(
+                'NeatlineWebService',
+                'email_absent'
+            );
+        }
+
+        return $errors;
 
     }
 

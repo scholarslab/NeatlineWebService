@@ -38,3 +38,20 @@ function nlws_queueCss()
     queue_css('_overrides');
 
 }
+
+/**
+ * Construct the error class (or lack thereof) for an errors array and a
+ * specified key.
+ *
+ * @param string $errors    The errors array.
+ * @param string $key       They key to check for.
+ * @param string $class     The class to return.
+ *
+ * @return void.
+ */
+function nlws_getErrorClass($errors, $key, $class)
+{
+
+    return array_key_exists($key, $errors) ? $class : '';
+
+}

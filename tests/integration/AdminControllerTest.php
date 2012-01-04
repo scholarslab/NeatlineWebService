@@ -17,10 +17,8 @@
  * @package     omeka
  * @subpackage  neatline
  * @author      Scholars' Lab <>
- * @author      Bethany Nowviskie <bethany@virginia.edu>
- * @author      Adam Soroka <ajs6f@virginia.edu>
  * @author      David McClure <david.mcclure@virginia.edu>
- * @copyright   2011 The Board and Visitors of the University of Virginia
+ * @copyright   2012 The Board and Visitors of the University of Virginia
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
@@ -35,6 +33,7 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
+        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
 
@@ -54,8 +53,52 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Check for the form.
         $this->assertQuery('input[name="username"]');
         $this->assertQuery('input[name="password"]');
-        $this->assertQuery('input[name="password_confirm"]');
+        $this->assertQuery('input[name="confirm"]');
         $this->assertQuery('input[name="email"]');
+
+    }
+
+    /**
+     * /register should render errors for submission with empty fields.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsEmptyFields()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error classes.
+        $this->assertQuery('div.error input[name="username"]');
+        $this->assertQuery('div.error input[name="password"]');
+        $this->assertQuery('div.error input[name="email"]');
+
+        // Check for the errors.
+        $this->assertQueryContentContains(
+            'div.username span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'username_absent')
+        );
+
+        $this->assertQueryContentContains(
+            'div.password span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'password_absent')
+        );
+
+        $this->assertQueryContentContains(
+            'div.email span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'email_absent')
+        );
 
     }
 
