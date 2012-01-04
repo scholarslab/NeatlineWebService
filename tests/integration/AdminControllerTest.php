@@ -37,6 +37,10 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         parent::setUp();
         $this->setUpPlugin();
 
+        // Get the database and table.
+        $this->db = get_db();
+        $this->_usersTable = $this->db->getTable('NeatlineUser');
+
     }
 
     /**
@@ -99,6 +103,294 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
             'div.email span.help-inline',
             get_plugin_ini('NeatlineWebService', 'email_absent')
         );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
+
+    }
+
+    /**
+     * /register should render error for unavailable username.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsUsernameTaken()
+    {
+
+        // Create a user, set username.
+        $user = $this->__user($username = 'david');
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'david',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Count users.
+        $_userCount = $this->_usersTable->count();
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error classe.
+        $this->assertQuery('div.error input[name="username"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.username span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'username_taken')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 1);
+
+    }
+
+    /**
+     * /register should render error for unavailable email address.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsEmailTaken()
+    {
+
+        // Create a user, set username.
+        $user = $this->__user($email = 'dwm@uva.edu');
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      'dwm@uva.edu'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Count users.
+        $_userCount = $this->_usersTable->count();
+
+        // Check for the error classe.
+        $this->assertQuery('div.error input[name="email"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.email span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'email_taken')
+        );
+
+        // +0.
+        $this->assertEquals($this->_usersTable->count(), $_userCount);
+
+    }
+
+    /**
+     * /register should render error for missing password confirmation.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsPasswordConfirmEmpty()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   'poesypure',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error classe.
+        $this->assertQuery('div.error input[name="confirm"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.confirm span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'password_confirm_absent')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
+
+    }
+
+    /**
+     * /register should render error for non-matching password confirm.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsPasswordConfirmMismatch()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   'poesypure',
+                'confirm' =>    'poesyimpure',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error classe.
+        $this->assertQuery('div.error input[name="confirm"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.confirm span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'password_confirm_mismatch')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
+
+    }
+
+    /**
+     * /register should persist an username on form re-display.
+     *
+     * @return void.
+     */
+    public function testRegisterUsernamePersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'david',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the value.
+        $this->assertQuery('div.username input[value="david"]');
+
+    }
+
+    /**
+     * /register should persist an email on form re-display.
+     *
+     * @return void.
+     */
+    public function testRegisterEmailPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      'dwm'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the value.
+        $this->assertQuery('div.email input[value="dwm"]');
+
+    }
+
+    /**
+     * /register should persist as password on form re-display.
+     *
+     * @return void.
+     */
+    public function testRegisterPasswordPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   'poesypure',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the value.
+        $this->assertQuery('div.password input[value="poesypure"]');
+
+    }
+
+    /**
+     * /register should persist a password confirmation on form re-display.
+     *
+     * @return void.
+     */
+    public function testRegisterPasswordConfirmPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   'poesypure',
+                'confirm' =>    'poesyimpure',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the value.
+        $this->assertQuery('div.confirm input[value="poesyimpure"]');
+
+    }
+
+    /**
+     * /register should create new user with valid submission.
+     *
+     * @return void.
+     */
+    public function testRegisterSuccess()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'david',
+                'password' =>   'poesypure',
+                'confirm' =>    'poesypure',
+                'email' =>      'dwm@uva.edu'
+            )
+        );
+
+        // Count users.
+        $_userCount = $this->_usersTable->count();
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // +1.
+        $this->assertEquals($this->_usersTable->count(), $_userCount+1);
 
     }
 

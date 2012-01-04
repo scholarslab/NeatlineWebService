@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Extension of the native Omeka user row class.
+ * User row class.
  *
  * PHP version 5
  *
@@ -17,15 +17,24 @@
  * @package     omeka
  * @subpackage  neatline
  * @author      Scholars' Lab <>
- * @author      Bethany Nowviskie <bethany@virginia.edu>
- * @author      Adam Soroka <ajs6f@virginia.edu>
  * @author      David McClure <david.mcclure@virginia.edu>
- * @copyright   2011 The Board and Visitors of the University of Virginia
+ * @copyright   2012 The Board and Visitors of the University of Virginia
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-class NeatlineUser extends User
+class NeatlineUser extends Omeka_record
 {
+
+
+    /**
+     * Record attributes.
+     */
+
+    public $username;
+    public $password;
+    public $salt;
+    public $email;
+
 
     /**
      * Validate registration.
@@ -35,7 +44,7 @@ class NeatlineUser extends User
      * @param string $confirm   Password confirmation.
      * @param string $email     Email.
      *
-     * @return.
+     * @return array $errors    The array of errors.
      */
     public function _validateRegistration(
         $username,
@@ -48,7 +57,13 @@ class NeatlineUser extends User
         // Errors array.
         $errors = array();
 
-        // ** USERNAME
+        // Validators.
+        $emailValidator = new Zend_Validate_EmailAddress();
+
+        /**
+         * USERNAME
+         */
+
         if ($username == '') {
             $errors['username'] = get_plugin_ini(
                 'NeatlineWebService',
@@ -56,7 +71,18 @@ class NeatlineUser extends User
             );
         }
 
-        // ** PASSWORD
+        else if (!$this->getTable('NeatlineUser')
+            ->usernameIsAvailable($username)) {
+                $errors['username'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'username_taken'
+                );
+        }
+
+        /**
+         * PASSWORD
+         */
+
         if ($password == '') {
             $errors['password'] = get_plugin_ini(
                 'NeatlineWebService',
@@ -64,7 +90,10 @@ class NeatlineUser extends User
             );
         }
 
-        // ** PASSWORD CONFIRM
+        /**
+         * PASSWORD CONFIRM
+         */
+
         else {
 
             if ($confirm == '') {
@@ -77,21 +106,119 @@ class NeatlineUser extends User
             elseif ($confirm != $password) {
                 $errors['confirm'] = get_plugin_ini(
                     'NeatlineWebService',
-                    'password_mismatch'
+                    'password_confirm_mismatch'
                 );
             }
 
         }
 
-        // ** EMAIL
-        if ($password == '') {
+        /**
+         * EMAIL
+         */
+
+        if ($email == '') {
             $errors['email'] = get_plugin_ini(
                 'NeatlineWebService',
                 'email_absent'
             );
         }
 
+        else if (!$emailValidator->isValid($email)) {
+                $errors['email'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'email_invalid'
+                );
+        }
+
+        else if (!$this->getTable('NeatlineUser')
+            ->emailIsAvailable($email)) {
+                $errors['email'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'email_taken'
+                );
+        }
+
         return $errors;
+
+    }
+
+
+    /**
+     * Apply registration parameters.
+     *
+     * @param string $username  Username.
+     * @param string $password  Password.
+     * @param string $email     Email.
+     *
+     * @return array $errors    The array of errors.
+     */
+    public function _applyRegistration(
+        $username,
+        $password,
+        $email
+    )
+    {
+
+        // Set raw.
+        $this->username =   $username;
+        $this->email =      $email;
+
+        // Set password.
+        $this->setPassword($password);
+
+
+    }
+
+    /**
+     * Generate salt for password.
+     *
+     * @return void.
+     */
+    public function generateSalt()
+    {
+        $this->salt = substr(md5(mt_rand()), 0, 16);
+    }
+
+    /**
+     * Hash password.
+     *
+     * @param string $password  Password.
+     *
+     * @return string           The hash.
+     */
+    public function hashPassword($password)
+    {
+        return sha1($this->salt . $password);
+    }
+
+    /**
+     * Set password.
+     *
+     * @param string $password  Password.
+     *
+     * @return void.
+     */
+    public function setPassword($password)
+    {
+
+        if ($this->salt === null) {
+            $this->generateSalt();
+        }
+
+        $this->password = $this->hashPassword($password);
+
+    }
+
+    /**
+     * Check password.
+     *
+     * @param string $password  Password.
+     *
+     * @return True if the password is correct.
+     */
+    public function checkPassword($password)
+    {
+
 
     }
 

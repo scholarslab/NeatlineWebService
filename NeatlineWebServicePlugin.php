@@ -86,8 +86,9 @@ class NeatlineWebServicePlugin
         $sql = "CREATE TABLE IF NOT EXISTS `{$this->_db->prefix}neatline_users` (
                 `id`                    int(10) unsigned not null auto_increment,
                 `username`              varchar(30) NOT NULL UNIQUE,
-                `password`              varchar(30) NOT NULL,
+                `password`              varchar(40) NOT NULL,
                 `salt`                  varchar(16) NULL,
+                `email`                 varchar(80) NOT NULL,
                  PRIMARY KEY (`id`)
                ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
@@ -102,6 +103,10 @@ class NeatlineWebServicePlugin
      */
     public function uninstall()
     {
+
+        // Drop the users table.
+        $sql = "DROP TABLE IF EXISTS `{$this->_db->prefix}neatline_users`";
+        $this->_db->query($sql);
 
     }
 

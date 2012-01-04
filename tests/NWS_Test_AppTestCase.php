@@ -71,4 +71,32 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
 
     }
 
+    /**
+     * Helpers.
+     */
+
+    /**
+     * Create a test user.
+     *
+     * @return Omeka_record $user The user.
+     */
+    public function __user(
+        $username =         'david',
+        $password =         'password',
+        $salt =             'salt',
+        $email =            'dwm@uva.edu'
+    )
+    {
+
+        $user = new NeatlineUser;
+        $user->username =   $username;
+        $user->password =   $password;
+        $user->salt =       $salt;
+        $user->email =      $email;
+        $user->save();
+
+        return $user;
+
+    }
+
 }

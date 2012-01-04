@@ -89,12 +89,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     {
 
         // Create a user, set username.
-        $user1 = new NeatlineUser;
-        $user1->username = 'david';
-        $user1->save();
-
-        // Create a second user.
-        $user1 = new NeatlineUser;
+        $user = $this->__user($username = 'david');
 
         // Register with mismatching confirmation.
         $errors = $user->_validateRegistration(
@@ -112,6 +107,33 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * _validateRegistration() should throw an error if the submitted email
+     * address is not valid.
+     *
+     * @return void.
+     */
+    public function testValidateRegistrationInvalidEmail()
+    {
+
+        // Create a user, set username.
+        $user = new NeatlineUser;
+
+        // Register with mismatching confirmation.
+        $errors = $user->_validateRegistration(
+            '',
+            '',
+            '',
+            'invalid');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'email_invalid'),
+            $errors['email']
+        );
+
+    }
+
+    /**
      * _validateRegistration() should throw an error if there is already a
      * user with the supplied email.
      *
@@ -119,6 +141,22 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
      */
     public function testValidateRegistrationEmailTaken()
     {
+
+        // Create a user, set username.
+        $user = $this->__user($email = 'dwm@uva.edu');
+
+        // Register with mismatching confirmation.
+        $errors = $user->_validateRegistration(
+            '',
+            '',
+            '',
+            'dwm@uva.edu');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'email_taken'),
+            $errors['email']
+        );
 
     }
 
@@ -169,9 +207,9 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
             'dwm@uva.edu');
 
         // Check for the error.
-        $this->assertContains(
+        $this->assertEquals(
             $errors['confirm'],
-            get_plugin_ini('NeatlineWebService', 'password_mismatch')
+            get_plugin_ini('NeatlineWebService', 'password_confirm_mismatch')
         );
 
     }

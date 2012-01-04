@@ -46,18 +46,22 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function registerAction()
     {
 
-        $user = new NeatlineUser;
-        $errors = array();
+        $user =                 new NeatlineUser;
+        $errors =               array();
+        $username =             '';
+        $password =             '';
+        $confirm =              '';
+        $email =                '';
 
         // Process submission.
         if ($this->_request->isPost()) {
 
             // Gather $_POST.
-            $_post =                $this->_request->getPost();
-            $username =             $_post['username'];
-            $password =             $_post['password'];
-            $confirm =              $_post['confirm'];
-            $email =                $_post['email'];
+            $_post =            $this->_request->getPost();
+            $username =         $_post['username'];
+            $password =         $_post['password'];
+            $confirm =          $_post['confirm'];
+            $email =            $_post['email'];
 
             // Register the credentials, capture errors.
             $errors = $user->_validateRegistration(
@@ -69,8 +73,18 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
             // If no errors, save and redirect.
             if (count($errors) == 0) {
+
+                // Set columns.
+                $user->_applyRegistration(
+                    $username,
+                    $password,
+                    $confirm,
+                    $email
+                );
+
                 $user->save();
                 return $this->_redirect('webservice');
+
             }
 
         }
@@ -78,6 +92,10 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         // Push user and errors.
         $this->view->user =         $user;
         $this->view->errors =       $errors;
+        $this->view->username =     $username;
+        $this->view->password =     $password;
+        $this->view->confirm =      $confirm;
+        $this->view->email =        $email;
 
     }
 
