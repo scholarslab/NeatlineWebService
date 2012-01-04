@@ -56,7 +56,7 @@ echo $this->partial('admin/_header.php', array(
                     <div class="clearfix">
                         <label for="confirm">Confirm Password: *</label>
                         <div class="input">
-                            <input name="confirm" type="password" />
+                            <input name="password_confirm" type="password" />
                         </div>
                     </div>
 
@@ -79,3 +79,4 @@ echo $this->partial('admin/_header.php', array(
     </div>
 
 </div>
+

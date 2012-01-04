@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Admininistration controller integration tests.
+ * Extension of the native Omeka user row class.
  *
  * PHP version 5
  *
@@ -24,38 +24,18 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
+class NeatlineUser extends User
 {
 
     /**
-     * Instantiate the helper class, install the plugins, get the database.
+     * .
      *
-     * @return void.
-     */
-    public function setUp()
-    {
-
-        parent::setUp();
-        $this->setUpPlugin();
-
-    }
-
-    /**
-     * /register should render the registration form.
+     * @param.
      *
-     * @return void.
+     * @return.
      */
-    public function testRegisterFormDisplay()
+    public function getItem()
     {
-
-        // Hit the route.
-        $this->dispatch('webservice/register');
-
-        // Check for the form.
-        $this->assertQuery('input[name="username"]');
-        $this->assertQuery('input[name="password"]');
-        $this->assertQuery('input[name="password_confirm"]');
-        $this->assertQuery('input[name="email"]');
 
     }
 

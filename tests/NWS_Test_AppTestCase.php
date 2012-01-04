@@ -24,13 +24,17 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
+
+// Get plugin runners.
 require_once '../NeatlineWebServicePlugin.php';
 require_once '../../Neatline/NeatlinePlugin.php';
 
-class NeatlineWebService_Test_AppTestCase extends Omeka_Test_AppTestCase
+
+class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
 {
 
-    private $_dbHelper;
+    private         $_dbHelper;
+    protected       $_isAdminTest = false;
 
     /**
      * Spin up the plugins and prepare the database.
@@ -43,7 +47,7 @@ class NeatlineWebService_Test_AppTestCase extends Omeka_Test_AppTestCase
         parent::setUp();
 
         $this->user = $this->db->getTable('User')->find(1);
-        $this->_authenticateUser($this->user);
+        // $this->_authenticateUser($this->user);
 
         // Neatline broker.
         $neatline_plugin_broker = get_plugin_broker();

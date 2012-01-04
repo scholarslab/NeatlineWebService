@@ -29,12 +29,36 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 {
 
     /**
+     * Get models.
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $this->_usersTable = $this->getTable('User');
+    }
+
+    /**
      * Registration.
      *
      * @return void
      */
     public function registerAction()
     {
+
+        $user = new User;
+
+        // Process submission.
+        if ($this->_request->isPost()) {
+
+            // Gather $_POST.
+            $_post =                $this->request->getPost();
+            $username =             $_post['username'];
+            $password =             $_post['password'];
+            $passwordConfirm =      $_post['password_confirm'];
+            $email =                $_post['email'];
+
+        }
 
     }
 
