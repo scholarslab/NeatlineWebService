@@ -37,6 +37,14 @@ class NeatlineUser extends Omeka_record
 
 
     /**
+     * Validation constants.
+     */
+
+    CONST USERNAME_MAX_LENGTH = 30;
+    CONST PASSWORD_MIN_LENGTH = 6;
+
+
+    /**
      * Validate registration.
      *
      * @param string $username  Username.
@@ -59,6 +67,7 @@ class NeatlineUser extends Omeka_record
 
         // Validators.
         $emailValidator = new Zend_Validate_EmailAddress();
+        $alnumValidator = new Zend_Validate_Alnum();
 
         /**
          * USERNAME
@@ -79,6 +88,20 @@ class NeatlineUser extends Omeka_record
                 );
         }
 
+        else if (strlen($username) > self::USERNAME_MAX_LENGTH) {
+            $errors['username'] = get_plugin_ini(
+                'NeatlineWebService',
+                'username_too_long'
+            );
+        }
+
+        else if (!$alnumValidator->isValid($username)) {
+            $errors['username'] = get_plugin_ini(
+                'NeatlineWebService',
+                'username_alnum'
+            );
+        }
+
         /**
          * PASSWORD
          */
@@ -87,6 +110,13 @@ class NeatlineUser extends Omeka_record
             $errors['password'] = get_plugin_ini(
                 'NeatlineWebService',
                 'password_absent'
+            );
+        }
+
+        else if (strlen($password) < self::PASSWORD_MIN_LENGTH) {
+            $errors['password'] = get_plugin_ini(
+                'NeatlineWebService',
+                'password_too_short'
             );
         }
 
@@ -103,7 +133,7 @@ class NeatlineUser extends Omeka_record
                 );
             }
 
-            elseif ($confirm != $password) {
+            else if ($confirm != $password) {
                 $errors['confirm'] = get_plugin_ini(
                     'NeatlineWebService',
                     'password_confirm_mismatch'
@@ -219,6 +249,7 @@ class NeatlineUser extends Omeka_record
     public function checkPassword($password)
     {
 
+        return $this->hashPassword($password) == $this->password;
 
     }
 

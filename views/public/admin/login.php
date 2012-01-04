@@ -28,7 +28,8 @@ echo $this->partial('admin/_header.php', array(
 
         <div class="span4">
             <h2>Login</h2>
-            <p>Forgot your password? <a href="">Click here</a>.
+            <p>Don't have an account? Head over to the <a href="register">Register</a>
+               page and sign up!</p>
         </div>
 
         <div class="span12">
@@ -56,7 +57,10 @@ echo $this->partial('admin/_header.php', array(
                     <button type="submit" class="btn primary large">Submit</button>
                 </div>
 
+                <p>Forgot your password? <a href="newpassword">Click here</a>.
+
             </form>
+
         </div>
 
     </div>

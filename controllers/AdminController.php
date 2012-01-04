@@ -78,7 +78,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $user->_applyRegistration(
                     $username,
                     $password,
-                    $confirm,
                     $email
                 );
 
@@ -105,6 +104,16 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      * @return void
      */
     public function loginAction()
+    {
+
+    }
+
+    /**
+     * Reset password.
+     *
+     * @return void
+     */
+    public function newpasswordAction()
     {
 
     }

@@ -83,7 +83,7 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Hit the route.
         $this->dispatch('webservice/register');
 
-        // Check for the error classes.
+        // Check for the error classs.
         $this->assertQuery('div.error input[name="username"]');
         $this->assertQuery('div.error input[name="password"]');
         $this->assertQuery('div.error input[name="email"]');
@@ -136,7 +136,7 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Hit the route.
         $this->dispatch('webservice/register');
 
-        // Check for the error classe.
+        // Check for the error class.
         $this->assertQuery('div.error input[name="username"]');
 
         // Check for the error.
@@ -147,6 +147,139 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 1);
+
+    }
+
+    /**
+     * /register should render error for too-long username.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsUsernameTooLong()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'itlittleprofitsthatanidlekingbythisstillhearth',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error class.
+        $this->assertQuery('div.error input[name="username"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.username span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'username_too_long')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
+
+    }
+
+    /**
+     * /register should render error for not-alphanumeric username.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsUsernameNotAlnum()
+    {
+
+        // Prepare the request with username with spaces.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'user with spaces',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error class.
+        $this->assertQuery('div.error input[name="username"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.username span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'username_alnum')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
+
+        // Prepare the request with username with illegal character.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'userwithillegalchar!',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error class.
+        $this->assertQuery('div.error input[name="username"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.username span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'username_alnum')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
+
+    }
+
+    /**
+     * /register should render error for invalid email address.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsEmailInvalid()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   '',
+                'confirm' =>    '',
+                'email' =>      'invalid'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Count users.
+        $_userCount = $this->_usersTable->count();
+
+        // Check for the error class.
+        $this->assertQuery('div.error input[name="email"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.email span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'email_invalid')
+        );
+
+        // +0.
+        $this->assertEquals($this->_usersTable->count(), $_userCount);
 
     }
 
@@ -177,7 +310,7 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Count users.
         $_userCount = $this->_usersTable->count();
 
-        // Check for the error classe.
+        // Check for the error class.
         $this->assertQuery('div.error input[name="email"]');
 
         // Check for the error.
@@ -188,6 +321,41 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // +0.
         $this->assertEquals($this->_usersTable->count(), $_userCount);
+
+    }
+
+    /**
+     * /register should render error for too-short password.
+     *
+     * @return void.
+     */
+    public function testRegisterErrorsPasswordTooShort()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   'x',
+                'confirm' =>    '',
+                'email' =>      ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/register');
+
+        // Check for the error class.
+        $this->assertQuery('div.error input[name="password"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.password span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'password_too_short')
+        );
+
+        // No user created.
+        $this->assertEquals($this->_usersTable->count(), 0);
 
     }
 
@@ -212,7 +380,7 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Hit the route.
         $this->dispatch('webservice/register');
 
-        // Check for the error classe.
+        // Check for the error class.
         $this->assertQuery('div.error input[name="confirm"]');
 
         // Check for the error.
@@ -247,7 +415,7 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Hit the route.
         $this->dispatch('webservice/register');
 
-        // Check for the error classe.
+        // Check for the error class.
         $this->assertQuery('div.error input[name="confirm"]');
 
         // Check for the error.
@@ -391,6 +559,13 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // +1.
         $this->assertEquals($this->_usersTable->count(), $_userCount+1);
+
+        // Check record.
+        $user = $this->_usersTable->find(1);
+        $this->assertEquals($user->username, 'david');
+        $this->assertEquals($user->email, 'dwm@uva.edu');
+        $this->assertNotNull($user->password);
+        $this->assertNotNull($user->salt);
 
     }
 

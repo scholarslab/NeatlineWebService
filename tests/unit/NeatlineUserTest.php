@@ -54,7 +54,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Create a user.
         $user = new NeatlineUser;
 
-        // Register with mismatching confirmation.
+        // Register with empty fields.
         $errors = $user->_validateRegistration(
             '',
             '',
@@ -91,7 +91,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Create a user, set username.
         $user = $this->__user($username = 'david');
 
-        // Register with mismatching confirmation.
+        // Register with taken name.
         $errors = $user->_validateRegistration(
             'david',
             '',
@@ -107,6 +107,73 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * _validateRegistration() should throw an error if the username is
+     * too long.
+     *
+     * @return void.
+     */
+    public function testValidateRegistrationUsernameTooLong()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Register with mismatching confirmation.
+        $errors = $user->_validateRegistration(
+            'itlittleprofitsthatanidlekingbythisstillhearth',
+            '',
+            '',
+            '');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'username_too_long'),
+            $errors['username']
+        );
+
+    }
+
+    /**
+     * _validateRegistration() should throw an error if the username is not
+     * alphanumeric.
+     *
+     * @return void.
+     */
+    public function testValidateRegistrationUsernameNotAlnum()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Register with spaces in username.
+        $errors = $user->_validateRegistration(
+            'user with spaces',
+            '',
+            '',
+            '');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'username_alnum'),
+            $errors['username']
+        );
+
+        // Register with spaces in username.
+        $errors = $user->_validateRegistration(
+            'userwithillegalchar!',
+            '',
+            '',
+            '');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'username_alnum'),
+            $errors['username']
+        );
+
+    }
+
+    /**
      * _validateRegistration() should throw an error if the submitted email
      * address is not valid.
      *
@@ -115,10 +182,10 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     public function testValidateRegistrationInvalidEmail()
     {
 
-        // Create a user, set username.
+        // Create a user.
         $user = new NeatlineUser;
 
-        // Register with mismatching confirmation.
+        // Register with invalid address.
         $errors = $user->_validateRegistration(
             '',
             '',
@@ -145,7 +212,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Create a user, set username.
         $user = $this->__user($email = 'dwm@uva.edu');
 
-        // Register with mismatching confirmation.
+        // Register taken address.
         $errors = $user->_validateRegistration(
             '',
             '',
@@ -156,6 +223,33 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         $this->assertEquals(
             get_plugin_ini('NeatlineWebService', 'email_taken'),
             $errors['email']
+        );
+
+    }
+
+    /**
+     * _validateRegistration() should throw an error if the password is
+     * too short.
+     *
+     * @return void.
+     */
+    public function testValidateRegistrationPasswordTooShort()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Register with mismatching confirmation.
+        $errors = $user->_validateRegistration(
+            '',
+            'x',
+            '',
+            '');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'password_too_short'),
+            $errors['password']
         );
 
     }
@@ -172,7 +266,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Create a user.
         $user = new NeatlineUser;
 
-        // Register with mismatching confirmation.
+        // Register with missing confirmation.
         $errors = $user->_validateRegistration(
             '',
             'poesypure',
@@ -226,7 +320,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Create a user.
         $user = new NeatlineUser;
 
-        // Register with mismatching confirmation.
+        // Register with valid credentials.
         $errors = $user->_validateRegistration(
             'davidmcclure',
             'poesypure',
@@ -236,6 +330,75 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Check for empty array.
         $this->assertEquals($errors, array());
         $this->assertEquals(count($errors), 0);
+
+    }
+
+    /**
+     * _applyRegistration() should set values and generate password hash/salt.
+     *
+     * @return void.
+     */
+    public function testApplyRegistration()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Register with valid credentials.
+        $errors = $user->_applyRegistration(
+            'davidmcclure',
+            'poesypure',
+            'dwm@uva.edu');
+
+        // Check record.
+        $this->assertEquals($user->username, 'davidmcclure');
+        $this->assertEquals($user->email, 'dwm@uva.edu');
+        $this->assertNotNull($user->password);
+        $this->assertNotNull($user->salt);
+
+    }
+
+    /**
+     * checkPassword() should return false when the password is incorrect.
+     *
+     * @return void.
+     */
+    public function testCheckPasswordWithIncorrectPassword()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Register with valid credentials.
+        $errors = $user->_applyRegistration(
+            'davidmcclure',
+            'poesypure',
+            'dwm@uva.edu');
+
+        // Check.
+        $this->assertFalse($user->checkPassword('poesyimpure'));
+
+    }
+
+    /**
+     * checkPassword() should return true when the password is correct.
+     *
+     * @return void.
+     */
+    public function testCheckPasswordWithCorrectPassword()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Register with valid credentials.
+        $errors = $user->_applyRegistration(
+            'davidmcclure',
+            'poesypure',
+            'dwm@uva.edu');
+
+        // Check.
+        $this->assertTrue($user->checkPassword('poesypure'));
 
     }
 
