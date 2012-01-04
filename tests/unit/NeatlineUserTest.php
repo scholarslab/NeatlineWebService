@@ -88,6 +88,27 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     public function testValidateRegistrationUsernameTaken()
     {
 
+        // Create a user, set username.
+        $user1 = new NeatlineUser;
+        $user1->username = 'david';
+        $user1->save();
+
+        // Create a second user.
+        $user1 = new NeatlineUser;
+
+        // Register with mismatching confirmation.
+        $errors = $user->_validateRegistration(
+            'david',
+            '',
+            '',
+            '');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'username_taken'),
+            $errors['username']
+        );
+
     }
 
     /**

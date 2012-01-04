@@ -75,12 +75,23 @@ class NeatlineWebServicePlugin
      */
 
     /**
-     * Install. Create _neatlines table.
+     * Install. Create table for _neatline_users.
      *
      * @return void.
      */
     public function install()
     {
+
+        // Users table.
+        $sql = "CREATE TABLE IF NOT EXISTS `{$this->_db->prefix}neatline_users` (
+                `id`                    int(10) unsigned not null auto_increment,
+                `username`              varchar(30) NOT NULL UNIQUE,
+                `password`              varchar(30) NOT NULL,
+                `salt`                  varchar(16) NULL,
+                 PRIMARY KEY (`id`)
+               ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+
+        $this->_db->query($sql);
 
     }
 
