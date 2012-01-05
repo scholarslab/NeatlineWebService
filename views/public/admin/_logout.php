@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Neatline logo.
+ * Logout block.
  *
  * @package     omeka
  * @subpackage  neatline
@@ -12,7 +12,6 @@
  */
 ?>
 
-<h1>
-    <a href="exhibits">Neatline</a>
-    <small>plot the world in space and time.</small>
-</h1>
+<div class="login-info">
+    <b><?php echo $user->username; ?></b> | <a href="logout">logout</a>
+</div>

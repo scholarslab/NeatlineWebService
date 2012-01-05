@@ -21,7 +21,42 @@
     margin-bottom: 0;
 }
 
+.page-header {
+    height: 40px;
+}
+
+.page-header h1 {
+    float: left;
+}
+
+.form-stacked label {
+    padding-bottom: 4px;
+}
+
+.form-stacked .checkbox label {
+    padding-bottom: 0;
+}
+
+.form-stacked .checkbox .help-block {
+    padding-top: 0;
+}
+
 .form-stacked div.clearfix.error {
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.form-stacked .help-block {
+    padding-top: 4px;
+    color: #8a8a8a;
+}
+
+input, textarea, select, .uneditable-input {
+    padding: 9px;
+    color: #3a3a3a;
+    font-size: 15px
+}
+
+.login-info {
+    font-size: 1em;
 }

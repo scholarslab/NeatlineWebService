@@ -94,6 +94,17 @@ class NeatlineWebServicePlugin
 
         $this->_db->query($sql);
 
+        // Exhibits table.
+        $sql = "CREATE TABLE IF NOT EXISTS `{$this->_db->prefix}neatline_web_exhibits` (
+                `id`                    int(10) unsigned not null auto_increment,
+                `exhibit_id`            int(10) unsigned NULL,
+                `slug`                  tinytext collate utf8_unicode_ci,
+                `public`                tinyint(1) NOT NULL,
+                 PRIMARY KEY (`id`)
+               ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+
+        $this->_db->query($sql);
+
     }
 
     /**

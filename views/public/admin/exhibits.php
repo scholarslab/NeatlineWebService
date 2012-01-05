@@ -15,23 +15,27 @@
 <?php
 echo $this->partial('admin/_header.php', array(
     'prefix' => 'Neatline Web Service',
-    'title' => 'Login'
+    'title' => 'Exhibits'
 ));
 ?>
 
 <div class="container">
 
     <!-- Logo. -->
-    <?php echo $this->partial('admin/_logo.php'); ?>
+    <div class="page-header">
+        <?php echo $this->partial('admin/_logo.php'); ?>
+        <?php echo $this->partial('admin/_logout.php', array('user' => $user)); ?>
+    </div>
 
     <div class="row">
 
-        <div class="span4">
-            <h2>Exhibits</h2>
+        <div class="span3">
+            <a href="add">
+                <button class="btn large primary icon alternative arrowup">New Exhibit</button>
+            </a>
         </div>
 
-        <div class="span12">
-
+        <div class="span15">
 
         </div>
 

@@ -22,7 +22,9 @@ echo $this->partial('admin/_header.php', array(
 <div class="container">
 
     <!-- Logo. -->
-    <?php echo $this->partial('admin/_logo.php'); ?>
+    <div class="page-header">
+        <?php echo $this->partial('admin/_logo.php'); ?>
+    </div>
 
     <div class="row">
 
