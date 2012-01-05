@@ -64,7 +64,7 @@ class NeatlineAuthAdapter implements Zend_Auth_Adapter_Interface
         if (!$user) {
             return new Zend_Auth_Result(
                 Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND,
-                $this->_username
+                $user
             );
         }
 
@@ -72,7 +72,7 @@ class NeatlineAuthAdapter implements Zend_Auth_Adapter_Interface
         else if ($user->checkPassword($this->_password)) {
             return new Zend_Auth_Result(
                 Zend_Auth_Result::SUCCESS,
-                $this->_username
+                $user
             );
         }
 
@@ -80,7 +80,7 @@ class NeatlineAuthAdapter implements Zend_Auth_Adapter_Interface
         else {
             return new Zend_Auth_Result(
                 Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
-                $this->_username
+                $user
             );
         }
 

@@ -20,3 +20,8 @@
     padding-top: 0;
     margin-bottom: 0;
 }
+
+.form-stacked div.clearfix.error {
+    padding-top: 0;
+    padding-bottom: 0;
+}

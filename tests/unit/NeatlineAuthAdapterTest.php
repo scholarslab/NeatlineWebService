@@ -59,14 +59,8 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
         // Authenticate.
         $result = $auth->authenticate($adapter);
 
-        // Check for success.
-        $this->assertEquals(
-            $result,
-            new Zend_Auth_Result(
-                Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND,
-                'david'
-            )
-        );
+        // Check for failure.
+        $this->assertFalse($result->isValid());
 
     }
 
@@ -91,14 +85,8 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
         // Authenticate.
         $result = $auth->authenticate($adapter);
 
-        // Check for success.
-        $this->assertEquals(
-            $result,
-            new Zend_Auth_Result(
-                Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
-                'david'
-            )
-        );
+        // Check for failure.
+        $this->assertFalse($result->isValid());
 
     }
 
@@ -124,13 +112,7 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
         $result = $auth->authenticate($adapter);
 
         // Check for success.
-        $this->assertEquals(
-            $result,
-            new Zend_Auth_Result(
-                Zend_Auth_Result::SUCCESS,
-                'david'
-            )
-        );
+        $this->assertTrue($result->isValid());
 
     }
 

@@ -29,6 +29,25 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 {
 
     /**
+     * Actions that require authentication.
+     */
+    private static $_protectedActions = array(
+        'exhibits',
+        'add',
+        'delete',
+        'edit'
+    );
+
+    /**
+     * Actions that do not require authentication.
+     */
+    private static $_anonActions = array(
+        'register',
+        'login'
+    );
+
+
+    /**
      * Get models.
      *
      * @return void
@@ -36,6 +55,28 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function init()
     {
         $this->_usersTable = $this->getTable('NeatlineUser');
+    }
+
+    /**
+     * Authentication routing.
+     *
+     * @return void
+     */
+    public function preDispatch()
+    {
+
+        // Get the controller action.
+        $action =           $this->getRequest()->getActionName();
+        $hasIdentity =      Zend_Auth::getInstance()->hasIdentity();
+
+        if (!$hasIdentity && in_array($action, self::$_protectedActions)) {
+            return $this->_redirect('webservice/login');
+        }
+
+        else if ($hasIdentity && in_array($action, self::$_anonActions)) {
+            return $this->_redirect('webservice/exhibits');
+        }
+
     }
 
 
@@ -167,7 +208,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      */
     public function logoutAction()
     {
-
+        Zend_Auth::getInstance()->clearIdentity();
+        return $this->_redirect('webservice/login');
     }
 
     /**
@@ -175,7 +217,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      *
      * @return void
      */
-    public function resetpasswordAction()
+    public function passwordAction()
     {
 
     }
