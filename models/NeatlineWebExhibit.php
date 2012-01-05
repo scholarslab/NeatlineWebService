@@ -30,9 +30,37 @@ class NeatlineWebExhibit extends Omeka_record
      * Record attributes.
      */
 
+    public $user_id;
     public $exhibit_id;
     public $slug;
     public $public;
+
+
+    /**
+     * Create the parallel Neatline exhibit.
+     *
+     * @return void.
+     */
+    public function __construct()
+    {
+
+        parent::__construct();
+
+        // Create Neatline exhibit.
+        $exhibit = new NeatlineExhibit;
+        $exhibit->top_element =            'map';
+        $exhibit->items_h_pos =            'right';
+        $exhibit->items_v_pos =            'bottom';
+        $exhibit->items_height =           'full';
+        $exhibit->is_map =                 1;
+        $exhibit->is_timeline =            1;
+        $exhibit->is_items =               1;
+        $exhibit->save();
+
+        // Set the exhibit foreign key.
+        $this->exhibit_id = $exhibit->id;
+
+    }
 
 
 }

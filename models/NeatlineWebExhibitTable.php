@@ -25,6 +25,78 @@
 class NeatlineWebExhibitTable extends Omeka_Db_Table
 {
 
+    /**
+     * Check to see if the supplied slug is available for a given user.
+     *
+     * @param Omeka_record user     The user.
+     * @param string $slug          The slug.
+     *
+     * @return boolean True if the slug is available.
+     */
+    public function slugIsAvailable($user, $slug)
+    {
 
+        // Prepare the select.
+        $select = $this->getSelect()->where(
+            'slug = "' . $slug . '" AND user_id = ' . $user->id
+        );
+
+        // Query.
+        $result = $this->fetchObject($select);
+
+        return is_null($result);
+
+    }
+
+    /**
+     * Validate new exhibit.
+     *
+     * @param Omeka_record $user    The parent user.
+     * @param string $title         The title.
+     * @param string $slug          The slug.
+     *
+     * @return array $errors    The array of errors.
+     */
+    public function _validate($user, $title, $slug)
+    {
+
+        // Errors array.
+        $errors = array();
+
+        /**
+         * TITLE
+         */
+
+        // If no title.
+        if ($title == '') {
+            $errors['title'] = get_plugin_ini(
+                'NeatlineWebService',
+                'title_absent'
+            );
+        }
+
+        /**
+         * SLUG
+         */
+
+        // If no slug.
+        if ($slug == '') {
+            $errors['slug'] = get_plugin_ini(
+                'NeatlineWebService',
+                'slug_absent'
+            );
+        }
+
+        // Duplicate slug.
+        else if (!$this->slugIsAvailable($user, $slug)) {
+            $errors['slug'] = get_plugin_ini(
+                'NeatlineWebService',
+                'slug_taken'
+            );
+        }
+
+        return $errors;
+
+    }
 
 }

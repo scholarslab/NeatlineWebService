@@ -97,4 +97,32 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
 
     }
 
+    /**
+     * Create a test web exhibit.
+     *
+     * @return Omeka_record $user The exhibit.
+     */
+    public function __exhibit(
+        $user =             null,
+        $title =            'Test Exhibit',
+        $slug =             'text-exhibit',
+        $public =           true
+    )
+    {
+
+        // If a user is not passed, create one.
+        if ($user == null) {
+            $user = $this->__user();
+        }
+
+        $exhibit = new NeatlineWebExhibit;
+        $exhibit->user_id = $user->id;
+        $exhibit->slug =    $slug;
+        $exhibit->public =  $public ? 1 : 0;
+        $exhibit->save();
+
+        return $exhibit;
+
+    }
+
 }

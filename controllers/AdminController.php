@@ -242,6 +242,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function addAction()
     {
 
+        $this->view->user = Zend_Auth::getInstance()->getIdentity();
+
     }
 
     /**

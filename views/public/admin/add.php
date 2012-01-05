@@ -24,13 +24,14 @@ echo $this->partial('admin/_header.php', array(
     <!-- Logo. -->
     <div class="page-header">
         <?php echo $this->partial('admin/_logo.php'); ?>
+        <?php echo $this->partial('admin/_logout.php', array('user' => $user)); ?>
     </div>
 
     <div class="row">
 
         <div class="span4">
             <h2>Create Exhibit</h2>
-            <p>Enter a title, URL slug, and check whether or not the exhibit should publicly visible.</p>
+            <p>Enter a title, URL slug, and set whether or not the exhibit should publicly visible.</p>
         </div>
 
         <div class="span12">
