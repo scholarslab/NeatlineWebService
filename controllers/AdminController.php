@@ -35,7 +35,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      */
     public function init()
     {
-        $this->_usersTable = $this->getTable('User');
+        $this->_usersTable = $this->getTable('NeatlineUser');
     }
 
 
@@ -119,6 +119,44 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      */
     public function loginAction()
     {
+
+        $errors =               array();
+        $username =             '';
+        $password =             '';
+
+        // Process submission.
+        if ($this->_request->isPost()) {
+
+            // Gather $_POST.
+            $_post =            $this->_request->getPost();
+            $username =         $_post['username'];
+            $password =         $_post['password'];
+
+            // Register the credentials, capture errors.
+            $errors = $this->_usersTable->_validateLogin(
+                $username,
+                $password
+            );
+
+            // If no errors, save and redirect.
+            if (count($errors) == 0) {
+
+                // Authenticate the new user.
+                $adapter =      $this->getAuthAdapter($username, $password);
+                $auth =         Zend_Auth::getInstance();
+                $result =       $auth->authenticate($adapter);
+
+                // Redirect to root.
+                return $this->_redirect('webservice/exhibits');
+
+            }
+
+        }
+
+        // Push errors.
+        $this->view->errors =       $errors;
+        $this->view->username =     $username;
+        $this->view->password =     $password;
 
     }
 

@@ -83,16 +83,14 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
     public function __user(
         $username =         'david',
         $password =         'password',
-        $salt =             'salt',
         $email =            'dwm@uva.edu'
     )
     {
 
         $user = new NeatlineUser;
         $user->username =   $username;
-        $user->password =   $password;
-        $user->salt =       $salt;
         $user->email =      $email;
+        $user->setPassword($password);
         $user->save();
 
         return $user;

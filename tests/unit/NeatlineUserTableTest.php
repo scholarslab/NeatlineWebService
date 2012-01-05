@@ -144,4 +144,119 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * _validateLogin() should throw errors for empty username.
+     *
+     * @return void.
+     */
+    public function testValidateLoginEmptyUsername()
+    {
+
+        // Register with empty fields.
+        $errors = $this->_usersTable->_validateLogin(
+            '',
+            '');
+
+        // Check for the errors.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'username_absent'),
+            $errors['username']
+        );
+
+    }
+
+    /**
+     * _validateLogin() should throw errors for empty password.
+     *
+     * @return void.
+     */
+    public function testValidateLoginEmptyPassword()
+    {
+
+        // Create a user, set username.
+        $user = $this->__user($username = 'david', $password = 'poesypure');
+
+        // Register with empty fields.
+        $errors = $this->_usersTable->_validateLogin(
+            'david',
+            '');
+
+        // Check for the errors.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'password_absent'),
+            $errors['password']
+        );
+
+    }
+
+    /**
+     * _validateLogin() should throw errors for a non-existent username.
+     *
+     * @return void.
+     */
+    public function testValidateLoginUsernameDoestNotExist()
+    {
+
+        // Create a user, set username.
+        $user = $this->__user($username = 'david', $password = 'poesypure');
+
+        // Register with empty fields.
+        $errors = $this->_usersTable->_validateLogin(
+            'eric',
+            '');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'username_does_not_exist'),
+            $errors['username']
+        );
+
+    }
+
+    /**
+     * _validateLogin() should throw errors for an incorrect password.
+     *
+     * @return void.
+     */
+    public function testValidateLoginPasswordIncorrect()
+    {
+
+        // Create a user, set username.
+        $user = $this->__user($username = 'david', $password = 'poesypure');
+
+        // Register with empty fields.
+        $errors = $this->_usersTable->_validateLogin(
+            'david',
+            'poesyimpure');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'password_incorrect'),
+            $errors['password']
+        );
+
+    }
+
+    /**
+     * _validateLogin() should return an empty array for valid credentials.
+     *
+     * @return void.
+     */
+    public function testValidateLoginSuccess()
+    {
+
+        // Create a user, set username.
+        $user = $this->__user($username = 'david', $password = 'poesypure');
+
+        // Register with empty fields.
+        $errors = $this->_usersTable->_validateLogin(
+            'david',
+            'poesypure');
+
+        // Check for the error.
+        $this->assertEquals($errors, array());
+        $this->assertEquals(count($errors), 0);
+
+    }
+
 }

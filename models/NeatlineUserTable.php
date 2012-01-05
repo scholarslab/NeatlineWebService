@@ -78,4 +78,69 @@ class NeatlineUserTable extends Omeka_Db_Table
 
     }
 
+    /**
+     * Validate login.
+     *
+     * @param string $username  Username.
+     * @param string $password  Password.
+     *
+     * @return array $errors    The array of errors.
+     */
+    public function _validateLogin($username, $password)
+    {
+
+        // Errors array.
+        $errors = array();
+
+        /**
+         * USERNAME
+         */
+
+        // If no username.
+        if ($username == '') {
+            $errors['username'] = get_plugin_ini(
+                'NeatlineWebService',
+                'username_absent'
+            );
+        }
+
+        else {
+
+            // Try to get the user.
+            $user = $this->findByUsername($username);
+
+            // If no user.
+            if (!$user) {
+                $errors['username'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'username_does_not_exist'
+                );
+            }
+
+            /**
+             * PASSWORD
+             */
+
+            // If no password.
+            else if ($password == '') {
+                $errors['password'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'password_absent'
+                );
+            }
+
+            // If user exists, check password.
+            else if (!$user->checkPassword($password)) {
+                $errors['password'] = get_plugin_ini(
+                    'NeatlineWebService',
+                    'password_incorrect'
+                );
+            }
+
+        }
+
+        return $errors;
+
+    }
+
 }

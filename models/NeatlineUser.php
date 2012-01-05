@@ -196,7 +196,6 @@ class NeatlineUser extends Omeka_record
         // Set password.
         $this->setPassword($password);
 
-
     }
 
     /**
@@ -231,10 +230,12 @@ class NeatlineUser extends Omeka_record
     public function setPassword($password)
     {
 
+        // If new record, generate salt.
         if ($this->salt === null) {
             $this->generateSalt();
         }
 
+        // Hash and set.
         $this->password = $this->hashPassword($password);
 
     }
@@ -248,9 +249,7 @@ class NeatlineUser extends Omeka_record
      */
     public function checkPassword($password)
     {
-
         return $this->hashPassword($password) == $this->password;
-
     }
 
 }

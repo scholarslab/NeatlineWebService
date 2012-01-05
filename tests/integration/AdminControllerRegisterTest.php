@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Admininistration controller integration tests.
+ * Admininistration controller integration tests for the register flow.
  *
  * PHP version 5
  *
@@ -22,7 +22,7 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
+class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCase
 {
 
     /**
@@ -107,6 +107,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 0);
 
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
+
     }
 
     /**
@@ -148,6 +151,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 1);
 
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
+
     }
 
     /**
@@ -182,6 +188,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 0);
+
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
 
     }
 
@@ -243,6 +252,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 0);
 
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
+
     }
 
     /**
@@ -280,6 +292,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // +0.
         $this->assertEquals($this->_usersTable->count(), $_userCount);
+
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
 
     }
 
@@ -322,6 +337,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // +0.
         $this->assertEquals($this->_usersTable->count(), $_userCount);
 
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
+
     }
 
     /**
@@ -356,6 +374,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 0);
+
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
 
     }
 
@@ -392,6 +413,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 0);
 
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
+
     }
 
     /**
@@ -426,6 +450,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
 
         // No user created.
         $this->assertEquals($this->_usersTable->count(), 0);
+
+        // No login.
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
 
     }
 
@@ -567,6 +594,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         $this->assertEquals($user->email, 'dwm@uva.edu');
         $this->assertNotNull($user->password);
         $this->assertNotNull($user->salt);
+
+        // Login.
+        $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());
 
     }
 

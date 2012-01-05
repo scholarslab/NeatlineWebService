@@ -375,6 +375,8 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
             'poesypure',
             'dwm@uva.edu');
 
+        $user->save();
+
         // Check.
         $this->assertFalse($user->checkPassword('poesyimpure'));
 
@@ -396,6 +398,8 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
             'davidmcclure',
             'poesypure',
             'dwm@uva.edu');
+
+        $user->save();
 
         // Check.
         $this->assertTrue($user->checkPassword('poesypure'));
