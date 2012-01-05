@@ -187,6 +187,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      * Authentication.
      */
 
+
     /**
      * Construct the session adapter.
      *

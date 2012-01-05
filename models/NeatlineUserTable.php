@@ -59,4 +59,23 @@ class NeatlineUserTable extends Omeka_Db_Table
 
     }
 
+    /**
+     * Retrieve a user record by username
+     *
+     * @param string $username  Username.
+     *
+     * @return Omeka_record     The record, if one exists, false if
+     * there is no user with the supplied name.
+     */
+    public function findByUsername($username)
+    {
+
+        // Prepare the select and query.
+        $select = $this->getSelect()->where('username = "' . $username . '"');
+        $result = $this->fetchObject($select);
+
+        return !is_null($result) ? $result : false;
+
+    }
+
 }

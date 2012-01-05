@@ -37,6 +37,10 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
         parent::setUp();
         $this->setUpPlugin();
 
+        // Get the users table.
+        $this->db = get_db();
+        $this->_usersTable = $this->db->getTable('NeatlineUser');
+
     }
 
     /**
@@ -48,6 +52,21 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
     public function testIdentityNotFound()
     {
 
+        // Create authenticator and adapter.
+        $auth = Zend_Auth::getInstance();
+        $adapter = new NeatlineAuthAdapter('david', 'poesyimpure');
+
+        // Authenticate.
+        $result = $auth->authenticate($adapter);
+
+        // Check for success.
+        $this->assertEquals(
+            $result,
+            new Zend_Auth_Result(
+                Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND,
+                'david'
+            )
+        );
 
     }
 
@@ -60,6 +79,26 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
     public function testInvalidCredential()
     {
 
+        // Create a user.
+        $user = new NeatlineUser;
+        $user->_applyRegistration('david', 'poesypure', 'dwm@uva.edu');
+        $user->save();
+
+        // Create authenticator and adapter.
+        $auth = Zend_Auth::getInstance();
+        $adapter = new NeatlineAuthAdapter('david', 'poesyimpure');
+
+        // Authenticate.
+        $result = $auth->authenticate($adapter);
+
+        // Check for success.
+        $this->assertEquals(
+            $result,
+            new Zend_Auth_Result(
+                Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
+                'david'
+            )
+        );
 
     }
 
@@ -72,6 +111,26 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
     public function testSuccess()
     {
 
+        // Create a user.
+        $user = new NeatlineUser;
+        $user->_applyRegistration('david', 'poesypure', 'dwm@uva.edu');
+        $user->save();
+
+        // Create authenticator and adapter.
+        $auth = Zend_Auth::getInstance();
+        $adapter = new NeatlineAuthAdapter('david', 'poesypure');
+
+        // Authenticate.
+        $result = $auth->authenticate($adapter);
+
+        // Check for success.
+        $this->assertEquals(
+            $result,
+            new Zend_Auth_Result(
+                Zend_Auth_Result::SUCCESS,
+                'david'
+            )
+        );
 
     }
 

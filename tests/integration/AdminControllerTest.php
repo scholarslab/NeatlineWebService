@@ -554,8 +554,9 @@ class NeatlineWebService_AdminControllerTest extends NWS_Test_AppTestCase
         // Count users.
         $_userCount = $this->_usersTable->count();
 
-        // Hit the route.
+        // Hit the route, check for redirect.
         $this->dispatch('webservice/register');
+        $this->assertRedirectTo('/webservice/exhibits');
 
         // +1.
         $this->assertEquals($this->_usersTable->count(), $_userCount+1);

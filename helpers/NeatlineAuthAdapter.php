@@ -39,8 +39,13 @@ class NeatlineAuthAdapter implements Zend_Auth_Adapter_Interface
     public function __construct($username, $password)
     {
 
+        // Set credentials.
         $this->_username = $username;
         $this->_password = $password;
+
+        // Get database and users table.
+        $this->_db = get_db();
+        $this->_usersTable = $this->_db->getTable('NeatlineUser');
 
     }
 
@@ -52,34 +57,32 @@ class NeatlineAuthAdapter implements Zend_Auth_Adapter_Interface
     public function authenticate()
     {
 
-        // // Get the users table.
-        // $_usersTable = $this->getTable('NeatlineUser');
+        // Try to find a record by username.
+        $user = $this->_usersTable->findByUsername($this->_username);
 
-        // // Try to find a record by username.
-        // $user = $_usersTable->findBySql('username = ' . $this->_username);
+        // Non-existent user.
+        if (!$user) {
+            return new Zend_Auth_Result(
+                Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND,
+                $this->_username
+            );
+        }
 
-        // // Non-existent user.
-        // if (is_null($user)) {
-        //     return new Zend_Auth_Result(
-        //         Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND,
-        //         $this->_username
-        //     );
-        // }
+        // Valid user.
+        else if ($user->checkPassword($this->_password)) {
+            return new Zend_Auth_Result(
+                Zend_Auth_Result::SUCCESS,
+                $this->_username
+            );
+        }
 
-        // // Valid user.
-        // else if ($user->checkPassword($this->_password)) {
-        //     return new Zend_Auth_Result(
-        //         Zend_Auth_Result::SUCCESS
-        //     );
-        // }
-
-        // // Wrong password.
-        // else {
-        //     return new Zend_Auth_Result(
-        //         Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
-        //         $this->_username
-        //     );
-        // }
+        // Wrong password.
+        else {
+            return new Zend_Auth_Result(
+                Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
+                $this->_username
+            );
+        }
 
     }
 

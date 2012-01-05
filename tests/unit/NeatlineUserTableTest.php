@@ -104,10 +104,43 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
-        $user = $this->__user($username = 'dwm@uva.edu');
+        $user = $this->__user($email = 'dwm@uva.edu');
 
         // Test for true.
         $this->assertTrue($this->_usersTable->emailIsAvailable('eric@uva.edu'));
+
+    }
+
+    /**
+     * findByUsername() should return the Omeka_record user record when there is
+     * a user with the passed name.
+     *
+     * @return void.
+     */
+    public function testFindByUsernameWhenUsernameExists()
+    {
+
+        // Create a user.
+        $user = $this->__user($username = 'david');
+
+        // Get out the user and check identity.
+        $retrievedUser = $this->_usersTable->findByUsername('david');
+        $this->assertEquals($user->id, $retrievedUser->id);
+
+    }
+
+    /**
+     * findByUsername() should return false when there is no user with the
+     * passed name.
+     *
+     * @return void.
+     */
+    public function testFindByUsernameWhenUsernameDoesNotExist()
+    {
+
+        // Try to get non-existent user.
+        $retrievedUser = $this->_usersTable->findByUsername('david');
+        $this->assertFalse($retrievedUser);
 
     }
 
