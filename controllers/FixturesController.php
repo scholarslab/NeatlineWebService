@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Test Runner.
+ * Markup emitter for the Jasmine test suite.
  *
  * PHP version 5
  *
@@ -15,42 +15,40 @@
  * language governing permissions and limitations under the License.
  *
  * @package     omeka
- * @subpackage  neatlinemaps
+ * @subpackage  neatline
  * @author      Scholars' Lab <>
  * @author      Bethany Nowviskie <bethany@virginia.edu>
  * @author      Adam Soroka <ajs6f@virginia.edu>
  * @author      David McClure <david.mcclure@virginia.edu>
- * @copyright   2010 The Board and Visitors of the University of Virginia
+ * @copyright   2011 The Board and Visitors of the University of Virginia
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
- * @version     $Id$
  */
 
-require_once 'NWS_Test_AppTestCase.php';
-
-class NeatlineWebService_AllTests extends PHPUnit_Framework_TestSuite
+class NeatlineWebService_FixturesController extends Omeka_Controller_Action
 {
 
     /**
-     * Aggregate the tests.
+     * Base exhibit markup.
      *
-     * @return NeatlineWebService_AllTests $suite The test suite.
+     * @return void
      */
-    public static function suite()
+    public function addFormAction()
     {
 
-        $suite = new NeatlineWebService_AllTests('Neatline Web Service Tests');
+        // Supress the default Zend layout-sniffer functionality.
+        $this->_helper->viewRenderer->setNoRender(true);
 
-        $collector = new PHPUnit_Runner_IncludePathTestCollector(
-            array(
-                dirname(__FILE__) . '/integration',
-                dirname(__FILE__) . '/unit',
-                dirname(__FILE__) . '/fixtures'
-            )
-        );
+        // Mock a user.
+        $user = (object) array('username' => 'davidmcclure');
 
-        $suite->addTestFiles($collector->collectTests());
-
-        return $suite;
+        // Render.
+        echo $this->view->partial('admin/add.php', array(
+            'user' =>               $user,
+            'errors' =>             array(),
+            'title' =>              '',
+            'slug' =>               '',
+            'public' =>             true
+        ));
 
     }
 

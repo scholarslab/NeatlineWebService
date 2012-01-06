@@ -255,6 +255,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $errors =               array();
         $title =                '';
         $slug =                 '';
+        $public =               false;
 
         // Process submission.
         if ($this->_request->isPost()) {
@@ -288,6 +289,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->errors =       $errors;
         $this->view->title =        $title;
         $this->view->slug =         $slug;
+        $this->view->public =       $public;
 
     }
 

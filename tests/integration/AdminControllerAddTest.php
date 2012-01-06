@@ -124,7 +124,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         $this->request->setMethod('POST')
             ->setPost(array(
                 'title' =>   '',
-                'slug' =>   'taken-slug',
+                'slug' =>   'taken-slug'
             )
         );
 
@@ -142,6 +142,79 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
 
         // No exhibit created.
         $this->assertEquals($this->_exhibitsTable->count(), 1);
+
+    }
+
+    /**
+     * /add should persist a title on form re-display.
+     *
+     * @return void.
+     */
+    public function testAddTitlePersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>  'Title',
+                'slug' =>   ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/add');
+
+        // Check for the value.
+        $this->assertQuery('div.title input[value="Title"]');
+
+    }
+
+    /**
+     * /add should persist a slug on form re-display.
+     *
+     * @return void.
+     */
+    public function testAddSlugPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>  '',
+                'slug' =>   'test-title'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/add');
+
+        // Check for the value.
+        $this->assertQuery('div.slug input[value="test-title"]');
+
+    }
+
+    /**
+     * /add should persist a public setting on form re-display.
+     *
+     * @return void.
+     */
+    public function testAddPublicPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>  '',
+                'slug' =>   '',
+                'public' => 'on'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/add');
+
+        // Check for the value.
+        $this->assertQuery('div.public input[checked="checked"]');
 
     }
 
@@ -166,7 +239,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>   'Test Title',
+                'title' =>  'Test Title',
                 'slug' =>   'new-slug',
                 'public' => 'on'
             )

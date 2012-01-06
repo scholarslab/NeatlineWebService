@@ -62,12 +62,14 @@ echo $this->partial('admin/_header.php', array(
                     </div>
 
                     <div class="clearfix">
-                        <div id="slug-preview"><?php echo WEB_ROOT; ?>/<?php echo $user->username; ?>/<span id="url-slug-preview"></span></div>
+                        <div id="slug-preview">
+                            <?php echo WEB_ROOT; ?>/<?php echo $user->username; ?>/<span id="url-slug-preview"></span>
+                        </div>
                     </div>
 
-                    <div class="clearfix checkbox">
+                    <div class="clearfix checkbox public">
                         <label class="checkbox">
-                            <input type="checkbox" name="public">
+                            <input type="checkbox" name="public" <?php if ($public) { echo 'checked="checked"'; } ?> />
                             <span>Public</span>
                         </label>
                         <span class="help-block">By default, exhibits are only visible to you.</span>
