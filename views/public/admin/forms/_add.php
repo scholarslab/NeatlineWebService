@@ -34,7 +34,8 @@
                 <?php if (array_key_exists('slug', $errors)): ?>
                     <span class="help-inline"><?php echo $errors['slug']; ?></span>
                 <?php endif; ?>
-                <span class="help-block">The URL slug is used to form the public URL for the exhibit.</span>
+                <span class="help-block">The URL slug is used to form the public URL for the exhibit.
+                Can only contain letters, numbers, and hyphens (no spaces).</span>
             </div>
         </div>
 

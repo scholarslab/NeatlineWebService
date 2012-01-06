@@ -40,15 +40,36 @@ describe('Slug Builder', function() {
 
     });
 
+    describe('slugify', function() {
+
+        it('should replace spaces with '-'', function() {
+            expect(form.slugBuilder('slugify', 'test slug text')).toEqual('test-slug-text');
+        });
+
+        it('should replace multiple spaces with '-'', function() {
+            expect(form.slugBuilder('slugify', 'test   slug  text')).toEqual('test-slug-text');
+        });
+
+        it('should not remove leading and trailing whitespace', function() {
+            expect(form.slugBuilder('slugify', ' test   slug  text  ')).toEqual('test-slug-text');
+        });
+
+        it('should lowercase letters', function() {
+            expect(form.slugBuilder('slugify', 'Test Slug Text')).toEqual('test-slug-text');
+        });
+
+    });
+
     describe('slug input interaction', function() {
 
         it('should replace space characters with "-" in the slug input', function() {
 
             var e = $.Event('keydown');
-            e.which = 32;
+            e.keyCode = $.ui.keyCode.SPACE;
             slug.trigger(e);
 
             expect(slug.val()).toEqual('-');
+            expect(preview.text()).toEqual('-');
 
         });
 
@@ -57,10 +78,40 @@ describe('Slug Builder', function() {
             slug.val('slug');
 
             var e = $.Event('keydown');
-            e.which = 32;
+            e.keyCode = $.ui.keyCode.SPACE;
             slug.trigger(e);
 
             expect(slug.val()).toEqual('slug-');
+            expect(preview.text()).toEqual('slug-');
+
+        });
+
+    });
+
+    describe('title input interaction', function() {
+
+        it('should slug-ify title if no keystroke yet in slug input', function() {
+
+            title.val('Test Title');
+            title.trigger('keyup');
+
+            expect(slug.val()).toEqual('test-title');
+            expect(preview.text()).toEqual('test-title');
+
+        });
+
+        it('should not slug-ify title if there has been keystroke in slug input', function() {
+
+            slug.val('custom-slug');
+            slug.trigger('keyup');
+
+            title.val('Test Title');
+            title.trigger('keyup');
+
+            expect(slug.val()).toEqual('custom-slug');
+            expect(preview.text()).toEqual('custom-slug');
+
+
 
         });
 

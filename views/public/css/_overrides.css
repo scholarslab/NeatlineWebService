@@ -37,6 +37,10 @@
     padding-bottom: 0;
 }
 
+.form-stacked .help-block {
+    width: 400px;
+}
+
 .form-stacked .checkbox .help-block {
     padding-top: 0;
 }

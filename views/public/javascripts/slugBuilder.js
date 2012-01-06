@@ -26,6 +26,11 @@
 
         options: {
 
+            colors: {
+                light_gray: '#a3a3a3',
+                dark_gray: '#3a3a3a'
+            }
+
         },
 
         /*
@@ -45,13 +50,14 @@
             // Trackers.
             this._hasTyped = false;
 
-            // Bind listeners.
+            // Bind listeners, set starting styles.
+            this.setSlugInputToGray();
             this._addEvents();
 
         },
 
         /*
-         * .
+         * Bind listeners to the inputs.
          *
          * - return void.
          */
@@ -62,13 +68,18 @@
             this.title.bind({
 
                 'keyup': function() {
-
+                    if (!self._hasTyped) {
+                        var slug = self.slugify(self.title.val())
+                        self.setPreview(slug);
+                        self.slug.val(slug);
+                    }
                 }
 
             });
 
             this.slug.bind({
 
+                // Before a keystroke.
                 'keydown': function(e) {
 
                     // Replace spaces with '-'.
@@ -84,12 +95,40 @@
 
                 },
 
-                'keyup': function() {
-                    self.setPreview(self.slug.val());
+                // After a keystroke.
+                'keyup': function(e) {
+
+                    // Render the change.
+                    var slug = self.slugify(self.slug.val())
+                    self.setPreview(slug);
+
+                    // If first keystroke, fade up.
+                    if (!self._hasTyped) {
+                        self.fadeUpSlugInput();
+                    }
+
+                    // Set tracker.
+                    self._hasTyped = true;
+
                 }
 
             });
 
+        },
+
+        /*
+         * Convert string into slug. Remove trim, remove extra spaces,
+         * and replace spaces with '-'.
+         *
+         * - param string text:     The text to convert.
+         *
+         * - return string slug:    The slug.
+         */
+        slugify: function(value) {
+            return $.trim(value).
+                replace(/\s+/g, '-').
+                replace(/(&nbsp;)+/g, '-').
+                toLowerCase();
         },
 
 
@@ -109,6 +148,27 @@
          */
         setPreview: function(value) {
             this.preview.text(value);
+        },
+
+        /*
+         * Fade up the slug input to indicate that it is not tied to the
+         * title input anymore.
+         *
+         * - return void.
+         */
+        fadeUpSlugInput: function() {
+            this.slug.animate({
+                color: this.options.colors.dark_gray
+            }, 200);
+        },
+
+        /*
+         * Set slug color to light gray.
+         *
+         * - return void.
+         */
+        setSlugInputToGray: function() {
+            this.slug.css('color', this.options.colors.light_gray);
         },
 
 

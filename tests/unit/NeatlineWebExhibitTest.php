@@ -198,6 +198,55 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * _validate() should throw errors for a slug with spaces.
+     *
+     * @return void.
+     */
+    public function testValidateSlugWithSpaces()
+    {
+
+        // Create an exhibit.
+        $exhibit    = $this->__exhibit();
+
+        // Validate with empty fields.
+        $errors = $exhibit->_validateAdd(
+            '',
+            'slug with spaces');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'slug_invalid'),
+            $errors['slug']
+        );
+
+    }
+
+    /**
+     * _validate() should throw errors for a slug with non-alphanumeric
+     * characters.
+     *
+     * @return void.
+     */
+    public function testValidateSlugWithNonAlphanumbericCharacters()
+    {
+
+        // Create an exhibit.
+        $exhibit    = $this->__exhibit();
+
+        // Validate with empty fields.
+        $errors = $exhibit->_validateAdd(
+            '',
+            'slug-with-non-alphanumerics!');
+
+        // Check for the error.
+        $this->assertEquals(
+            get_plugin_ini('NeatlineWebService', 'slug_invalid'),
+            $errors['slug']
+        );
+
+    }
+
+    /**
      * _applyAdd() should assign column values.
      *
      * @return void.
@@ -213,6 +262,33 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
 
         // Apply.
         $exhibit->_applyAdd('Test Title', 'test-title', true);
+
+        // Get the new exhibit.
+        $newExhibit = $exhibit->getExhibit();
+
+        // Check.
+        $this->assertEquals($newExhibit->name, 'Test Title');
+        $this->assertEquals($exhibit->slug, 'test-title');
+        $this->assertEquals($exhibit->public, 1);
+
+    }
+
+    /**
+     * _applyAdd() should lowercase the slug.
+     *
+     * @return void.
+     */
+    public function testApplyAddLowercaseSlug()
+    {
+
+        // Create user.
+        $user = $this->__user();
+
+        // Create NLW exhibit.
+        $exhibit = new NeatlineWebExhibit($user);
+
+        // Apply.
+        $exhibit->_applyAdd('Test Title', 'Test-Title', true);
 
         // Get the new exhibit.
         $newExhibit = $exhibit->getExhibit();
