@@ -32,6 +32,7 @@ class NeatlineWebServicePlugin
         'install',
         'uninstall',
         'define_routes',
+        'define_acl',
         'admin_theme_header'
     );
 
@@ -129,7 +130,7 @@ class NeatlineWebServicePlugin
     /**
      * Register routes.
      *
-     * @param object $router Router passed in by the front controller.
+     * @param object $router    Router passed in by the front controller.
      *
      * @return void
      */
@@ -140,6 +141,19 @@ class NeatlineWebServicePlugin
             new Zend_Config_Ini(NLWS_PLUGIN_DIR . '/routes.ini',
             'routes')
         );
+
+    }
+
+    /**
+     * Block NeatlineUser users from accessing the Omeka admin.
+     *
+     * @param Zend_Acl $acl     Router passed in by the front controller.
+     *
+     * @return void
+     */
+    public function defineAcl($acl)
+    {
+
 
     }
 

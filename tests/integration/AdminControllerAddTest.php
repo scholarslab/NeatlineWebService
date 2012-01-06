@@ -39,11 +39,10 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
 
         // Get the database and table.
         $this->db = get_db();
-        $this->_usersTable = $this->db->getTable('NeatlineUser');
-        // $this->_exhibitsTable = $this->db->getTable('NeatlineWebExhibit');
+        $this->_exhibitsTable = $this->db->getTable('NeatlineWebExhibit');
 
         // Create a user, authenticate.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
+        $this->user = $this->__user($username = 'david', $password = 'poesypure');
         $adapter = new NeatlineAuthAdapter('david', 'poesypure');
         $auth = Zend_Auth::getInstance();
         $auth->authenticate($adapter);
@@ -65,6 +64,119 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         $this->assertQuery('input[name="title"]');
         $this->assertQuery('input[name="slug"]');
         $this->assertQuery('input[name="public"]');
+
+    }
+
+    /**
+     * /add should render errors for submission with empty fields.
+     *
+     * @return void.
+     */
+    public function testAddErrorsEmptyFields()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>   '',
+                'slug' =>   '',
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/add');
+
+        // Check for the error classes.
+        $this->assertQuery('div.error input[name="title"]');
+        $this->assertQuery('div.error input[name="slug"]');
+
+        // Check for the errors.
+        $this->assertQueryContentContains(
+            'div.title span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'title_absent')
+        );
+
+        $this->assertQueryContentContains(
+            'div.slug span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'slug_absent')
+        );
+
+        // No exhibit created.
+        $this->assertEquals($this->_exhibitsTable->count(), 0);
+
+    }
+
+    /**
+     * /add should render error for a reserved slug.
+     *
+     * @return void.
+     */
+    public function testAddErrorsSlugTaken()
+    {
+
+        // Create NLW exhibit for the user.
+        $exhibit = new NeatlineWebExhibit($this->user);
+        $exhibit->slug = 'taken-slug';
+        $exhibit->public = 1;
+        $exhibit->save();
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>   '',
+                'slug' =>   'taken-slug',
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/add');
+
+        // Check for the error class.
+        $this->assertQuery('div.error input[name="slug"]');
+
+        // Check for the error.
+        $this->assertQueryContentContains(
+            'div.slug span.help-inline',
+            get_plugin_ini('NeatlineWebService', 'slug_taken')
+        );
+
+        // No exhibit created.
+        $this->assertEquals($this->_exhibitsTable->count(), 1);
+
+    }
+
+    /**
+     * With valid parameters, /add should create a new exhibit and redirect
+     * to /exhibits.
+     *
+     * @return void.
+     */
+    public function testAddSuccess()
+    {
+
+        // Create a second user.
+        $user2 = $this->__user();
+
+        // Create NLW exhibit for user2.
+        $exhibit = new NeatlineWebExhibit($this->user);
+        $exhibit->slug = 'taken-slug';
+        $exhibit->public = 1;
+        $exhibit->save();
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>   'Test Title',
+                'slug' =>   'new-slug',
+            )
+        );
+
+        // Hit the route, check for redirect.
+        $this->dispatch('webservice/add');
+        $this->assertRedirectTo('webservice/exhibits');
+
+        // No exhibit created.
+        $this->assertEquals($this->_exhibitsTable->count(), 2);
 
     }
 

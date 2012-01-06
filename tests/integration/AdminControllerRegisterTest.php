@@ -83,7 +83,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         // Hit the route.
         $this->dispatch('webservice/register');
 
-        // Check for the error classs.
+        // Check for the error classes.
         $this->assertQuery('div.error input[name="username"]');
         $this->assertQuery('div.error input[name="password"]');
         $this->assertQuery('div.error input[name="email"]');

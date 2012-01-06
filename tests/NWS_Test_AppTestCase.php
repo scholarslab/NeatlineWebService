@@ -78,6 +78,10 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
     /**
      * Create a test user.
      *
+     * @param string $username  The username.
+     * @param string $password  The password.
+     * @param string $email     The email address.
+     *
      * @return Omeka_record $user The user.
      */
     public function __user(
@@ -100,6 +104,11 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
     /**
      * Create a test web exhibit.
      *
+     * @param Omeka_recrd $user The parent user.
+     * @param string $title     The title.
+     * @param string $slug      The slug.
+     * @param boolean $public   The public status.
+     *
      * @return Omeka_record $user The exhibit.
      */
     public function __exhibit(
@@ -115,13 +124,32 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
             $user = $this->__user();
         }
 
-        $exhibit = new NeatlineWebExhibit;
-        $exhibit->user_id = $user->id;
+        $exhibit = new NeatlineWebExhibit($user);
         $exhibit->slug =    $slug;
         $exhibit->public =  $public ? 1 : 0;
         $exhibit->save();
 
         return $exhibit;
+
+    }
+
+    /**
+     * Get the most recently created Neatline-native exhibit.
+     *
+     * @return Omeka_record $exhibit    The exhibit.
+     */
+    public function __getMostRecentNeatlineExhibit()
+    {
+
+        // Get the table.
+        $_exhibitsTable = $this->db->getTable('NeatlineExhibit');
+
+        // Build the select.
+        $select = $_exhibitsTable->getSelect()->order('added DESC');
+        $exhibits = $_exhibitsTable->fetchObjects($select);
+        $result = $_exhibitsTable->fetchObjects($select);
+
+        return $result[0];
 
     }
 

@@ -114,4 +114,27 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * The ACL should block a Neatline user from accessing the Omeka admin.
+     *
+     * @return void.
+     */
+    public function testBlockNeatlineUserFromOmekaAdmin()
+    {
+
+
+    }
+
+    /**
+     * The ACL should not block a native Omeka user from accessing the
+     * Omeka admin.
+     *
+     * @return void.
+     */
+    public function testDoNotBlockOmekaUserFromOmekaAdmin()
+    {
+
+
+    }
+
 }

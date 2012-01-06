@@ -57,8 +57,7 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $user2 = $this->__user($username = 'user2');
 
         // Create NLW exhibit for user1.
-        $exhibit = new NeatlineWebExhibit;
-        $exhibit->user_id = $user1->id;
+        $exhibit = new NeatlineWebExhibit($user1);
         $exhibit->slug = 'taken-slug';
         $exhibit->public = 1;
         $exhibit->save();
@@ -72,78 +71,6 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $this->assertTrue(
             $this->_exhibitsTable->slugIsAvailable($user2, 'taken-slug')
         );
-
-    }
-
-    /**
-     * _validate() should throw errors for missing fields.
-     *
-     * @return void.
-     */
-    public function testValidateEmptyFields()
-    {
-
-        // Create a user.
-        $user = $this->__user();
-
-        // Validate with empty fields.
-        $errors = $this->_exhibitsTable->_validate(
-            $user,
-            '',
-            '');
-
-        // Check for the errors.
-        $this->assertEquals(
-            get_plugin_ini('NeatlineWebService', 'title_absent'),
-            $errors['title']
-        );
-
-        $this->assertEquals(
-            get_plugin_ini('NeatlineWebService', 'slug_absent'),
-            $errors['slug']
-        );
-
-    }
-
-    /**
-     * _validate() should throw errors for a duplicate slug.
-     *
-     * @return void.
-     */
-    public function testValidateDuplicateSlug()
-    {
-
-        // Create 2 users.
-        $user1 = $this->__user($username = 'user1');
-        $user2 = $this->__user($username = 'user2');
-
-        // Create NLW exhibit for user1.
-        $exhibit = new NeatlineWebExhibit;
-        $exhibit->user_id = $user1->id;
-        $exhibit->slug = 'taken-slug';
-        $exhibit->public = 1;
-        $exhibit->save();
-
-        // Validate with slug for user1.
-        $errors = $this->_exhibitsTable->_validate(
-            $user1,
-            '',
-            'taken-slug');
-
-        // Check for the error.
-        $this->assertEquals(
-            get_plugin_ini('NeatlineWebService', 'slug_taken'),
-            $errors['slug']
-        );
-
-        // Validate with slug for user1.
-        $errors = $this->_exhibitsTable->_validate(
-            $user2,
-            '',
-            'taken-slug');
-
-        // No errors.
-        $this->assertFalse(array_key_exists('slug', $errors));
 
     }
 

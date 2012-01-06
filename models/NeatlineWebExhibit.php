@@ -39,9 +39,11 @@ class NeatlineWebExhibit extends Omeka_record
     /**
      * Create the parallel Neatline exhibit.
      *
+     * @param Omeka_record $user    The parent user.
+     *
      * @return void.
      */
-    public function __construct()
+    public function __construct($user)
     {
 
         parent::__construct();
@@ -57,10 +59,90 @@ class NeatlineWebExhibit extends Omeka_record
         $exhibit->is_items =               1;
         $exhibit->save();
 
-        // Set the exhibit foreign key.
+        // Set the foreign keys.
         $this->exhibit_id = $exhibit->id;
+        $this->user_id = $user->id;
 
     }
 
+    /**
+     * Retrieve the parent user record.
+     *
+     * @return void.
+     */
+    public function getUser()
+    {
+        $_usersTable = $this->getTable('NeatlineUser');
+        return $_usersTable->find($this->user_id);
+    }
+
+    /**
+     * Validate new exhibit.
+     *
+     * @param string $title         The title.
+     * @param string $slug          The slug.
+     *
+     * @return array $errors    The array of errors.
+     */
+    public function _validateAdd($title, $slug)
+    {
+
+        // Errors array.
+        $errors = array();
+
+        /**
+         * TITLE
+         */
+
+        // If no title.
+        if ($title == '') {
+            $errors['title'] = get_plugin_ini(
+                'NeatlineWebService',
+                'title_absent'
+            );
+        }
+
+        /**
+         * SLUG
+         */
+
+        // If no slug.
+        if ($slug == '') {
+            $errors['slug'] = get_plugin_ini(
+                'NeatlineWebService',
+                'slug_absent'
+            );
+        }
+
+        // Duplicate slug.
+        else if (!$this->getTable('NeatlineWebExhibit')
+            ->slugIsAvailable($this->getUser(), $slug)) {
+            $errors['slug'] = get_plugin_ini(
+                'NeatlineWebService',
+                'slug_taken'
+            );
+        }
+
+        return $errors;
+
+    }
+
+    /**
+     * Set values.
+     *
+     * @param string $title         The title.
+     * @param string $slug          The slug.
+     * @param boolean $public       Public or private.
+     *
+     * @return void.
+     */
+    public function _applyAdd($title, $slug, $public)
+    {
+
+        $this->title =  $title;
+        $this->slug =   $slug;
+        $this->public = $public ? 1 : 0;
+
+    }
 
 }

@@ -54,7 +54,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      */
     public function init()
     {
-        $this->_usersTable = $this->getTable('NeatlineUser');
+        $this->_usersTable =    $this->getTable('NeatlineUser');
+        $this->_exhibitsTable = $this->getTable('NeatlineWebExhibit');
     }
 
     /**
@@ -69,12 +70,22 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $action =           $this->getRequest()->getActionName();
         $hasIdentity =      Zend_Auth::getInstance()->hasIdentity();
 
+        // If not logged in and requesting protected action, block.
         if (!$hasIdentity && in_array($action, self::$_protectedActions)) {
             return $this->_redirect('webservice/login');
         }
 
-        else if ($hasIdentity && in_array($action, self::$_anonActions)) {
-            return $this->_redirect('webservice/exhibits');
+        // If logged in.
+        else if ($hasIdentity) {
+
+            // Push the user object.
+            $this->view->user = Zend_Auth::getInstance()->getIdentity();
+
+            // If requesting an anonymous action, redirect to browse.
+            if (in_array($action, self::$_anonActions)) {
+                return $this->_redirect('webservice/exhibits');
+            }
+
         }
 
     }
@@ -230,8 +241,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function exhibitsAction()
     {
 
-        $this->view->user = Zend_Auth::getInstance()->getIdentity();
-
     }
 
     /**
@@ -242,7 +251,43 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function addAction()
     {
 
-        $this->view->user = Zend_Auth::getInstance()->getIdentity();
+        $exhibit =              new NeatlineWebExhibit($this->view->user);
+        $errors =               array();
+        $title =                '';
+        $slug =                 '';
+
+        // Process submission.
+        if ($this->_request->isPost()) {
+
+            // Gather $_POST.
+            $_post =            $this->_request->getPost();
+            $title =            $_post['title'];
+            $slug =             $_post['slug'];
+            $public =           array_key_exists('public', $_post);
+
+            // Register the credentials, capture errors.
+            $errors = $exhibit->_validateAdd($title, $slug);
+
+            // If no errors, save and redirect.
+            if (count($errors) == 0) {
+
+                // Set columns.
+                $exhibit->_applyAdd($title, $slug, $public);
+
+                // Commit.
+                $exhibit->save();
+
+                // Redirect to root.
+                return $this->_redirect('webservice/exhibits');
+
+            }
+
+        }
+
+        // Push errors.
+        $this->view->errors =       $errors;
+        $this->view->title =        $title;
+        $this->view->slug =         $slug;
 
     }
 
