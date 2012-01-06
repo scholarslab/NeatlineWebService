@@ -29,14 +29,34 @@ echo $this->partial('admin/_header.php', array(
 
     <div class="row">
 
-        <div class="span15">
-
+        <div class="span3">
+            <a class="no-underline" href="add">
+                <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
+            </a>
         </div>
 
-        <div class="span3">
-            <a href="add">
-                <button class="btn large primary icon alternative arrowup">New Exhibit</button>
-            </a>
+        <div class="span13">
+
+            <table id="exhibits-table" class="zebra-striped">
+                <thead>
+                    <tr>
+                        <th>exhibit</th>
+                        <th># items</th>
+                        <th>public</th>
+                    </tr>
+                </thead>
+                <?php foreach ($exhibits as $exhibit): ?>
+                    <tr>
+                        <td>
+                            <a class="exhibit-title" href=""><?php echo $exhibit->getExhibit()->name; ?></a>
+                            <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
+                        </td>
+                        <td></td>
+                        <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
         </div>
 
     </div>

@@ -74,4 +74,60 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * getExhibitsByUser() should return exhibits belonging to the passed user.
+     *
+     * @return void.
+     */
+    public function testGetExhibitsByUser()
+    {
+
+        // Create 2 users.
+        $user1 = $this->__user($username = 'user1');
+        $user2 = $this->__user($username = 'user2');
+
+        $exhibit1 = new NeatlineWebExhibit($user1);
+        $exhibit1->slug =    'test1';
+        $exhibit1->public =  1;
+        $exhibit1->save();
+
+        $exhibit2 = new NeatlineWebExhibit($user1);
+        $exhibit2->slug =    'test2';
+        $exhibit2->public =  1;
+        $exhibit2->save();
+
+        $exhibit3 = new NeatlineWebExhibit($user1);
+        $exhibit3->slug =    'test3';
+        $exhibit3->public =  1;
+        $exhibit3->save();
+
+        $exhibit4 = new NeatlineWebExhibit($user1);
+        $exhibit4->slug =    'test4';
+        $exhibit4->public =  1;
+        $exhibit4->save();
+
+        $exhibit5 = new NeatlineWebExhibit($user2);
+        $exhibit5->slug =    'test5';
+        $exhibit5->public =  1;
+        $exhibit5->save();
+
+        $exhibit6 = new NeatlineWebExhibit($user2);
+        $exhibit6->slug =    'test6';
+        $exhibit6->public =  1;
+        $exhibit6->save();
+
+        // Get.
+        $exhibits = $this->_exhibitsTable->getExhibitsByUser($user1);
+
+        // Count.
+        $this->assertEquals(count($exhibits), 4);
+
+        // Get.
+        $exhibits = $this->_exhibitsTable->getExhibitsByUser($user2);
+
+        // Count.
+        $this->assertEquals(count($exhibits), 2);
+
+    }
+
 }

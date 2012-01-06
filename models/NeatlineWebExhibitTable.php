@@ -48,4 +48,24 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
 
     }
 
+    /**
+     * Get exhibits by user.
+     *
+     * @param Omeka_record user     The user.
+     *
+     * @return array of Omeka_record objects.
+     */
+    public function getExhibitsByUser($user)
+    {
+
+        // Prepare the select.
+        $select = $this->getSelect()->where(
+            'user_id = ' . $user->id
+        );
+
+        // Query.
+        return $this->fetchObjects($select);
+
+    }
+
 }
