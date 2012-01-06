@@ -199,6 +199,54 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * /login should persist a username on form re-display.
+     *
+     * @return void.
+     */
+    public function testLoginUsernamePersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   'david',
+                'password' =>   ''
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/login');
+
+        // Check for the value.
+        $this->assertQuery('div.username input[value="david"]');
+
+    }
+
+    /**
+     * /login should persist a password on form re-display.
+     *
+     * @return void.
+     */
+    public function testLoginPasswordPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'username' =>   '',
+                'password' =>   'poesypure'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch('webservice/login');
+
+        // Check for the value.
+        $this->assertQuery('div.password input[value="poesypure"]');
+
+    }
+
+    /**
      * /login should redirect to exhibits view and log the user in with valid
      * credentials.
      *

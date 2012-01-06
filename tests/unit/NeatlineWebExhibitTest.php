@@ -103,6 +103,28 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * getExhibit() should return the parent exhibit object.
+     *
+     * @return void.
+     */
+    public function testGetExhibit()
+    {
+
+        // Create an exhibit.
+        $exhibit    = $this->__exhibit();
+
+        // Get out the exhibit.
+        $exhibit = $exhibit->getExhibit();
+
+        // Get the new exhibit.
+        $newExhibit = $this->__getMostRecentNeatlineExhibit();
+
+        // Check identity.
+        $this->assertEquals($exhibit->id, $newExhibit->id);
+
+    }
+
+    /**
      * _validate() should throw errors for missing fields.
      *
      * @return void.
@@ -192,8 +214,11 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Apply.
         $exhibit->_applyAdd('Test Title', 'test-title', true);
 
+        // Get the new exhibit.
+        $newExhibit = $exhibit->getExhibit();
+
         // Check.
-        $this->assertEquals($exhibit->title, 'Test Title');
+        $this->assertEquals($newExhibit->name, 'Test Title');
         $this->assertEquals($exhibit->slug, 'test-title');
         $this->assertEquals($exhibit->public, 1);
 

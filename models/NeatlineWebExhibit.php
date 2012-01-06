@@ -68,12 +68,23 @@ class NeatlineWebExhibit extends Omeka_record
     /**
      * Retrieve the parent user record.
      *
-     * @return void.
+     * @return Omeka_record         The user.
      */
     public function getUser()
     {
         $_usersTable = $this->getTable('NeatlineUser');
         return $_usersTable->find($this->user_id);
+    }
+
+    /**
+     * Retrieve the parent exhibit record.
+     *
+     * @return Omeka_record         The exhibit.
+     */
+    public function getExhibit()
+    {
+        $_exhibitsTable = $this->getTable('NeatlineExhibit');
+        return $_exhibitsTable->find($this->exhibit_id);
     }
 
     /**
@@ -139,9 +150,14 @@ class NeatlineWebExhibit extends Omeka_record
     public function _applyAdd($title, $slug, $public)
     {
 
-        $this->title =  $title;
+        // Set local columns.
         $this->slug =   $slug;
         $this->public = $public ? 1 : 0;
+
+        // Set the parent exhibit title.
+        $parentExhibit = $this->getExhibit();
+        $parentExhibit->name = $title;
+        $parentExhibit->save();
 
     }
 
