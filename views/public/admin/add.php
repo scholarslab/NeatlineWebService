@@ -42,7 +42,7 @@ echo $this->partial('admin/_header.php', array(
                     <div class="clearfix <?php echo nlws_getErrorClass($errors, 'title', 'error'); ?>">
                         <label for="username">Title: *</label>
                         <div class="input title">
-                            <input name="title" type="text" value="<?php echo $title; ?>" class="span5" />
+                            <input name="title" type="text" value="<?php echo $title; ?>" class="span5" autocomplete="off" />
                             <?php if (array_key_exists('title', $errors)): ?>
                                 <span class="help-inline"><?php echo $errors['title']; ?></span>
                             <?php endif; ?>
@@ -53,12 +53,16 @@ echo $this->partial('admin/_header.php', array(
                     <div class="clearfix <?php echo nlws_getErrorClass($errors, 'slug', 'error'); ?>">
                         <label for="slug">URL Slug: *</label>
                         <div class="input slug">
-                            <input name="slug" type="text" value="<?php echo $slug; ?>" class="span5" />
+                            <input name="slug" type="text" value="<?php echo $slug; ?>" class="span5" autocomplete="off" />
                             <?php if (array_key_exists('slug', $errors)): ?>
                                 <span class="help-inline"><?php echo $errors['slug']; ?></span>
                             <?php endif; ?>
                             <span class="help-block">The URL slug is used to form the public URL for the exhibit.</span>
                         </div>
+                    </div>
+
+                    <div class="clearfix">
+                        <div id="slug-preview"><?php echo WEB_ROOT; ?>/<?php echo $user->username; ?>/<span id="url-slug-preview"></span></div>
                     </div>
 
                     <div class="clearfix checkbox">

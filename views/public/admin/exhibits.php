@@ -29,14 +29,14 @@ echo $this->partial('admin/_header.php', array(
 
     <div class="row">
 
+        <div class="span15">
+
+        </div>
+
         <div class="span3">
             <a href="add">
                 <button class="btn large primary icon alternative arrowup">New Exhibit</button>
             </a>
-        </div>
-
-        <div class="span15">
-
         </div>
 
     </div>

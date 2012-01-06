@@ -158,7 +158,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         $user2 = $this->__user();
 
         // Create NLW exhibit for user2.
-        $exhibit = new NeatlineWebExhibit($this->user);
+        $exhibit = new NeatlineWebExhibit($user2);
         $exhibit->slug = 'taken-slug';
         $exhibit->public = 1;
         $exhibit->save();
@@ -168,12 +168,13 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>   'Test Title',
                 'slug' =>   'new-slug',
+                'public' => 'on'
             )
         );
 
         // Hit the route, check for redirect.
         $this->dispatch('webservice/add');
-        $this->assertRedirectTo('webservice/exhibits');
+        $this->assertRedirectTo('/webservice/exhibits');
 
         // No exhibit created.
         $this->assertEquals($this->_exhibitsTable->count(), 2);
