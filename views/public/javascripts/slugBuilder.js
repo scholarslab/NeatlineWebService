@@ -1,10 +1,7 @@
-<?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
-/**
- * Helpers.
- *
- * PHP version 5
+/*
+ * Controls the slug auto-generation/recommendation in the /add view.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,51 +18,63 @@
  * @copyright   2012 The Board and Visitors of the University of Virginia
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
-?>
 
-<?php
+(function($, undefined) {
 
-/**
- * Include admin stylesheets.
- *
- * @return void.
- */
-function nlws_queueCss()
-{
 
-    // Custom CSS.
-    queue_css('style');
-    queue_css('bootstrap.xtra.min');
-    queue_css('_overrides');
+    $.widget('neatlinewebservice.slugBuilder', {
 
-}
+        options: {
 
-/**
- * Include .js in /add view.
- *
- * @return void.
- */
-function nlws_queueAddJs()
-{
+        },
 
-    // Custom .js.
-    queue_js('slugBuilder');
+        /*
+         * .
+         *
+         * - return void.
+         */
+        _create: function() {
 
-}
+            // Get markup.
+            this._body =        $('body');
+            this._window =      $(window);
 
-/**
- * Construct the error class (or lack thereof) for an errors array and a
- * specified key.
- *
- * @param string $errors    The errors array.
- * @param string $key       They key to check for.
- * @param string $class     The class to return.
- *
- * @return void.
- */
-function nlws_getErrorClass($errors, $key, $class)
-{
+            // Bind listeners.
+            this._addEvents();
 
-    return array_key_exists($key, $errors) ? $class : '';
+        },
 
-}
+        /*
+         * .
+         *
+         * - return void.
+         */
+        _addEvents: function() {
+
+
+
+        },
+
+
+        /*
+         * =================
+         * DOM touches.
+         * =================
+         */
+
+
+        /*
+         * .
+         *
+         * - return void.
+         */
+        _stub: function() {
+
+
+
+        }
+
+    });
+
+
+})( jQuery );

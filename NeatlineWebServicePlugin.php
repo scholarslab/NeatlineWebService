@@ -174,7 +174,14 @@ class NeatlineWebServicePlugin
         // Admin.
         if ($routeName == 'nlwsAdmin') {
             nlws_queueCss();
+
+            // ** /add
+            if ($request->getActionName() == 'add') {
+                nlws_queueAddJs();
+            }
+
         }
+
 
     }
 
