@@ -42,12 +42,12 @@ class NeatlineWebService_FixturesController extends Omeka_Controller_Action
         $user = (object) array('username' => 'davidmcclure');
 
         // Render.
-        echo $this->view->partial('admin/add.php', array(
-            'user' =>               $user,
+        echo $this->view->partial('admin/forms/_add.php', array(
             'errors' =>             array(),
             'title' =>              '',
             'slug' =>               '',
-            'public' =>             true
+            'public' =>             true,
+            'user' =>               $user
         ));
 
     }

@@ -35,40 +35,11 @@ echo $this->partial('admin/_header.php', array(
         </div>
 
         <div class="span12">
-            <form method="post" class="form-stacked">
-
-                <fieldset>
-
-                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'username', 'error'); ?>">
-                        <label for="username">Username: *</label>
-                        <div class="input username">
-                            <input name="username" type="text" value="<?php echo $username; ?>" />
-                            <?php if (array_key_exists('username', $errors)): ?>
-                                <span class="help-inline"><?php echo $errors['username']; ?></span>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'password', 'error'); ?>">
-                        <label for="password">Password: *</label>
-                        <div class="input password">
-                            <input name="password" type="password" value="<?php echo $password; ?>" />
-                            <?php if (array_key_exists('password', $errors)): ?>
-                                <span class="help-inline"><?php echo $errors['password']; ?></span>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                </fieldset>
-
-                <div class="actions">
-                    <button type="submit" class="btn primary large">Submit</button>
-                </div>
-
-                <p>Forgot your password? <a href="resetpassword">Click here</a>.
-
-            </form>
-
+            <?php echo $this->partial('admin/forms/_login.php', array(
+                'username' => $username,
+                'password' => $password,
+                'errors' => $errors
+            )); ?>
         </div>
 
     </div>

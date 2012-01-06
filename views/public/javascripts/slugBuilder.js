@@ -38,6 +38,12 @@
             // Get markup.
             this._body =        $('body');
             this._window =      $(window);
+            this.title =        $('div.title input');
+            this.slug =         $('div.slug input');
+            this.preview =      $('#url-slug-preview');
+
+            // Trackers.
+            this._hasTyped = false;
 
             // Bind listeners.
             this._addEvents();
@@ -51,7 +57,38 @@
          */
         _addEvents: function() {
 
+            var self = this;
 
+            this.title.bind({
+
+                'keyup': function() {
+
+                }
+
+            });
+
+            this.slug.bind({
+
+                'keydown': function(e) {
+
+                    // Replace spaces with '-'.
+                    if (e.keyCode == 32) {
+
+                        e.preventDefault();
+
+                        var val = self.slug.val();
+                        self.slug.val(val + '-');
+                        self.slug.trigger('keyup');
+
+                    }
+
+                },
+
+                'keyup': function() {
+                    self.setPreview(self.slug.val());
+                }
+
+            });
 
         },
 
@@ -64,14 +101,33 @@
 
 
         /*
-         * .
+         * Render a new preview string.
+         *
+         * - param string value:    The value to set.
          *
          * - return void.
          */
-        _stub: function() {
+        setPreview: function(value) {
+            this.preview.text(value);
+        },
 
 
+        /*
+         * =================
+         * Attribute emitter.
+         * =================
+         */
 
+
+        /*
+         * Emit a widget attribute.
+         *
+         * - param string attr:     The name of the attribute.
+         *
+         * - return mixed:          The attribute value.
+         */
+        getAttr: function(attr) {
+            return this[attr];
         }
 
     });

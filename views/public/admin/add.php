@@ -31,57 +31,18 @@ echo $this->partial('admin/_header.php', array(
 
         <div class="span4">
             <h2>Create Exhibit</h2>
-            <p>Enter a title, URL slug, and set whether or not the exhibit should publicly visible.</p>
+            <p>Enter a title, URL slug, and set whether or not the exhibit
+               should publicly visible.</p>
         </div>
 
         <div class="span12">
-            <form method="post" class="form-stacked">
-
-                <fieldset>
-
-                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'title', 'error'); ?>">
-                        <label for="username">Title: *</label>
-                        <div class="input title">
-                            <input name="title" type="text" value="<?php echo $title; ?>" class="span5" autocomplete="off" />
-                            <?php if (array_key_exists('title', $errors)): ?>
-                                <span class="help-inline"><?php echo $errors['title']; ?></span>
-                            <?php endif; ?>
-                            <span class="help-block">The title is publically displayed at the top of the exhibit.</span>
-                        </div>
-                    </div>
-
-                    <div class="clearfix <?php echo nlws_getErrorClass($errors, 'slug', 'error'); ?>">
-                        <label for="slug">URL Slug: *</label>
-                        <div class="input slug">
-                            <input name="slug" type="text" value="<?php echo $slug; ?>" class="span5" autocomplete="off" />
-                            <?php if (array_key_exists('slug', $errors)): ?>
-                                <span class="help-inline"><?php echo $errors['slug']; ?></span>
-                            <?php endif; ?>
-                            <span class="help-block">The URL slug is used to form the public URL for the exhibit.</span>
-                        </div>
-                    </div>
-
-                    <div class="clearfix">
-                        <div id="slug-preview">
-                            <?php echo WEB_ROOT; ?>/<?php echo $user->username; ?>/<span id="url-slug-preview"></span>
-                        </div>
-                    </div>
-
-                    <div class="clearfix checkbox public">
-                        <label class="checkbox">
-                            <input type="checkbox" name="public" <?php if ($public) { echo 'checked="checked"'; } ?> />
-                            <span>Public</span>
-                        </label>
-                        <span class="help-block">By default, exhibits are only visible to you.</span>
-                    </div>
-
-                </fieldset>
-
-                <div class="actions">
-                    <button type="submit" class="btn primary large">Create</button>
-                </div>
-
-            </form>
+            <?php echo $this->partial('admin/forms/_add.php', array(
+                'user' => $user,
+                'errors' => $errors,
+                'title' => $title,
+                'slug' => $slug,
+                'public' => $public
+            )); ?>
         </div>
 
     </div>

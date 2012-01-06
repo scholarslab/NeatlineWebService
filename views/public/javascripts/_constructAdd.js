@@ -1,10 +1,7 @@
-<?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
-/**
- * Helpers.
- *
- * PHP version 5
+/*
+ * Runner for add form.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,52 +18,13 @@
  * @copyright   2012 The Board and Visitors of the University of Virginia
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
-?>
 
-<?php
+jQuery(document).ready(function($) {
 
-/**
- * Include admin stylesheets.
- *
- * @return void.
- */
-function nlws_queueCss()
-{
+    // Get markup.
+    var addForm = $('#add-form');
 
-    // Custom CSS.
-    queue_css('style');
-    queue_css('bootstrap.xtra.min');
-    queue_css('_overrides');
+    // Run the slug previewer.
+    addForm.slugBuilder();
 
-}
-
-/**
- * Include .js in /add view.
- *
- * @return void.
- */
-function nlws_queueAddJs()
-{
-
-    // Custom .js.
-    queue_js('_constructAdd');
-    queue_js('slugBuilder');
-
-}
-
-/**
- * Construct the error class (or lack thereof) for an errors array and a
- * specified key.
- *
- * @param string $errors    The errors array.
- * @param string $key       They key to check for.
- * @param string $class     The class to return.
- *
- * @return void.
- */
-function nlws_getErrorClass($errors, $key, $class)
-{
-
-    return array_key_exists($key, $errors) ? $class : '';
-
-}
+});

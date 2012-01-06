@@ -1,323 +1,66 @@
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
+
 /*
- * Unit tests for the CSS gradient constructor helper.
+ * Unit tests for the slug builder application.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+ * applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+ * OF ANY KIND, either express or implied. See the License for the specific
+ * language governing permissions and limitations under the License.
+ *
+ * @package     omeka
+ * @subpackage  neatline
+ * @author      Scholars' Lab <>
+ * @author      David McClure <david.mcclure@virginia.edu>
+ * @copyright   2012 The Board and Visitors of the University of Virginia
+ * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-describe('Span Styler', function() {
+describe('Slug Builder', function() {
 
-    var div;
+    var form;
+    var title;
+    var slug;
+    var preview;
 
     beforeEach(function() {
-        div = $('<div></div>');
-        div.spanstyler();
-    });
 
-    describe('_create', function() {
+        // Run the builder on the form fixture.
+        loadFixtures('add-form.html');
+        form = $('#add-form');
+        form.slugBuilder();
 
-        it('should shell out null percentage trackers', function() {
-
-            expect(div.spanstyler('getAttr', 'leftPercent')).toBeDefined();
-            expect(div.spanstyler('getAttr', 'rightPercent')).toBeDefined();
-            expect(div.spanstyler('getAttr', 'leftPercent')).toBeNull();
-            expect(div.spanstyler('getAttr', 'rightPercent')).toBeNull();
-
-        });
+        // Get component markup.
+        title =     form.slugBuilder('getAttr', 'title');
+        slug =      form.slugBuilder('getAttr', 'slug');
+        preview =   form.slugBuilder('getAttr', 'preview');
 
     });
 
-    describe('constructCss', function() {
+    describe('slug input interaction', function() {
 
-        describe('externally-specified percentages', function() {
+        it('should replace space characters with "-" in the slug input', function() {
 
-            it('should construct gradients with percentages and hex of #ffffff format', function() {
+            var e = $.Event('keydown');
+            e.which = 32;
+            slug.trigger(e);
 
-                // Build the css and get out the value.
-                div.spanstyler('constructCss', '#724e85', 35, 80);
-                var css = div.spanstyler('getAttr', 'css');
-
-                expect(css).toContain('background: #724e85;');
-
-                expect(css).toContain('background: -moz-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -webkit-gradient(linear, left top, right top, ' +
-                    'color-stop(0%,rgba(114, 78, 133, 0)), ' +
-                    'color-stop(35%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(80%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(99%,rgba(114, 78, 133, 0)));');
-
-                expect(css).toContain('background: -webkit-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -o-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -ms-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-            });
-
-            it('should construct gradients with percentages and hex of ffffff format', function() {
-
-                // Build the css and get out the value.
-                div.spanstyler('constructCss', '724e85', 35, 80);
-                var css = div.spanstyler('getAttr', 'css');
-
-                expect(css).toContain('background: #724e85;');
-
-                expect(css).toContain('background: -moz-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -webkit-gradient(linear, left top, right top, ' +
-                    'color-stop(0%,rgba(114, 78, 133, 0)), ' +
-                    'color-stop(35%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(80%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(99%,rgba(114, 78, 133, 0)));');
-
-                expect(css).toContain('background: -webkit-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -o-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -ms-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-            });
+            expect(slug.val()).toEqual('-');
 
         });
 
-        describe('without externally-specified percentages', function() {
+        it('should append the "-" to the end of existing text in the slug input', function() {
 
-            it('should use previously set percentages, if present', function() {
+            slug.val('slug');
 
-                // Build the css with specific values, rebuild with null values.
-                div.spanstyler('constructCss', '#724e85', 35, 80);
-                div.spanstyler('constructCss', '#724e85');
-                var css = div.spanstyler('getAttr', 'css');
+            var e = $.Event('keydown');
+            e.which = 32;
+            slug.trigger(e);
 
-                expect(css).toContain('background: #724e85;');
-
-                expect(css).toContain('background: -moz-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -webkit-gradient(linear, left top, right top, ' +
-                    'color-stop(0%,rgba(114, 78, 133, 0)), ' +
-                    'color-stop(35%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(80%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(99%,rgba(114, 78, 133, 0)));');
-
-                expect(css).toContain('background: -webkit-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -o-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -ms-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 35%, ' +
-                    'rgba(114, 78, 133, 1) 80%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-            });
-
-            it('should construct gradients 0/100 percentages if no externally defined values', function() {
-
-                // Build the css and get out the value.
-                div.spanstyler('constructCss', '724e85');
-                var css = div.spanstyler('getAttr', 'css');
-
-                expect(css).toContain('background: #724e85;');
-
-                expect(css).toContain('background: -moz-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 0%, ' +
-                    'rgba(114, 78, 133, 1) 99%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -webkit-gradient(linear, left top, right top, ' +
-                    'color-stop(0%,rgba(114, 78, 133, 0)), ' +
-                    'color-stop(0%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(99%,rgba(114, 78, 133, 1)), ' +
-                    'color-stop(99%,rgba(114, 78, 133, 0)));');
-
-                expect(css).toContain('background: -webkit-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 0%, ' +
-                    'rgba(114, 78, 133, 1) 99%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -o-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 0%, ' +
-                    'rgba(114, 78, 133, 1) 99%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: -ms-linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 0%, ' +
-                    'rgba(114, 78, 133, 1) 99%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-                expect(css).toContain('background: linear-gradient(left, ' +
-                    'rgba(114, 78, 133, 0) 0%, ' +
-                    'rgba(114, 78, 133, 1) 0%, ' +
-                    'rgba(114, 78, 133, 1) 99%, ' +
-                    'rgba(114, 78, 133, 0) 99%);');
-
-            });
-
-        });
-
-    });
-
-    describe('applyCss', function() {
-
-        it('should apply computed styles to the div', function() {
-
-            // Build the css and get out the value.
-            div.spanstyler('constructCss', '724e85');
-            div.spanstyler('applyCss');
-            var style = div.attr('style');
-
-            expect(style).toContain('background: #724e85;');
-
-            expect(style).toContain('background: -moz-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: -webkit-gradient(linear, left top, right top, ' +
-                'color-stop(0%,rgba(114, 78, 133, 0)), ' +
-                'color-stop(0%,rgba(114, 78, 133, 1)), ' +
-                'color-stop(99%,rgba(114, 78, 133, 1)), ' +
-                'color-stop(99%,rgba(114, 78, 133, 0)));');
-
-            expect(style).toContain('background: -webkit-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: -o-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: -ms-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-        });
-
-        it('should retain existing styles and append new gradient styles', function() {
-
-            // Set a non-gradient-related style on the div.
-            div.attr('style', 'top: 10px;');
-
-            // Build the css and get out the value.
-            div.spanstyler('constructCss', '724e85');
-            div.spanstyler('applyCss');
-            var style = div.attr('style');
-
-            expect(style).toContain('top: 10px;');
-            expect(style).toContain('background: #724e85;');
-
-            expect(style).toContain('background: -moz-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: -webkit-gradient(linear, left top, right top, ' +
-                'color-stop(0%,rgba(114, 78, 133, 0)), ' +
-                'color-stop(0%,rgba(114, 78, 133, 1)), ' +
-                'color-stop(99%,rgba(114, 78, 133, 1)), ' +
-                'color-stop(99%,rgba(114, 78, 133, 0)));');
-
-            expect(style).toContain('background: -webkit-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: -o-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: -ms-linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
-
-            expect(style).toContain('background: linear-gradient(left, ' +
-                'rgba(114, 78, 133, 0) 0%, ' +
-                'rgba(114, 78, 133, 1) 0%, ' +
-                'rgba(114, 78, 133, 1) 99%, ' +
-                'rgba(114, 78, 133, 0) 99%);');
+            expect(slug.val()).toEqual('slug-');
 
         });
 
