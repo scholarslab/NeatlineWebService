@@ -29,15 +29,9 @@ echo $this->partial('admin/_header.php', array(
 
     <div class="row">
 
-        <div class="span3">
-            <a class="no-underline" href="add">
-                <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
-            </a>
-        </div>
-
         <div class="span13">
 
-            <table id="exhibits-table" class="zebra-striped">
+            <table id="exhibits-table">
                 <thead>
                     <tr>
                         <th>exhibit</th>
@@ -50,6 +44,9 @@ echo $this->partial('admin/_header.php', array(
                         <td>
                             <a class="exhibit-title" href=""><?php echo $exhibit->getExhibit()->name; ?></a>
                             <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
+                            <span class="action bold"><a href="">edit</a> |</span>
+                            <span class="action"><a href="">embed</a> |</span>
+                            <span class="action danger"><a href="">delete</a></span>
                         </td>
                         <td></td>
                         <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>
@@ -57,6 +54,12 @@ echo $this->partial('admin/_header.php', array(
                 <?php endforeach; ?>
             </table>
 
+        </div>
+
+        <div class="span3">
+            <a class="no-underline" href="add">
+                <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
+            </a>
         </div>
 
     </div>
