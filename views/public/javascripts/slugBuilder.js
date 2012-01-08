@@ -128,6 +128,7 @@
             return $.trim(value).
                 replace(/\s+/g, '-').
                 replace(/(&nbsp;)+/g, '-').
+                replace(/[^\w+-]+/g, '').
                 toLowerCase();
         },
 

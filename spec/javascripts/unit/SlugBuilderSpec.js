@@ -43,19 +43,33 @@ describe('Slug Builder', function() {
     describe('slugify', function() {
 
         it('should replace spaces with '-'', function() {
-            expect(form.slugBuilder('slugify', 'test slug text')).toEqual('test-slug-text');
+            expect(
+                form.slugBuilder('slugify', 'test slug text')
+            ).toEqual('test-slug-text');
         });
 
         it('should replace multiple spaces with '-'', function() {
-            expect(form.slugBuilder('slugify', 'test   slug  text')).toEqual('test-slug-text');
+            expect(
+                form.slugBuilder('slugify', 'test   slug  text')
+            ).toEqual('test-slug-text');
         });
 
         it('should not remove leading and trailing whitespace', function() {
-            expect(form.slugBuilder('slugify', ' test   slug  text  ')).toEqual('test-slug-text');
+            expect(
+                form.slugBuilder('slugify', ' test   slug  text  ')
+            ).toEqual('test-slug-text');
         });
 
         it('should lowercase letters', function() {
-            expect(form.slugBuilder('slugify', 'Test Slug Text')).toEqual('test-slug-text');
+            expect(
+                form.slugBuilder('slugify', 'Test Slug Text')
+            ).toEqual('test-slug-text');
+        });
+
+        it('should get rid of non-alphanumeric characters', function() {
+            expect(
+                form.slugBuilder('slugify', 'Test Slug: With Non-Alphas!')
+            ).toEqual('test-slug-with-non-alphas');
         });
 
     });
