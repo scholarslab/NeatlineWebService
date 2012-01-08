@@ -137,10 +137,17 @@ class NeatlineWebServicePlugin
     public function defineRoutes($router)
     {
 
-        $router->addConfig(
-            new Zend_Config_Ini(NLWS_PLUGIN_DIR . '/routes.ini',
-            'routes')
-        );
+        $router->addRoute(
+            'nlwsAdmin',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:action',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'admin',
+                    'action'        => 'login'
+                    )
+                )
+            );
 
     }
 

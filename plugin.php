@@ -27,6 +27,7 @@
 
 
 // defines {{{
+
 if (!defined('NLWS_PLUGIN_VERSION')) {
     define(
         'NLWS_PLUGIN_VERSION',
@@ -40,6 +41,14 @@ if (!defined('NLWS_PLUGIN_DIR')) {
         dirname(__FILE__)
     );
 }
+
+if (!defined('NLWS_SLUG')) {
+    define(
+        'NLWS_SLUG',
+        get_plugin_ini('NeatlineWebService', 'saas_slug')
+    );
+}
+
 // }}}
 
 

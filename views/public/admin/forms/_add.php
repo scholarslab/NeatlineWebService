@@ -40,6 +40,7 @@
         </div>
 
         <div class="clearfix">
+            <label for="slug">URL Preview:</label>
             <div id="slug-preview">
                 <?php echo WEB_ROOT; ?>/<?php echo $user->username; ?>/<span id="url-slug-preview"></span>
             </div>

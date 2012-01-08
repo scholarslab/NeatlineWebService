@@ -58,7 +58,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
 
         // Check for the form.
         $this->assertQuery('input[name="title"]');
@@ -84,7 +84,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -129,7 +129,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -162,7 +162,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -186,7 +186,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -211,7 +211,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -246,7 +246,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
         $this->assertRedirectTo('/webservice/exhibits');
 
         // No exhibit created.

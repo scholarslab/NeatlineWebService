@@ -54,7 +54,7 @@ class NeatlineWebService_AdminControllerLogoutTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /logout
-        $this->dispatch('webservice/logout');
+        $this->dispatch(NLWS_SLUG . '/logout');
         $this->assertRedirectTo('/webservice/login');
 
         // Check for cleared identity.
@@ -71,7 +71,7 @@ class NeatlineWebService_AdminControllerLogoutTest extends NWS_Test_AppTestCase
     {
 
         // ** /logout
-        $this->dispatch('webservice/logout');
+        $this->dispatch(NLWS_SLUG . '/logout');
         $this->assertRedirectTo('/webservice/login');
 
     }

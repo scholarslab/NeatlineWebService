@@ -52,7 +52,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
     {
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the form.
         $this->assertQuery('input[name="username"]');
@@ -81,7 +81,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="username"]');
@@ -137,7 +137,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         $_userCount = $this->_usersTable->count();
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="username"]');
@@ -175,7 +175,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="username"]');
@@ -213,7 +213,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="username"]');
@@ -238,7 +238,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="username"]');
@@ -276,7 +276,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Count users.
         $_userCount = $this->_usersTable->count();
@@ -320,7 +320,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Count users.
         $_userCount = $this->_usersTable->count();
@@ -361,7 +361,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="password"]');
@@ -399,7 +399,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="confirm"]');
@@ -437,7 +437,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="confirm"]');
@@ -475,7 +475,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the value.
         $this->assertQuery('div.username input[value="david"]');
@@ -501,7 +501,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the value.
         $this->assertQuery('div.email input[value="dwm"]');
@@ -527,7 +527,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the value.
         $this->assertQuery('div.password input[value="poesypure"]');
@@ -553,7 +553,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         );
 
         // Hit the route.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
 
         // Check for the value.
         $this->assertQuery('div.confirm input[value="poesyimpure"]');
@@ -582,7 +582,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
         $_userCount = $this->_usersTable->count();
 
         // Hit the route, check for redirect.
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
         $this->assertRedirectTo('/webservice/exhibits');
 
         // +1.

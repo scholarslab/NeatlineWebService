@@ -49,23 +49,23 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
     {
 
         // ** /exhibits
-        $this->dispatch('webservice/exhibits');
+        $this->dispatch(NLWS_SLUG . '/exhibits');
         $this->assertRedirectTo('/webservice/login');
 
         // ** /add
-        $this->dispatch('webservice/add');
+        $this->dispatch(NLWS_SLUG . '/add');
         $this->assertRedirectTo('/webservice/login');
 
         // ** /edit
-        $this->dispatch('webservice/edit');
+        $this->dispatch(NLWS_SLUG . '/edit');
         $this->assertRedirectTo('/webservice/login');
 
         // ** /delete
-        $this->dispatch('webservice/delete');
+        $this->dispatch(NLWS_SLUG . '/delete');
         $this->assertRedirectTo('/webservice/login');
 
         // ** /logout
-        $this->dispatch('webservice/delete');
+        $this->dispatch(NLWS_SLUG . '/delete');
         $this->assertRedirectTo('/webservice/login');
 
     }
@@ -85,11 +85,11 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /login
-        $this->dispatch('webservice/login');
+        $this->dispatch(NLWS_SLUG . '/login');
         $this->assertRedirectTo('/webservice/exhibits');
 
         // ** /register
-        $this->dispatch('webservice/register');
+        $this->dispatch(NLWS_SLUG . '/register');
         $this->assertRedirectTo('/webservice/exhibits');
 
     }
@@ -109,7 +109,7 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /exhibits
-        $this->dispatch('webservice/exhibits');
+        $this->dispatch(NLWS_SLUG . '/exhibits');
         $this->assertNotRedirect();
 
     }
