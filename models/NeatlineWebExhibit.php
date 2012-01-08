@@ -135,7 +135,7 @@ class NeatlineWebExhibit extends Omeka_record
         }
 
         // Invalid slug.
-        else if (!preg_match('/^[1-9a-z\-]+$/', $slug)) {
+        else if (!preg_match('/^[0-9a-z\-]+$/', $slug)) {
             $errors['slug'] = get_plugin_ini(
                 'NeatlineWebService',
                 'slug_invalid'

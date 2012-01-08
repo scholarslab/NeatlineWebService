@@ -247,6 +247,31 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * _validate() should not throw an error when all of the characters in
+     * the slug are '-' or alphanumerics.
+     *
+     * @return void.
+     */
+    public function testValidateSlugWithAlphanumerics()
+    {
+
+        // Create an exhibit.
+        $exhibit    = $this->__exhibit();
+
+        // Validate with empty fields.
+        $errors = $exhibit->_validateAdd(
+            '',
+            'test-exhibit-2012');
+
+        // Check for the error.
+        $this->assertArrayNotHasKey(
+            'slug',
+            $errors
+        );
+
+    }
+
+    /**
      * _applyAdd() should assign column values.
      *
      * @return void.
