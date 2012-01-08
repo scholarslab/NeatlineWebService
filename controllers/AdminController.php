@@ -66,9 +66,13 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function preDispatch()
     {
 
-        // Get the controller action.
-        $action =           $this->getRequest()->getActionName();
-        $hasIdentity =      Zend_Auth::getInstance()->hasIdentity();
+        // Get the authentication singleton and request action.
+        $action = $this->getRequest()->getActionName();
+        $auth = Zend_Auth::getInstance();
+        $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
+
+        // Check for identity.
+        $hasIdentity = Zend_Auth::getInstance()->hasIdentity();
 
         // If not logged in and requesting protected action, block.
         if (!$hasIdentity && in_array($action, self::$_protectedActions)) {
@@ -142,13 +146,20 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 // Commit.
                 $user->save();
 
-                // Authenticate the new user.
+                // Get the adapter and authentication singleton.
                 $adapter =      $this->getAuthAdapter($username, $password);
                 $auth =         Zend_Auth::getInstance();
+
+                // Set session namespace.
+                $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
+
+                // Authenticate.
                 $result =       $auth->authenticate($adapter);
 
                 // Redirect to root.
-                return $this->_redirect(NLWS_SLUG . '/exhibits');
+                if ($result->isValid()) {
+                    return $this->_redirect(NLWS_SLUG . '/exhibits');
+                }
 
             }
 
@@ -193,13 +204,20 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             // If no errors, save and redirect.
             if (count($errors) == 0) {
 
-                // Authenticate the new user.
+                // Get the adapter and authentication singleton.
                 $adapter =      $this->getAuthAdapter($username, $password);
                 $auth =         Zend_Auth::getInstance();
+
+                // Set session namespace.
+                $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
+
+                // Authenticate.
                 $result =       $auth->authenticate($adapter);
 
                 // Redirect to root.
-                return $this->_redirect(NLWS_SLUG . '/exhibits');
+                if ($result->isValid()) {
+                    return $this->_redirect(NLWS_SLUG . '/exhibits');
+                }
 
             }
 
@@ -221,6 +239,16 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
         Zend_Auth::getInstance()->clearIdentity();
         return $this->_redirect(NLWS_SLUG . '/login');
+    }
+
+    /**
+     * Reset password.
+     *
+     * @return void
+     */
+    public function passwordAction()
+    {
+
     }
 
     /**

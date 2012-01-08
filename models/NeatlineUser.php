@@ -22,7 +22,7 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-class NeatlineUser extends Omeka_record
+class NeatlineUser extends Omeka_record implements Zend_Acl_Role_Interface
 {
 
 

@@ -45,6 +45,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         $this->user = $this->__user($username = 'david', $password = 'poesypure');
         $adapter = new NeatlineAuthAdapter('david', 'poesypure');
         $auth = Zend_Auth::getInstance();
+        $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
         $auth->authenticate($adapter);
 
     }
