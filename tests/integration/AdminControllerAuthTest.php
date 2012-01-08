@@ -50,23 +50,23 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
 
         // ** /exhibits
         $this->dispatch(NLWS_SLUG . '/exhibits');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
         // ** /add
         $this->dispatch(NLWS_SLUG . '/add');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
         // ** /edit
         $this->dispatch(NLWS_SLUG . '/edit');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
         // ** /delete
         $this->dispatch(NLWS_SLUG . '/delete');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
         // ** /logout
         $this->dispatch(NLWS_SLUG . '/delete');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
     }
 
@@ -86,11 +86,11 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
 
         // ** /login
         $this->dispatch(NLWS_SLUG . '/login');
-        $this->assertRedirectTo('/webservice/exhibits');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
 
         // ** /register
         $this->dispatch(NLWS_SLUG . '/register');
-        $this->assertRedirectTo('/webservice/exhibits');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
 
     }
 

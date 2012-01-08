@@ -247,7 +247,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
 
         // Hit the route, check for redirect.
         $this->dispatch(NLWS_SLUG . '/add');
-        $this->assertRedirectTo('/webservice/exhibits');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
 
         // No exhibit created.
         $this->assertEquals($this->_exhibitsTable->count(), 2);

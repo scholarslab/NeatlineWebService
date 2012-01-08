@@ -72,7 +72,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // If not logged in and requesting protected action, block.
         if (!$hasIdentity && in_array($action, self::$_protectedActions)) {
-            return $this->_redirect('webservice/login');
+            return $this->_redirect(NLWS_SLUG . '/login');
         }
 
         // If logged in.
@@ -83,7 +83,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
             // If requesting an anonymous action, redirect to browse.
             if (in_array($action, self::$_anonActions)) {
-                return $this->_redirect('webservice/exhibits');
+                return $this->_redirect(NLWS_SLUG . '/exhibits');
             }
 
         }
@@ -148,7 +148,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $result =       $auth->authenticate($adapter);
 
                 // Redirect to root.
-                return $this->_redirect('webservice/exhibits');
+                return $this->_redirect(NLWS_SLUG . '/exhibits');
 
             }
 
@@ -199,7 +199,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $result =       $auth->authenticate($adapter);
 
                 // Redirect to root.
-                return $this->_redirect('webservice/exhibits');
+                return $this->_redirect(NLWS_SLUG . '/exhibits');
 
             }
 
@@ -220,17 +220,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-        return $this->_redirect('webservice/login');
-    }
-
-    /**
-     * Reset password.
-     *
-     * @return void
-     */
-    public function passwordAction()
-    {
-
+        return $this->_redirect(NLWS_SLUG . '/login');
     }
 
     /**
@@ -242,7 +232,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
         // Get exhibits.
-        $this->view->exhibits = $this->_exhibitsTable->getExhibitsByUser($this->view->user);
+        $this->view->exhibits = $this->_exhibitsTable->getExhibitsByUser(
+            $this->view->user
+        );
 
     }
 
@@ -282,7 +274,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $exhibit->save();
 
                 // Redirect to root.
-                return $this->_redirect('webservice/exhibits');
+                return $this->_redirect(NLWS_SLUG . '/exhibits');
 
             }
 

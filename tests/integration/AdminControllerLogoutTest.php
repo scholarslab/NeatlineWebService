@@ -55,7 +55,7 @@ class NeatlineWebService_AdminControllerLogoutTest extends NWS_Test_AppTestCase
 
         // ** /logout
         $this->dispatch(NLWS_SLUG . '/logout');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
         // Check for cleared identity.
         $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
@@ -72,7 +72,7 @@ class NeatlineWebService_AdminControllerLogoutTest extends NWS_Test_AppTestCase
 
         // ** /logout
         $this->dispatch(NLWS_SLUG . '/logout');
-        $this->assertRedirectTo('/webservice/login');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
     }
 

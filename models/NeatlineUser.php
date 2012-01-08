@@ -37,9 +37,10 @@ class NeatlineUser extends Omeka_record
 
 
     /**
-     * Validation constants.
+     * Role and validation constants.
      */
 
+    CONST ROLE = 'neatline';
     CONST USERNAME_MAX_LENGTH = 30;
     CONST PASSWORD_MIN_LENGTH = 6;
 
@@ -250,6 +251,16 @@ class NeatlineUser extends Omeka_record
     public function checkPassword($password)
     {
         return $this->hashPassword($password) == $this->password;
+    }
+
+    /**
+     * Emit the role.
+     *
+     * @return string           The role.
+     */
+    public function getRoleId()
+    {
+        return self::ROLE;
     }
 
 }

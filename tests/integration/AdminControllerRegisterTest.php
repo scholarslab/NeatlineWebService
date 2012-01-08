@@ -583,7 +583,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
 
         // Hit the route, check for redirect.
         $this->dispatch(NLWS_SLUG . '/register');
-        $this->assertRedirectTo('/webservice/exhibits');
+        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
 
         // +1.
         $this->assertEquals($this->_usersTable->count(), $_userCount+1);

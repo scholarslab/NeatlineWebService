@@ -406,4 +406,20 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * getRoleId() should return the class constant ROLE.
+     *
+     * @return void.
+     */
+    public function testGetRoleId()
+    {
+
+        // Create a user.
+        $user = new NeatlineUser;
+
+        // Check.
+        $this->assertEquals($user->getRoleId(), NeatlineUser::ROLE);
+
+    }
+
 }

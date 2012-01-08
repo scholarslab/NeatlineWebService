@@ -137,6 +137,7 @@ class NeatlineWebServicePlugin
     public function defineRoutes($router)
     {
 
+        // Webservice application slug.
         $router->addRoute(
             'nlwsAdmin',
             new Zend_Controller_Router_Route(
@@ -161,6 +162,40 @@ class NeatlineWebServicePlugin
     public function defineAcl($acl)
     {
 
+        // Omeka_Acl_Resource is deprecated in 2.0.
+        if (version_compare(OMEKA_VERSION, '2.0-dev', '<')) {
+            $nlwsAdmin = new Omeka_Acl_Resource('NeatlineWebService_AdminController');
+            $nlwsAdmin->add(array(
+                'register',
+                'login',
+                'logout',
+                'exhibits',
+                'add',
+                'edit',
+                'delete'
+            ));
+            $nlEditor = new Omeka_Acl_Resource('Neatline_EditorController');
+            $nlEditor->add(array(
+                'index',
+                'items',
+                'form',
+                'save',
+                'status',
+                'order',
+                'positions',
+                'arrangement',
+                'focus',
+                'add',
+                'delete'
+            ));
+        } else {
+            $nlwsAdmin = new Zend_Acl_Resource('NeatlineWebService_AdminController');
+            $nlEditor = new Zend_Acl_Resource('Neatline_EditorController');
+        }
+
+        // Add the resources.
+        $acl->add($nlwsAdmin);
+        $acl->add($nlEditor);
 
     }
 
