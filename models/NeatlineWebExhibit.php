@@ -48,6 +48,19 @@ class NeatlineWebExhibit extends Omeka_record
 
         parent::__construct();
 
+        // Set the user key.
+        $this->user_id = $user->id;
+
+    }
+
+    /**
+     * Create a parent Neatline exhibit.
+     *
+     * @return void.
+     */
+    public function createParentExhibit()
+    {
+
         // Create Neatline exhibit.
         $exhibit = new NeatlineExhibit;
         $exhibit->top_element =            'map';
@@ -59,9 +72,8 @@ class NeatlineWebExhibit extends Omeka_record
         $exhibit->is_items =               1;
         $exhibit->save();
 
-        // Set the foreign keys.
+        // Set the exhibit key.
         $this->exhibit_id = $exhibit->id;
-        $this->user_id = $user->id;
 
     }
 

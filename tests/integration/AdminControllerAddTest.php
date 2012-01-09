@@ -233,6 +233,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
 
         // Create NLW exhibit for user2.
         $exhibit = new NeatlineWebExhibit($user2);
+        $exhibit->createParentExhibit();
         $exhibit->slug = 'taken-slug';
         $exhibit->public = 1;
         $exhibit->save();

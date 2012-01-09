@@ -89,31 +89,37 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $exhibit1 = new NeatlineWebExhibit($user1);
         $exhibit1->slug =    'test1';
         $exhibit1->public =  1;
+        $exhibit1->createParentExhibit();
         $exhibit1->save();
 
         $exhibit2 = new NeatlineWebExhibit($user1);
         $exhibit2->slug =    'test2';
         $exhibit2->public =  1;
+        $exhibit2->createParentExhibit();
         $exhibit2->save();
 
         $exhibit3 = new NeatlineWebExhibit($user1);
         $exhibit3->slug =    'test3';
         $exhibit3->public =  1;
+        $exhibit3->createParentExhibit();
         $exhibit3->save();
 
         $exhibit4 = new NeatlineWebExhibit($user1);
         $exhibit4->slug =    'test4';
         $exhibit4->public =  1;
+        $exhibit4->createParentExhibit();
         $exhibit4->save();
 
         $exhibit5 = new NeatlineWebExhibit($user2);
         $exhibit5->slug =    'test5';
         $exhibit5->public =  1;
+        $exhibit5->createParentExhibit();
         $exhibit5->save();
 
         $exhibit6 = new NeatlineWebExhibit($user2);
         $exhibit6->slug =    'test6';
         $exhibit6->public =  1;
+        $exhibit6->createParentExhibit();
         $exhibit6->save();
 
         // Get.

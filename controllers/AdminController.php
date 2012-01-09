@@ -295,7 +295,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             // If no errors, save and redirect.
             if (count($errors) == 0) {
 
-                // Set columns.
+                // Create parent exhibit and set columns.
+                $exhibit->createParentExhibit();
                 $exhibit->_applyAdd($title, $slug, $public);
 
                 // Commit.

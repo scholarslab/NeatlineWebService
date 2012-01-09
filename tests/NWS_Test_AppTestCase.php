@@ -127,6 +127,7 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
         $exhibit = new NeatlineWebExhibit($user);
         $exhibit->slug =    $slug;
         $exhibit->public =  $public ? 1 : 0;
+        $exhibit->createParentExhibit();
         $exhibit->save();
 
         return $exhibit;

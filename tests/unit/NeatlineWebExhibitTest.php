@@ -45,8 +45,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * __construct() should automatically create a new Neatline exhibit and set
-     * foreign keys for user and exhibit.
+     * __construct() should automatically set the user foreign key.
      *
      * @return void.
      */
@@ -56,11 +55,36 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Create a user.
         $user = $this->__user();
 
-        // Starting NL exhibit count.
-        $count = $this->_exhibitsTable->count();
+        // Create NLW exhibit.
+        $exhibit = new NeatlineWebExhibit($user);
+
+        // Check for user_id key.
+        $this->assertEquals(
+            $exhibit->user_id,
+            $user->id
+        );
+
+    }
+
+    /**
+     * createParentExhibit() should create a parent Neatline exhibit.
+     *
+     * @return void.
+     */
+    public function testCreateParentExhibit()
+    {
+
+        // Create a user.
+        $user = $this->__user();
 
         // Create NLW exhibit.
         $exhibit = new NeatlineWebExhibit($user);
+
+        // Starting NL exhibit count.
+        $count = $this->_exhibitsTable->count();
+
+        // Create.
+        $exhibit->createParentExhibit();
 
         // +1.
         $this->assertEquals($this->_exhibitsTable->count(), $count + 1);
@@ -72,12 +96,6 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $this->assertEquals(
             $exhibit->exhibit_id,
             $newExhibit->id
-        );
-
-        // Check for user_id key.
-        $this->assertEquals(
-            $exhibit->user_id,
-            $user->id
         );
 
     }
@@ -282,8 +300,9 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Create user.
         $user = $this->__user();
 
-        // Create NLW exhibit.
+        // Create NLW exhibit and parent exhibit.
         $exhibit = new NeatlineWebExhibit($user);
+        $exhibit->createParentExhibit();
 
         // Apply.
         $exhibit->_applyAdd('Test Title', 'test-title', true);
@@ -309,8 +328,9 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Create user.
         $user = $this->__user();
 
-        // Create NLW exhibit.
+        // Create NLW exhibit and parent exhibit.
         $exhibit = new NeatlineWebExhibit($user);
+        $exhibit->createParentExhibit();
 
         // Apply.
         $exhibit->_applyAdd('Test Title', 'Test-Title', true);
@@ -336,9 +356,9 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Create user.
         $user = $this->__user();
 
-        // Create NLW exhibit, get parent exhibit.
+        // Create NLW exhibit.
         $exhibit = new NeatlineWebExhibit($user);
-        // $parentExhibit = $this->_exhibitsTable->find(1);
+        $exhibit->createParentExhibit();
 
         // Check.
         $this->assertEquals($exhibit->getNumberOfRecords(), 0);
@@ -359,6 +379,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Create NLW exhibit, get parent exhibit.
         $exhibit1 = new NeatlineWebExhibit($user);
         $exhibit2 = new NeatlineWebExhibit($user);
+        $exhibit1->createParentExhibit();
+        $exhibit2->createParentExhibit();
         $parentExhibit1 = $this->_exhibitsTable->find(1);
         $parentExhibit2 = $this->_exhibitsTable->find(2);
 
