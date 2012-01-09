@@ -38,20 +38,14 @@ div.exhibit-slug {
     color: #9e9e9e;
 }
 
-#exhibits-table td {
-    border-top: none;
-}
-
 #exhibits-table th {
     color: #BFBFBF;
     font-weight: normal;
-    padding-top: 0;
 }
 
 #new-exhibit-button {
-    float: right;
-    margin-top: 6px;
-    margin-right: 5px;
+    float: left;
+    margin: 1em 0;
 }
 
 span.action {
