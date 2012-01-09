@@ -169,4 +169,14 @@ class NeatlineWebExhibit extends Omeka_record
 
     }
 
+    /**
+     * Get the number of active records for the exhibit.
+     *
+     * @return integer              The record count.
+     */
+    public function getNumberOfRecords()
+    {
+        return $this->getExhibit()->getNumberOfRecords();
+    }
+
 }

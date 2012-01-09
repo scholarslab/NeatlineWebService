@@ -325,4 +325,61 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * getNumberOfItems() should return 0 when there are no items.
+     *
+     * @return void.
+     */
+    public function testGetNumberOfItemsWithNoRecords()
+    {
+
+        // Create user.
+        $user = $this->__user();
+
+        // Create NLW exhibit, get parent exhibit.
+        $exhibit = new NeatlineWebExhibit($user);
+        // $parentExhibit = $this->_exhibitsTable->find(1);
+
+        // Check.
+        $this->assertEquals($exhibit->getNumberOfRecords(), 0);
+
+    }
+
+    /**
+     * getNumberOfItems() should return the number of records.
+     *
+     * @return void.
+     */
+    public function testGetNumberOfItemsWithRecords()
+    {
+
+        // Create user.
+        $user = $this->__user();
+
+        // Create NLW exhibit, get parent exhibit.
+        $exhibit1 = new NeatlineWebExhibit($user);
+        $exhibit2 = new NeatlineWebExhibit($user);
+        $parentExhibit1 = $this->_exhibitsTable->find(1);
+        $parentExhibit2 = $this->_exhibitsTable->find(2);
+
+        // Create records.
+        $record1 = new NeatlineDataRecord(null, $parentExhibit1);
+        $record2 = new NeatlineDataRecord(null, $parentExhibit1);
+        $record3 = new NeatlineDataRecord(null, $parentExhibit2);
+        $record4 = new NeatlineDataRecord(null, $parentExhibit2);
+        $record1->space_active = 1;
+        $record2->space_active = 1;
+        $record3->space_active = 1;
+        $record4->space_active = 0;
+        $record1->save();
+        $record2->save();
+        $record3->save();
+        $record4->save();
+
+        // Check.
+        $this->assertEquals($exhibit1->getNumberOfRecords(), 2);
+        $this->assertEquals($exhibit2->getNumberOfRecords(), 1);
+
+    }
+
 }

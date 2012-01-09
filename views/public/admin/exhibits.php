@@ -53,7 +53,7 @@ echo $this->partial('admin/_header.php', array(
                             <span class="action"><a href="">embed</a> |</span>
                             <span class="action danger"><a href="">delete</a></span>
                         </td>
-                        <td></td>
+                        <td><?php echo $exhibit->getNumberOfRecords(); ?></td>
                         <td></td>
                         <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>
                     </tr>
