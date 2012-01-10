@@ -59,14 +59,32 @@ function nlws_queueAddJs()
  * specified key.
  *
  * @param string $errors    The errors array.
- * @param string $key       They key to check for.
+ * @param string $key       The key to check for.
  * @param string $class     The class to return.
  *
  * @return void.
  */
 function nlws_getErrorClass($errors, $key, $class)
 {
-
     return array_key_exists($key, $errors) ? $class : '';
+}
+
+/**
+ * Build edit link for web exhibit.
+ *
+ * @param Omeka_record $exhibit     The web exhibit.
+ *
+ * @return void.
+ */
+function nlws_editUrl($exhibit)
+{
+
+    $user = $exhibit->getUser();
+
+    return WEB_ROOT . '/' .
+           NLWS_SLUG . '/' .
+           $user->username . '/' .
+           'editor/' .
+           $exhibit->slug;
 
 }

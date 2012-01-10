@@ -44,6 +44,58 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * findBySlug() should return false when there is no exhibit with the passed slug.
+     *
+     * @return void.
+     */
+    public function testFindBySlugWhenExhibitDoesNotExist()
+    {
+
+        // Create user.
+        $user = $this->__user();
+
+        // Create NLW exhibits.
+        $exhibit = new NeatlineWebExhibit($user);
+        $exhibit->slug = 'existing-slug';
+        $exhibit->public = 1;
+        $exhibit->save();
+
+        $this->assertFalse(
+            $this->_exhibitsTable->findBySlug('non-existent-slug')
+        );
+
+    }
+
+    /**
+     * findBySlug() should return false when there is no exhibit with the passed slug.
+     *
+     * @return void.
+     */
+    public function testFindBySlugWhenExhibitExists()
+    {
+
+        // Create user.
+        $user = $this->__user();
+
+        // Create NLW exhibits.
+        $exhibit1 = new NeatlineWebExhibit($user);
+        $exhibit1->slug = 'existing-slug';
+        $exhibit1->public = 1;
+        $exhibit1->save();
+        $exhibit2 = new NeatlineWebExhibit($user);
+        $exhibit2->slug = 'another-slug';
+        $exhibit2->public = 1;
+        $exhibit2->save();
+
+        // Get.
+        $exhibit = $this->_exhibitsTable->findBySlug('another-slug');
+
+        // Check identity.
+        $this->assertEquals($exhibit2->id, $exhibit->id);
+
+    }
+
+    /**
      * slugIsAvailable() should return true or false depending on whether or not
      * there is an existing exhibit with the supplied slug.
      *

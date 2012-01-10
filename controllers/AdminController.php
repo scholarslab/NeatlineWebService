@@ -72,7 +72,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
 
         // Check for identity.
-        $hasIdentity = Zend_Auth::getInstance()->hasIdentity();
+        $hasIdentity = $auth->hasIdentity();
 
         // If not logged in and requesting protected action, block.
         if (!$hasIdentity && in_array($action, self::$_protectedActions)) {

@@ -118,4 +118,26 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * nlws_editUrl() should construct a well-formed edit url.
+     *
+     * @return void.
+     */
+    public function testEditUrl()
+    {
+
+        // Create user.
+        $user = $this->__user($username = 'david');
+
+        // Create NLW exhibit and parent exhibit.
+        $exhibit = $this->__exhibit($user = $user);
+        $exhibit->slug = 'test-slug';
+
+        $this->assertEquals(
+            nlws_editUrl($exhibit),
+            WEB_ROOT . '/' . NLWS_SLUG . '/david/editor/test-slug'
+        );
+
+    }
+
 }

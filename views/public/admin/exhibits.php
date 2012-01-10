@@ -35,30 +35,32 @@ echo $this->partial('admin/_header.php', array(
 
         <div class="span16">
 
+            <?php if ($exhibits): ?>
+
             <table id="exhibits-table">
                 <thead>
                     <tr>
                         <th>exhibit</th>
                         <th># items</th>
-                        <th>modified</th>
                         <th>public</th>
                     </tr>
                 </thead>
                 <?php foreach ($exhibits as $exhibit): ?>
                     <tr>
                         <td>
-                            <a class="exhibit-title" href=""><?php echo $exhibit->getExhibit()->name; ?></a>
+                            <a class="exhibit-title" href="<?php echo nlws_editUrl($exhibit); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
                             <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
                             <span class="action bold"><a href="">edit</a> |</span>
                             <span class="action"><a href="">embed</a> |</span>
                             <span class="action danger"><a href="">delete</a></span>
                         </td>
                         <td><?php echo $exhibit->getNumberOfRecords(); ?></td>
-                        <td></td>
                         <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
+
+        <?php endif; ?>
 
         </div>
 

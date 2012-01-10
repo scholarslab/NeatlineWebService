@@ -30,8 +30,8 @@ class NeatlineWebServicePlugin
         'install',
         'uninstall',
         'define_routes',
-        'define_acl',
-        'admin_theme_header'
+        'admin_theme_header',
+        'public_theme_header'
     );
 
     private static $_filters = array();
@@ -144,27 +144,51 @@ class NeatlineWebServicePlugin
                     'module'        => 'neatline-web-service',
                     'controller'    => 'admin',
                     'action'        => 'login'
-                    )
                 )
-            );
+            )
+        );
+
+        // Editor.
+        $router->addRoute(
+            'nlwsEditorIndex',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/editor/:slug',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'editor',
+                    'action'        => 'index'
+                )
+            )
+        );
+
+        // Editor ajax.
+        $router->addRoute(
+            'nlwsEditorAction',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/editor/ajax/:action',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'editor'
+                )
+            )
+        );
+
+        // ** Clobber Simile __history__.html asset.
+        $router->addRoute(
+            'nlwsSimileHistoryOverride',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/editor/__history__.html',
+                array(
+                    'module'        => 'neatline',
+                    'controller'    => 'data'
+                )
+            )
+        );
 
     }
 
     /**
-     * Define ACL.
-     *
-     * @param Zend_Acl $acl     Router passed in by the front controller.
-     *
-     * @return void
-     */
-    public function defineAcl($acl)
-    {
-
-
-    }
-
-    /**
-     * Queue file assets.
+     * Queue file assets by route.
      *
      * @return void
      */
@@ -179,6 +203,7 @@ class NeatlineWebServicePlugin
 
         // Admin.
         if ($routeName == 'nlwsAdmin') {
+
             nlws_queueCss();
 
             // ** /add
@@ -188,6 +213,11 @@ class NeatlineWebServicePlugin
 
         }
 
+        // Editor.
+        if ($routeName == 'nlwsEditorIndex') {
+            neatline_queueNeatlineAssets();
+            neatline_queueEditorAssets();
+        }
 
     }
 
