@@ -79,18 +79,18 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
     {
 
         // Create a user, authenticate.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
-        $adapter = new NeatlineAuthAdapter('david', 'poesypure');
-        $auth = Zend_Auth::getInstance();
+        $user =     $this->__user($username = 'david', $password = 'poesypure');
+        $adapter =  new NeatlineAuthAdapter('david', 'poesypure');
+        $auth =     Zend_Auth::getInstance();
         $auth->authenticate($adapter);
 
         // ** /login
         $this->dispatch(NLWS_SLUG . '/login');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
+        $this->assertRedirectTo(nlws_url('exhibits'));
 
         // ** /register
         $this->dispatch(NLWS_SLUG . '/register');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
+        $this->assertRedirectTo(nlws_url('exhibits'));
 
     }
 
@@ -103,9 +103,9 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
     {
 
         // Create a user, authenticate.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
-        $adapter = new NeatlineAuthAdapter('david', 'poesypure');
-        $auth = Zend_Auth::getInstance();
+        $user =     $this->__user($username = 'david', $password = 'poesypure');
+        $adapter =  new NeatlineAuthAdapter('david', 'poesypure');
+        $auth =     Zend_Auth::getInstance();
         $auth->authenticate($adapter);
 
         // ** /exhibits

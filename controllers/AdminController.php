@@ -87,7 +87,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
             // If requesting an anonymous action, redirect to browse.
             if (in_array($action, self::$_anonActions)) {
-                return $this->_redirect(NLWS_SLUG . '/exhibits');
+                return $this->_redirect(nlws_url('exhibits'));
             }
 
         }
@@ -158,7 +158,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
                 // Redirect to root.
                 if ($result->isValid()) {
-                    return $this->_redirect(nlws_url($user->username, 'exhibits'));
+                    return $this->_redirect(nlws_url('exhibits'));
                 }
 
             }
@@ -216,7 +216,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
                 // Redirect to root.
                 if ($result->isValid()) {
-                    return $this->_redirect(nlws_url($username, 'exhibits'));
+                    return $this->_redirect(nlws_url('exhibits'));
                 }
 
             }
@@ -293,7 +293,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $exhibit->save();
 
                 // Redirect to root.
-                return $this->_redirect(NLWS_SLUG . '/exhibits');
+                return $this->_redirect(nlws_url('exhibits'));
 
             }
 
@@ -345,7 +345,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $exhibit->save();
 
                 // Redirect to root.
-                return $this->_redirect(NLWS_SLUG . '/exhibits');
+                return $this->_redirect(nlws_url('exhibits'));
 
             }
 

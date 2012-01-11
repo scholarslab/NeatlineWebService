@@ -27,7 +27,7 @@ echo $this->partial('admin/_header.php', array(
         <?php echo $this->partial('admin/_logout.php', array('user' => $user)); ?>
     </div>
 
-    <a class="no-underline" href="<?php echo nlws_url($user->username, 'add'); ?>">
+    <a class="no-underline" href="<?php echo nlws_url('add'); ?>">
         <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
     </a>
 
@@ -48,9 +48,9 @@ echo $this->partial('admin/_header.php', array(
                 <?php foreach ($exhibits as $exhibit): ?>
                     <tr>
                         <td>
-                            <a class="exhibit-title" href="<?php echo nlws_url($user->username, 'editor', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
+                            <a class="exhibit-title" href="<?php echo nlws_url('editor', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
                             <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
-                            <span class="action bold"><a href="<?php echo nlws_url($user->username, 'edit', $exhibit->slug); ?>">edit</a> |</span>
+                            <span class="action bold"><a href="<?php echo nlws_url('edit', $exhibit->slug); ?>">edit</a> |</span>
                             <span class="action"><a href="">embed</a> |</span>
                             <span class="action danger"><a href="">delete</a></span>
                         </td>

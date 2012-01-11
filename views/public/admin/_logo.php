@@ -13,6 +13,13 @@
 ?>
 
 <h1>
-<a href="<?php echo nlws_url(nlws_getUsername(), 'exhibits'); ?>">Neatline</a>
+
+    <?php if (Zend_Auth::getInstance()->hasIdentity()): ?>
+        <a href="<?php echo nlws_url('exhibits'); ?>">Neatline</a>
+    <?php else: ?>
+        <a href="<?php echo WEB_ROOT . '/' . NLWS_SLUG; ?>">Neatline</a>
+    <?php endif; ?>
+
     <small>plot the world in space and time.</small>
+
 </h1>

@@ -13,5 +13,5 @@
 ?>
 
 <div class="login-info">
-    <b><?php echo $user->username; ?></b> | <a href="logout">logout</a>
+    <b><?php echo $user->username; ?></b> | <a href="<?php echo nlws_url('logout'); ?>">logout</a>
 </div>

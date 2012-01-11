@@ -72,31 +72,34 @@ function nlws_getErrorClass($errors, $key, $class)
 /**
  * Build webservice url.
  *
- * @param string $username      The username.
  * @param string $action        The name of the action.
  * @param string $slug          The exhibit slug.
+ * @param boolean $noRoot       If true, just return the relative path.
  *
  * @return void.
  */
-function nlws_url($username, $action = null, $slug = null)
+function nlws_url(
+    $action =       null,
+    $slug =         null,
+    $noRoot =       false
+)
 {
 
     // URL root for all actions.
-    $url = WEB_ROOT . '/' .
-        NLWS_SLUG . '/' .
-        $username;
+    $path = NLWS_SLUG . '/' . nlws_getUsername();
 
     // If action passed.
     if (!is_null($action)) {
-        $url .= '/' . $action;
+        $path .= '/' . $action;
     }
 
     // If slug passed.
     if (!is_null($slug)) {
-        $url .= '/' . $slug;
+        $path .= '/' . $slug;
     }
 
-    return $url;
+    return $noRoot ? $path :
+        WEB_ROOT . '/' . $path;
 
 }
 
@@ -107,5 +110,10 @@ function nlws_url($username, $action = null, $slug = null)
  */
 function nlws_getUsername()
 {
-    return Zend_Auth::getInstance()->getIdentity()->username;
+
+    $auth = Zend_Auth::getInstance();
+    $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
+
+    return $auth->getIdentity()->username;
+
 }

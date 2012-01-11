@@ -31,8 +31,7 @@ class NeatlineWebServicePlugin
         'install',
         'uninstall',
         'define_routes',
-        'admin_theme_header',
-        'public_theme_header'
+        'admin_theme_header'
     );
 
     // Filters.

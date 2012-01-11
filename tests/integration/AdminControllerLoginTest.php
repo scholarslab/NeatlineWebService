@@ -268,7 +268,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
 
         // Hit the route and check for redirect.
         $this->dispatch(NLWS_SLUG . '/login');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/exhibits');
+        $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Login.
         $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());

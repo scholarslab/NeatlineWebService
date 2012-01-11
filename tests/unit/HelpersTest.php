@@ -126,24 +126,31 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
     public function testNlwsUrl()
     {
 
+        // Create a user, authenticate.
+        $this->user =   $this->__user($username = 'david', $password = 'poesypure');
+        $adapter =      new NeatlineAuthAdapter('david', 'poesypure');
+        $auth =         Zend_Auth::getInstance();
+        $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
+        $auth->authenticate($adapter);
+
         // Context-dependent constants.
         $common = WEB_ROOT . '/' . NLWS_SLUG;
 
         // When just username is passed.
         $this->assertEquals(
-            nlws_url('david'),
+            nlws_url(),
             $common . '/david'
         );
 
         // When a username and action are passed.
         $this->assertEquals(
-            nlws_url('david', 'edit'),
+            nlws_url('edit'),
             $common . '/david/edit'
         );
 
         // When a username, action, and slug are passed.
         $this->assertEquals(
-            nlws_url('david', 'edit', 'test-slug'),
+            nlws_url('edit', 'test-slug'),
             $common . '/david/edit/test-slug'
         );
 
