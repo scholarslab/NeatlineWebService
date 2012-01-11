@@ -65,7 +65,7 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
         // Get records and shell out defaults.
         $slug =                     $this->_request->getParam('slug');
         $webExhibit =               $_webExhibitsTable->findBySlug($slug);
-        $exhibit =                  $this->_neatlinesTable->find($webExhibit->exhibit_id);
+        $exhibit =                  $webExhibit->getExhibit();
 
         // Construct the data array for the exhibit.
         $neatlineData = array(

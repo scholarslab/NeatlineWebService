@@ -158,7 +158,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
                 // Redirect to root.
                 if ($result->isValid()) {
-                    return $this->_redirect(NLWS_SLUG . '/exhibits');
+                    return $this->_redirect(nlws_url($user->username, 'exhibits'));
                 }
 
             }
@@ -216,7 +216,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
                 // Redirect to root.
                 if ($result->isValid()) {
-                    return $this->_redirect(NLWS_SLUG . '/exhibits');
+                    return $this->_redirect(nlws_url($username, 'exhibits'));
                 }
 
             }
@@ -239,16 +239,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
         Zend_Auth::getInstance()->clearIdentity();
         return $this->_redirect(NLWS_SLUG . '/login');
-    }
-
-    /**
-     * Reset password.
-     *
-     * @return void
-     */
-    public function passwordAction()
-    {
-
     }
 
     /**
@@ -324,6 +314,48 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
      */
     public function editAction()
     {
+
+        // Get the exhibit.
+        $slug =                 $this->_request->getParam('slug');
+        $webExhibit =           $this->_exhibitsTable->findBySlug($slug);
+        $exhibit =              $webExhibit->getExhibit();
+
+        // Shell for errors.
+        $errors = array();
+
+        // Process submission.
+        if ($this->_request->isPost()) {
+
+            // Gather $_POST.
+            $_post =            $this->_request->getPost();
+            $title =            $_post['title'];
+            $slug =             $_post['slug'];
+            $public =           array_key_exists('public', $_post);
+
+            // Register the credentials, capture errors.
+            $errors = $exhibit->_validateAdd($title, $slug);
+
+            // If no errors, save and redirect.
+            if (count($errors) == 0) {
+
+                // Set columns.
+                $exhibit->_applyAdd($title, $slug, $public);
+
+                // Commit.
+                $exhibit->save();
+
+                // Redirect to root.
+                return $this->_redirect(NLWS_SLUG . '/exhibits');
+
+            }
+
+        }
+
+        // Push errors.
+        $this->view->errors =       $errors;
+        $this->view->title =        $exhibit->name;
+        $this->view->slug =         $webExhibit->slug;
+        $this->view->public =       (bool) $webExhibit->public;
 
     }
 

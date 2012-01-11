@@ -26,6 +26,7 @@
 class NeatlineWebServicePlugin
 {
 
+    // Hooks.
     private static $_hooks = array(
         'install',
         'uninstall',
@@ -34,7 +35,15 @@ class NeatlineWebServicePlugin
         'public_theme_header'
     );
 
+    // Filters.
     private static $_filters = array();
+
+    // Public-facing admin actions.
+    private static $_adminActions = array(
+        'nlwsAdmin',
+        'nlwsAdminExhibitSlug',
+        'nlwsAdminAnon'
+    );
 
     /**
      * Get database, call addHooksAndFilters().
@@ -135,15 +144,40 @@ class NeatlineWebServicePlugin
     public function defineRoutes($router)
     {
 
-        // Webservice application slug.
+        // Admin slug.
         $router->addRoute(
             'nlwsAdmin',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/:action',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'admin',
+                    'action'        => 'exhibits'
+                )
+            )
+        );
+
+        // Admin anonymous slug.
+        $router->addRoute(
+            'nlwsAdminAnon',
             new Zend_Controller_Router_Route(
                 NLWS_SLUG . '/:action',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'admin',
-                    'action'        => 'login'
+                    'action'        => 'exhibits'
+                )
+            )
+        );
+
+        // Exhibit-specific slug.
+        $router->addRoute(
+            'nlwsAdminExhibitSlug',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/:action/:slug',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'admin'
                 )
             )
         );
@@ -202,7 +236,7 @@ class NeatlineWebServicePlugin
             ->getCurrentRouteName();
 
         // Admin.
-        if ($routeName == 'nlwsAdmin') {
+        if (in_array($routeName, self::$_adminActions)) {
 
             nlws_queueCss();
 

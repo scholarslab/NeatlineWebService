@@ -57,7 +57,7 @@
     </fieldset>
 
     <div class="actions">
-        <button type="submit" class="btn primary large">Create</button>
+        <button type="submit" class="btn primary large"><?php echo $submit; ?></button>
     </div>
 
 </form>

@@ -119,23 +119,32 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * nlws_editUrl() should construct a well-formed edit url.
+     * nlws_url() should construct correct routes based on the passed parameters.
      *
      * @return void.
      */
-    public function testEditUrl()
+    public function testNlwsUrl()
     {
 
-        // Create user.
-        $user = $this->__user($username = 'david');
+        // Context-dependent constants.
+        $common = WEB_ROOT . '/' . NLWS_SLUG;
 
-        // Create NLW exhibit and parent exhibit.
-        $exhibit = $this->__exhibit($user = $user);
-        $exhibit->slug = 'test-slug';
-
+        // When just username is passed.
         $this->assertEquals(
-            nlws_editUrl($exhibit),
-            WEB_ROOT . '/' . NLWS_SLUG . '/david/editor/test-slug'
+            nlws_url('david'),
+            $common . '/david'
+        );
+
+        // When a username and action are passed.
+        $this->assertEquals(
+            nlws_url('david', 'edit'),
+            $common . '/david/edit'
+        );
+
+        // When a username, action, and slug are passed.
+        $this->assertEquals(
+            nlws_url('david', 'edit', 'test-slug'),
+            $common . '/david/edit/test-slug'
         );
 
     }

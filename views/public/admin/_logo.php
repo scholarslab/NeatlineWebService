@@ -13,6 +13,6 @@
 ?>
 
 <h1>
-    <a href="exhibits">Neatline</a>
+<a href="<?php echo nlws_url(nlws_getUsername(), 'exhibits'); ?>">Neatline</a>
     <small>plot the world in space and time.</small>
 </h1>

@@ -70,21 +70,42 @@ function nlws_getErrorClass($errors, $key, $class)
 }
 
 /**
- * Build edit link for web exhibit.
+ * Build webservice url.
  *
- * @param Omeka_record $exhibit     The web exhibit.
+ * @param string $username      The username.
+ * @param string $action        The name of the action.
+ * @param string $slug          The exhibit slug.
  *
  * @return void.
  */
-function nlws_editUrl($exhibit)
+function nlws_url($username, $action = null, $slug = null)
 {
 
-    $user = $exhibit->getUser();
+    // URL root for all actions.
+    $url = WEB_ROOT . '/' .
+        NLWS_SLUG . '/' .
+        $username;
 
-    return WEB_ROOT . '/' .
-           NLWS_SLUG . '/' .
-           $user->username . '/' .
-           'editor/' .
-           $exhibit->slug;
+    // If action passed.
+    if (!is_null($action)) {
+        $url .= '/' . $action;
+    }
 
+    // If slug passed.
+    if (!is_null($slug)) {
+        $url .= '/' . $slug;
+    }
+
+    return $url;
+
+}
+
+/**
+ * Get the username of the current user.
+ *
+ * @return string $username     The username.
+ */
+function nlws_getUsername()
+{
+    return Zend_Auth::getInstance()->getIdentity()->username;
 }

@@ -15,7 +15,7 @@
 <?php
 echo $this->partial('admin/_header.php', array(
     'prefix' => 'Neatline Web Service',
-    'title' => 'Create Exhibit'
+    'title' => 'Edit Exhibit'
 ));
 ?>
 
@@ -30,7 +30,7 @@ echo $this->partial('admin/_header.php', array(
     <div class="row">
 
         <div class="span4">
-            <h2>Create Exhibit</h2>
+            <h2>Edit Exhibit</h2>
             <p>Enter a title, URL slug, and set whether or not the exhibit
                should publicly visible.</p>
         </div>
@@ -42,7 +42,7 @@ echo $this->partial('admin/_header.php', array(
                 'title' => $title,
                 'slug' => $slug,
                 'public' => $public,
-                'submit' => 'Create'
+                'submit' => 'Save'
             )); ?>
         </div>
 

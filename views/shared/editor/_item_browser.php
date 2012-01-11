@@ -32,7 +32,7 @@
         <input type="text" placeholder="Search items" id="search-box" />
         <span id="search-cancel">x</span>
 
-        <button id="new-item-button" class="btn icon add">New</button>
+        <button id="new-item-button" class="btn icon add">New Item</button>
 
         <div class="columns">
             <div class="col-1 col-cell col-header"><span class="header"></span></div>
