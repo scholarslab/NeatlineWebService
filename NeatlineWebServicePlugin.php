@@ -206,6 +206,32 @@ class NeatlineWebServicePlugin
             )
         );
 
+        // Native show.
+        $router->addRoute(
+            'nlwsFullscreen',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/fullscreen/:slug',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'public',
+                    'action'        => 'show'
+                )
+            )
+        );
+
+        // Embedded show.
+        $router->addRoute(
+            'nlwsEmbed',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . '/:user/embed/:slug',
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'public',
+                    'action'        => 'embed'
+                )
+            )
+        );
+
         // ** Clobber Simile __history__.html asset.
         $router->addRoute(
             'nlwsSimileHistoryOverride',
