@@ -38,19 +38,24 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
 
         // Create a user.
         $this->user = $this->__user(
-            'david',
-            'poesypure',
+            'username',
+            'password',
             'test@test.com'
         );
 
         // Authenticate.
-        $adapter = new NeatlineAuthAdapter('david', 'poesypure');
+        $adapter = new NeatlineAuthAdapter('username', 'password');
         $auth = Zend_Auth::getInstance();
         $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
         $auth->authenticate($adapter);
 
         // Create an exhibit.
-        $this->exhibit = $this->__exhibit($this->user);
+        $this->exhibit = $this->__exhibit(
+            $this->user,
+            'Test',
+            'test-slug',
+            true
+        );
 
     }
 
@@ -63,11 +68,11 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
 
         // Check for the form.
-        $this->assertQuery('div.title input[value="Test Exhibit"]');
-        $this->assertQuery('div.slug input[value="test-exhibit"]');
+        $this->assertQuery('div.title input[value="Test"]');
+        $this->assertQuery('div.slug input[value="test-slug"]');
         $this->assertQuery('div.public input[checked="checked"]');
 
     }
@@ -89,7 +94,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -131,7 +136,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -161,7 +166,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -185,7 +190,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -210,7 +215,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -235,7 +240,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('neatline/david/edit/test-exhibit');
+        $this->dispatch('neatline/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
     }

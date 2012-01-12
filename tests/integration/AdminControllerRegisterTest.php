@@ -302,7 +302,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
     {
 
         // Create a user, set username.
-        $user = $this->__user($email = 'dwm@uva.edu');
+        $user = $this->__user('username', 'password', 'test@test.edu');
 
         // Prepare the request.
         $this->request->setMethod('POST')
@@ -310,7 +310,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
                 'username' =>   '',
                 'password' =>   '',
                 'confirm' =>    '',
-                'email' =>      'dwm@uva.edu'
+                'email' =>      'test@test.edu'
             )
         );
 
