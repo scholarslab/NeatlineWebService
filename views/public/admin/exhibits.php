@@ -27,13 +27,14 @@ echo $this->partial('admin/_header.php', array(
         <?php echo $this->partial('admin/_logout.php', array('user' => $user)); ?>
     </div>
 
-    <a class="no-underline" href="<?php echo nlws_url('add'); ?>">
-        <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
-    </a>
-
     <div class="row">
 
         <div class="span16">
+
+            <h2 class="clearfix">Browse Exhibits</h2>
+            <a class="no-underline" href="<?php echo nlws_url('add'); ?>">
+                <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
+            </a>
 
             <?php if ($exhibits): ?>
 
@@ -51,8 +52,9 @@ echo $this->partial('admin/_header.php', array(
                             <a class="exhibit-title" href="<?php echo nlws_url('editor', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
                             <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
                             <span class="action bold"><a href="<?php echo nlws_url('edit', $exhibit->slug); ?>">edit</a> |</span>
+                            <span class="action"><a href="">public</a> |</span>
                             <span class="action"><a href="">embed</a> |</span>
-                            <span class="action danger"><a href="">delete</a></span>
+                            <span class="action danger"><a href="<?php echo nlws_url('delete', $exhibit->slug); ?>">delete</a></span>
                         </td>
                         <td><?php echo $exhibit->getNumberOfRecords(); ?></td>
                         <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>

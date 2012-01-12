@@ -110,8 +110,9 @@ class NeatlineWebExhibit extends Omeka_record
     public function _validateAdd($title, $slug)
     {
 
-        // Errors array.
+        // Errors array and exhibits table.
         $errors = array();
+        $_exhibitsTable = $this->getTable('NeatlineWebExhibit');
 
         /**
          * TITLE
@@ -138,12 +139,16 @@ class NeatlineWebExhibit extends Omeka_record
         }
 
         // Duplicate slug.
-        else if (!$this->getTable('NeatlineWebExhibit')
-            ->slugIsAvailable($this->getUser(), $slug)) {
+        else if (
+            !$_exhibitsTable->slugIsAvailable($this->getUser(), $slug) &&
+            $slug != $this->slug
+        ) {
+
             $errors['slug'] = get_plugin_ini(
                 'NeatlineWebService',
                 'slug_taken'
             );
+
         }
 
         // Invalid slug.

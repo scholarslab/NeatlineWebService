@@ -98,8 +98,7 @@ function nlws_url(
         $path .= '/' . $slug;
     }
 
-    return $noRoot ? $path :
-        WEB_ROOT . '/' . $path;
+    return $noRoot ? $path : WEB_ROOT . '/' . $path;
 
 }
 

@@ -106,7 +106,7 @@ class NeatlineWebServicePlugin
                 `id`                    int(10) unsigned not null auto_increment,
                 `user_id`               int(10) unsigned NULL,
                 `exhibit_id`            int(10) unsigned NULL,
-                `slug`                  varchar(100) NOT NULL UNIQUE,
+                `slug`                  varchar(100) NOT NULL,
                 `public`                tinyint(1) NOT NULL,
                  PRIMARY KEY (`id`)
                ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
@@ -239,8 +239,10 @@ class NeatlineWebServicePlugin
 
             nlws_queueCss();
 
-            // ** /add
-            if ($request->getActionName() == 'add') {
+            // ** /add or /edit
+            if (in_array(
+                $request->getActionName(),
+                array('add', 'edit'))) {
                 nlws_queueAddJs();
             }
 

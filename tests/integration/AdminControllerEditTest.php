@@ -223,6 +223,78 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
     }
 
     /**
+     * When a slug is saved that is the same as another users's slug, /edit
+     * should allow the commit.
+     *
+     * @return void.
+     */
+    public function testEditWithSlugMatchingDifferentUsersSlug()
+    {
+
+        // Create a second user.
+        $user2 = $this->__user(
+            'username2',
+            'password2',
+            'test2@test.com'
+        );
+
+        // Create a second exhibit.
+        $exhibit = $this->__exhibit(
+            $user2,
+            'Test2',
+            'different-slug',
+            true
+        );
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>  'New Title',
+                'slug' =>   'different-slug',
+            )
+        );
+
+        // Hit the route, check for redirect.
+        $this->dispatch('neatline/username/edit/test-slug');
+        $this->assertRedirectTo(nlws_url('exhibits'));
+
+        // Check for updated values.
+        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
+        $this->assertEquals($updatedExhibit->getExhibit()->name, 'New Title');
+        $this->assertEquals($updatedExhibit->slug, 'different-slug');
+        $this->assertEquals($updatedExhibit->public, 0);
+
+    }
+
+    /**
+     * When the slug is unchanged, /edit should not flag the slug as taken.
+     *
+     * @return void.
+     */
+    public function testEditWithUnchangedSlug()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>  'New Title',
+                'slug' =>   'test-slug',
+            )
+        );
+
+        // Hit the route, check for redirect.
+        $this->dispatch('neatline/username/edit/test-slug');
+        $this->assertRedirectTo(nlws_url('exhibits'));
+
+        // Check for updated values.
+        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
+        $this->assertEquals($updatedExhibit->getExhibit()->name, 'New Title');
+        $this->assertEquals($updatedExhibit->slug, 'test-slug');
+        $this->assertEquals($updatedExhibit->public, 0);
+
+    }
+
+    /**
      * With valid parameters, /edit should save changes.
      *
      * @return void.
@@ -235,13 +307,20 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>  'New Title',
                 'slug' =>   'new-slug',
-                'public' => 'off'
             )
         );
 
         // Hit the route, check for redirect.
         $this->dispatch('neatline/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
+
+        // Check for updated values.
+        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
+        $this->assertEquals($updatedExhibit->getExhibit()->name, 'New Title');
+        $this->assertEquals($updatedExhibit->slug, 'new-slug');
+        $this->assertEquals($updatedExhibit->public, 0);
+
+
 
     }
 

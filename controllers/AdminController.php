@@ -368,6 +368,19 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function deleteAction()
     {
 
+        // Get the exhibit.
+        $slug =                 $this->_request->getParam('slug');
+        $exhibit =              $this->_exhibitsTable->findBySlug($slug);
+
+        // Delete.
+        if ($this->_request->isPost()) {
+            $exhibit->delete();
+            return $this->_redirect(nlws_url('exhibits'));
+        }
+
+        // Push exhibit.
+        $this->view->exhibit = $exhibit;
+
     }
 
 
