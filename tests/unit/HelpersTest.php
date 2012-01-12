@@ -33,13 +33,8 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the database and table.
-        $this->db = get_db();
-        $this->_usersTable = $this->db->getTable('NeatlineUser');
 
     }
 
@@ -126,10 +121,12 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
     public function testNlwsUrl()
     {
 
-        // Create a user, authenticate.
-        $this->user =   $this->__user($username = 'david', $password = 'poesypure');
-        $adapter =      new NeatlineAuthAdapter('david', 'poesypure');
-        $auth =         Zend_Auth::getInstance();
+        // Create a user.
+        $this->__user();
+
+        // Authenticate.
+        $adapter = new NeatlineAuthAdapter('username', 'password');
+        $auth = Zend_Auth::getInstance();
         $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
         $auth->authenticate($adapter);
 
@@ -139,19 +136,19 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
         // When just username is passed.
         $this->assertEquals(
             nlws_url(),
-            $common . '/david'
+            $common . '/username'
         );
 
         // When a username and action are passed.
         $this->assertEquals(
             nlws_url('edit'),
-            $common . '/david/edit'
+            $common . '/username/edit'
         );
 
         // When a username, action, and slug are passed.
         $this->assertEquals(
             nlws_url('edit', 'test-slug'),
-            $common . '/david/edit/test-slug'
+            $common . '/username/edit/test-slug'
         );
 
     }

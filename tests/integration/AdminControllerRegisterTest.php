@@ -33,13 +33,8 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the database and table.
-        $this->db = get_db();
-        $this->_usersTable = $this->db->getTable('NeatlineUser');
 
     }
 
@@ -121,7 +116,7 @@ class NeatlineWebService_AdminControllerRegisterTest extends NWS_Test_AppTestCas
     {
 
         // Create a user, set username.
-        $user = $this->__user($username = 'david');
+        $user = $this->__user('david', 'poesypure', 'test@test.com');
 
         // Prepare the request.
         $this->request->setMethod('POST')

@@ -33,13 +33,8 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the database and table.
-        $this->db = get_db();
-        $this->_exhibitsTable = $this->db->getTable('NeatlineWebExhibit');
 
     }
 
@@ -61,7 +56,7 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $exhibit->save();
 
         $this->assertFalse(
-            $this->_exhibitsTable->findBySlug('non-existent-slug')
+            $this->_webExhibitsTable->findBySlug('non-existent-slug')
         );
 
     }
@@ -77,18 +72,20 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         // Create user.
         $user = $this->__user();
 
-        // Create NLW exhibits.
+        // Exhibit 1.
         $exhibit1 = new NeatlineWebExhibit($user);
         $exhibit1->slug = 'existing-slug';
         $exhibit1->public = 1;
         $exhibit1->save();
+
+        // Exhibit 2.
         $exhibit2 = new NeatlineWebExhibit($user);
         $exhibit2->slug = 'another-slug';
         $exhibit2->public = 1;
         $exhibit2->save();
 
         // Get.
-        $exhibit = $this->_exhibitsTable->findBySlug('another-slug');
+        $exhibit = $this->_webExhibitsTable->findBySlug('another-slug');
 
         // Check identity.
         $this->assertEquals($exhibit2->id, $exhibit->id);
@@ -105,8 +102,8 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     {
 
         // Create 2 users.
-        $user1 = $this->__user($username = 'user1');
-        $user2 = $this->__user($username = 'user2');
+        $user1 = $this->__user('test1', 'test1', 'test1@virginia.edu');
+        $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         // Create NLW exhibit for user1.
         $exhibit = new NeatlineWebExhibit($user1);
@@ -116,12 +113,12 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
 
         // False when user1 is passed.
         $this->assertFalse(
-            $this->_exhibitsTable->slugIsAvailable($user1, 'taken-slug')
+            $this->_webExhibitsTable->slugIsAvailable($user1, 'taken-slug')
         );
 
-        // False when user2 is passed.
+        // True
         $this->assertTrue(
-            $this->_exhibitsTable->slugIsAvailable($user2, 'taken-slug')
+            $this->_webExhibitsTable->slugIsAvailable($user2, 'taken-slug')
         );
 
     }
@@ -135,8 +132,8 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     {
 
         // Create 2 users.
-        $user1 = $this->__user($username = 'user1');
-        $user2 = $this->__user($username = 'user2');
+        $user1 = $this->__user('test1', 'test1', 'test1@virginia.edu');
+        $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         $exhibit1 = new NeatlineWebExhibit($user1);
         $exhibit1->slug =    'test1';
@@ -175,13 +172,13 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $exhibit6->save();
 
         // Get.
-        $exhibits = $this->_exhibitsTable->getExhibitsByUser($user1);
+        $exhibits = $this->_webExhibitsTable->getExhibitsByUser($user1);
 
         // Count.
         $this->assertEquals(count($exhibits), 4);
 
         // Get.
-        $exhibits = $this->_exhibitsTable->getExhibitsByUser($user2);
+        $exhibits = $this->_webExhibitsTable->getExhibitsByUser($user2);
 
         // Count.
         $this->assertEquals(count($exhibits), 2);

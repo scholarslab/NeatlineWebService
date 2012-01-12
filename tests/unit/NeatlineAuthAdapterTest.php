@@ -33,13 +33,8 @@ class Neatline_NeatlineAuthAdapterTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the users table.
-        $this->db = get_db();
-        $this->_usersTable = $this->db->getTable('NeatlineUser');
 
     }
 

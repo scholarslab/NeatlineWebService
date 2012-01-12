@@ -167,7 +167,7 @@ class NeatlineWebExhibit extends Omeka_record
      *
      * @return void.
      */
-    public function _applyAdd($title, $slug, $public)
+    public function _apply($title, $slug, $public)
     {
 
         // Set local columns.

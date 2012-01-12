@@ -33,13 +33,8 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the database and table.
-        $this->db = get_db();
-        $this->_usersTable = $this->db->getTable('NeatlineUser');
 
     }
 
@@ -53,10 +48,10 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
-        $user = $this->__user($username = 'david');
+        $this->__user();
 
         // Test for false.
-        $this->assertFalse($this->_usersTable->usernameIsAvailable('david'));
+        $this->assertFalse($this->_usersTable->usernameIsAvailable('username'));
 
     }
 
@@ -70,10 +65,10 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
-        $user = $this->__user($username = 'david');
+        $this->__user();
 
         // Test for true.
-        $this->assertTrue($this->_usersTable->usernameIsAvailable('eric'));
+        $this->assertTrue($this->_usersTable->usernameIsAvailable('david'));
 
     }
 
@@ -87,10 +82,10 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
-        $user = $this->__user($email = 'dwm@uva.edu');
+        $this->__user();
 
         // Test for false.
-        $this->assertFalse($this->_usersTable->emailIsAvailable('dwm@uva.edu'));
+        $this->assertFalse($this->_usersTable->emailIsAvailable('test@virginia.edu'));
 
     }
 
@@ -104,10 +99,10 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
-        $user = $this->__user($email = 'dwm@uva.edu');
+        $this->__user();
 
         // Test for true.
-        $this->assertTrue($this->_usersTable->emailIsAvailable('eric@uva.edu'));
+        $this->assertTrue($this->_usersTable->emailIsAvailable('david@virginia.edu'));
 
     }
 
@@ -121,10 +116,10 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
-        $user = $this->__user($username = 'david');
+        $user = $this->__user();
 
         // Get out the user and check identity.
-        $retrievedUser = $this->_usersTable->findByUsername('david');
+        $retrievedUser = $this->_usersTable->findByUsername('username');
         $this->assertEquals($user->id, $retrievedUser->id);
 
     }
@@ -139,7 +134,7 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Try to get non-existent user.
-        $retrievedUser = $this->_usersTable->findByUsername('david');
+        $retrievedUser = $this->_usersTable->findByUsername('username');
         $this->assertFalse($retrievedUser);
 
     }
@@ -174,11 +169,11 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user, set username.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
+        $this->__user();
 
         // Register with empty fields.
         $errors = $this->_usersTable->_validateLogin(
-            'david',
+            'username',
             '');
 
         // Check for the errors.
@@ -198,11 +193,11 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user, set username.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
+        $this->__user();
 
         // Register with empty fields.
         $errors = $this->_usersTable->_validateLogin(
-            'eric',
+            'davidmcclure',
             '');
 
         // Check for the error.
@@ -221,13 +216,13 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     public function testValidateLoginPasswordIncorrect()
     {
 
-        // Create a user, set username.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
+        // Create a user.
+        $this->__user();
 
         // Register with empty fields.
         $errors = $this->_usersTable->_validateLogin(
-            'david',
-            'poesyimpure');
+            'username',
+            'incorrect');
 
         // Check for the error.
         $this->assertEquals(
@@ -246,12 +241,12 @@ class Neatline_NeatlineUserTableTest extends NWS_Test_AppTestCase
     {
 
         // Create a user, set username.
-        $user = $this->__user($username = 'david', $password = 'poesypure');
+        $this->__user();
 
         // Register with empty fields.
         $errors = $this->_usersTable->_validateLogin(
-            'david',
-            'poesypure');
+            'username',
+            'password');
 
         // Check for the error.
         $this->assertEquals($errors, array());

@@ -33,7 +33,6 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
 

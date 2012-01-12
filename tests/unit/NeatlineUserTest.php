@@ -33,13 +33,8 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the database and table.
-        $this->db = get_db();
-        $this->_usersTable = $this->db->getTable('NeatlineUser');
 
     }
 
@@ -88,12 +83,13 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     public function testValidateRegistrationUsernameTaken()
     {
 
-        // Create a user, set username.
-        $user = $this->__user($username = 'david');
+        // Create a user.
+        $user1 = $this->__user();
+        $user2 = new NeatlineUser;
 
         // Register with taken name.
-        $errors = $user->_validateRegistration(
-            'david',
+        $errors = $user2->_validateRegistration(
+            'username',
             '',
             '',
             '');
@@ -209,15 +205,16 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     public function testValidateRegistrationEmailTaken()
     {
 
-        // Create a user, set username.
-        $user = $this->__user($email = 'dwm@uva.edu');
+        // Create two users.
+        $user1 = $this->__user('test1', 'test1', 'test1@test.edu');
+        $user2 = new NeatlineUser;
 
         // Register taken address.
-        $errors = $user->_validateRegistration(
+        $errors = $user2->_validateRegistration(
             '',
             '',
             '',
-            'dwm@uva.edu');
+            'test1@test.edu');
 
         // Check for the error.
         $this->assertEquals(
@@ -269,7 +266,7 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
         // Register with missing confirmation.
         $errors = $user->_validateRegistration(
             '',
-            'poesypure',
+            'password',
             '',
             '');
 
@@ -291,14 +288,15 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
     {
 
         // Create a user.
+        $user = $this->__user();
         $user = new NeatlineUser;
 
         // Register with mismatching confirmation.
         $errors = $user->_validateRegistration(
-            'davidmcclure',
-            'poesypure',
-            'poesyimpure',
-            'dwm@uva.edu');
+            'username',
+            'password',
+            'incorrect',
+            'test@virginia.edu');
 
         // Check for the error.
         $this->assertEquals(
@@ -322,10 +320,10 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
 
         // Register with valid credentials.
         $errors = $user->_validateRegistration(
-            'davidmcclure',
-            'poesypure',
-            'poesypure',
-            'dwm@uva.edu');
+            'username',
+            'password',
+            'password',
+            'test@virginia.edu');
 
         // Check for empty array.
         $this->assertEquals($errors, array());
@@ -346,15 +344,16 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
 
         // Register with valid credentials.
         $errors = $user->_applyRegistration(
-            'davidmcclure',
-            'poesypure',
-            'dwm@uva.edu');
+            'username',
+            'password',
+            'test@virginia.edu');
 
         // Check record.
-        $this->assertEquals($user->username, 'davidmcclure');
-        $this->assertEquals($user->email, 'dwm@uva.edu');
+        $this->assertEquals($user->username, 'username');
+        $this->assertEquals($user->email, 'test@virginia.edu');
         $this->assertNotNull($user->password);
         $this->assertNotNull($user->salt);
+        $this->assertTrue($user->checkPassword('password'));
 
     }
 
@@ -371,14 +370,14 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
 
         // Register with valid credentials.
         $errors = $user->_applyRegistration(
-            'davidmcclure',
-            'poesypure',
-            'dwm@uva.edu');
+            'username',
+            'password',
+            'test@virginia.edu');
 
         $user->save();
 
         // Check.
-        $this->assertFalse($user->checkPassword('poesyimpure'));
+        $this->assertFalse($user->checkPassword('incorrect'));
 
     }
 
@@ -395,14 +394,14 @@ class Neatline_NeatlineUserTest extends NWS_Test_AppTestCase
 
         // Register with valid credentials.
         $errors = $user->_applyRegistration(
-            'davidmcclure',
-            'poesypure',
-            'dwm@uva.edu');
+            'username',
+            'password',
+            'test@virginia.edu');
 
         $user->save();
 
         // Check.
-        $this->assertTrue($user->checkPassword('poesypure'));
+        $this->assertTrue($user->checkPassword('password'));
 
     }
 

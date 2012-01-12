@@ -42,9 +42,9 @@ class NeatlineWebService_AllTests extends PHPUnit_Framework_TestSuite
 
         $collector = new PHPUnit_Runner_IncludePathTestCollector(
             array(
-                dirname(__FILE__) . '/integration',
-                dirname(__FILE__) . '/unit',
-                dirname(__FILE__) . '/fixtures'
+                // dirname(__FILE__) . '/integration',
+                dirname(__FILE__) . '/unit'
+                // dirname(__FILE__) . '/fixtures'
             )
         );
 

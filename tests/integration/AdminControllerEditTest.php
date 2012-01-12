@@ -22,7 +22,7 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
+class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
 {
 
     /**
@@ -49,32 +49,35 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
         $auth->authenticate($adapter);
 
+        // Create an exhibit.
+        $this->exhibit = $this->__exhibit($this->user);
+
     }
 
     /**
-     * /add should render the add form.
+     * /edit should render the edit form.
      *
      * @return void.
      */
-    public function testAddFormDisplay()
+    public function testEditFormDisplay()
     {
 
         // Hit the route.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
 
         // Check for the form.
-        $this->assertQuery('input[name="title"]');
-        $this->assertQuery('input[name="slug"]');
-        $this->assertQuery('input[name="public"]');
+        $this->assertQuery('div.title input[value="Test Exhibit"]');
+        $this->assertQuery('div.slug input[value="test-exhibit"]');
+        $this->assertQuery('div.public input[checked="checked"]');
 
     }
 
     /**
-     * /add should render errors for submission with empty fields.
+     * /edit should render errors for submission with empty fields.
      *
      * @return void.
      */
-    public function testAddErrorsEmptyFields()
+    public function testEditErrorsEmptyFields()
     {
 
         // Prepare the request.
@@ -86,7 +89,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -103,17 +106,14 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
             get_plugin_ini('NeatlineWebService', 'slug_absent')
         );
 
-        // No exhibit created.
-        $this->assertEquals($this->_webExhibitsTable->count(), 0);
-
     }
 
     /**
-     * /add should render error for a reserved slug.
+     * /edit should render error for a reserved slug.
      *
      * @return void.
      */
-    public function testAddErrorsSlugTaken()
+    public function testEditErrorsSlugTaken()
     {
 
         // Create NLW exhibit for the user.
@@ -131,7 +131,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -142,17 +142,14 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
             get_plugin_ini('NeatlineWebService', 'slug_taken')
         );
 
-        // No exhibit created.
-        $this->assertEquals($this->_webExhibitsTable->count(), 1);
-
     }
 
     /**
-     * /add should persist a title on form re-display.
+     * /edit should persist a title on form re-display.
      *
      * @return void.
      */
-    public function testAddTitlePersistence()
+    public function testEditTitlePersistence()
     {
 
         // Prepare the request.
@@ -164,7 +161,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -172,11 +169,11 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * /add should persist a slug on form re-display.
+     * /edit should persist a slug on form re-display.
      *
      * @return void.
      */
-    public function testAddSlugPersistence()
+    public function testEditSlugPersistence()
     {
 
         // Prepare the request.
@@ -188,7 +185,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -196,11 +193,11 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * /add should persist a public setting on form re-display.
+     * /edit should persist a public setting on form re-display.
      *
      * @return void.
      */
-    public function testAddPublicPersistence()
+    public function testEditPublicPersistence()
     {
 
         // Prepare the request.
@@ -213,7 +210,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -221,39 +218,25 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * With valid parameters, /add should create a new exhibit and redirect
-     * to /exhibits.
+     * With valid parameters, /edit should save changes.
      *
      * @return void.
      */
-    public function testAddSuccess()
+    public function testEditSuccess()
     {
-
-        // Create a second user.
-        $user2 = $this->__user();
-
-        // Create NLW exhibit for user2.
-        $exhibit = new NeatlineWebExhibit($user2);
-        $exhibit->createParentExhibit();
-        $exhibit->slug = 'taken-slug';
-        $exhibit->public = 1;
-        $exhibit->save();
 
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>  'Test Title',
+                'title' =>  'New Title',
                 'slug' =>   'new-slug',
-                'public' => 'on'
+                'public' => 'off'
             )
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('neatline/david/add');
+        $this->dispatch('neatline/david/edit/test-exhibit');
         $this->assertRedirectTo(nlws_url('exhibits'));
-
-        // No exhibit created.
-        $this->assertEquals($this->_webExhibitsTable->count(), 2);
 
     }
 

@@ -33,14 +33,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     public function setUp()
     {
 
-        // Roll up the environment.
         parent::setUp();
         $this->setUpPlugin();
-
-        // Get the database and tables.
-        $this->db = get_db();
-        $this->_exhibitsTable = $this->db->getTable('NeatlineExhibit');
-        $this->_webExhibitsTable = $this->db->getTable('NeatlineWebExhibit');
 
     }
 
@@ -110,7 +104,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
 
         // Create a user and exhibit.
         $user =     $this->__user();
-        $exhibit    = $this->__exhibit($user = $user);
+        $exhibit =  $this->__exhibit($user);
 
         // Get out the user.
         $retrievedUser = $exhibit->getUser();
@@ -129,16 +123,14 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     {
 
         // Create an exhibit.
-        $exhibit    = $this->__exhibit();
-
-        // Get out the exhibit.
-        $exhibit = $exhibit->getExhibit();
+        $webExhibit = $this->__exhibit();
+        $neatlineExhibit = $webExhibit->getExhibit();
 
         // Get the new exhibit.
         $newExhibit = $this->__getMostRecentNeatlineExhibit();
 
         // Check identity.
-        $this->assertEquals($exhibit->id, $newExhibit->id);
+        $this->assertEquals($neatlineExhibit->id, $newExhibit->id);
 
     }
 
@@ -151,8 +143,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     {
 
         // Create a user and exhibit.
-        $user =     $this->__user();
-        $exhibit    = $this->__exhibit($user = $user);
+        $user = $this->__user();
+        $exhibit = $this->__exhibit($user);
 
         // Validate with empty fields.
         $errors = $exhibit->_validateAdd(
@@ -181,8 +173,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     {
 
         // Create 2 users.
-        $user1 = $this->__user($username = 'user1');
-        $user2 = $this->__user($username = 'user2');
+        $user1 = $this->__user('test1', 'test1', 'test1@virginia.edu');
+        $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         // Create NLW exhibit for user1.
         $exhibit1 = new NeatlineWebExhibit($user1);
@@ -224,7 +216,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     {
 
         // Create an exhibit.
-        $exhibit    = $this->__exhibit();
+        $exhibit = $this->__exhibit();
 
         // Validate with empty fields.
         $errors = $exhibit->_validateAdd(
@@ -249,7 +241,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     {
 
         // Create an exhibit.
-        $exhibit    = $this->__exhibit();
+        $exhibit = $this->__exhibit();
 
         // Validate with empty fields.
         $errors = $exhibit->_validateAdd(
@@ -274,7 +266,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     {
 
         // Create an exhibit.
-        $exhibit    = $this->__exhibit();
+        $exhibit = $this->__exhibit();
 
         // Validate with empty fields.
         $errors = $exhibit->_validateAdd(
@@ -290,11 +282,11 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * _applyAdd() should assign column values.
+     * _apply() should assign column values.
      *
      * @return void.
      */
-    public function testApplyAdd()
+    public function testApply()
     {
 
         // Create user.
@@ -305,7 +297,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $exhibit->createParentExhibit();
 
         // Apply.
-        $exhibit->_applyAdd('Test Title', 'test-title', true);
+        $exhibit->_apply('Test Title', 'test-title', true);
 
         // Get the new exhibit.
         $newExhibit = $exhibit->getExhibit();
@@ -318,11 +310,11 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * _applyAdd() should lowercase the slug.
+     * _apply() should lowercase the slug.
      *
      * @return void.
      */
-    public function testApplyAddLowercaseSlug()
+    public function testApplyLowercaseSlug()
     {
 
         // Create user.
@@ -333,7 +325,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $exhibit->createParentExhibit();
 
         // Apply.
-        $exhibit->_applyAdd('Test Title', 'Test-Title', true);
+        $exhibit->_apply('Test Title', 'Test-Title', true);
 
         // Get the new exhibit.
         $newExhibit = $exhibit->getExhibit();
@@ -381,8 +373,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $exhibit2 = new NeatlineWebExhibit($user);
         $exhibit1->createParentExhibit();
         $exhibit2->createParentExhibit();
-        $parentExhibit1 = $this->_exhibitsTable->find(1);
-        $parentExhibit2 = $this->_exhibitsTable->find(2);
+        $parentExhibit1 = $exhibit1->getExhibit();
+        $parentExhibit2 = $exhibit2->getExhibit();
 
         // Create records.
         $record1 = new NeatlineDataRecord(null, $parentExhibit1);

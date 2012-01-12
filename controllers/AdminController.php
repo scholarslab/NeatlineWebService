@@ -287,7 +287,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
                 // Create parent exhibit and set columns.
                 $exhibit->createParentExhibit();
-                $exhibit->_applyAdd($title, $slug, $public);
+                $exhibit->_apply($title, $slug, $public);
 
                 // Commit.
                 $exhibit->save();
@@ -317,8 +317,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Get the exhibit.
         $slug =                 $this->_request->getParam('slug');
-        $webExhibit =           $this->_exhibitsTable->findBySlug($slug);
-        $exhibit =              $webExhibit->getExhibit();
+        $exhibit =              $this->_exhibitsTable->findBySlug($slug);
+        $title =                $exhibit->getExhibit()->name;
+        $slug =                 $exhibit->slug;
 
         // Shell for errors.
         $errors = array();
@@ -339,7 +340,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             if (count($errors) == 0) {
 
                 // Set columns.
-                $exhibit->_applyAdd($title, $slug, $public);
+                $exhibit->_apply($title, $slug, $public);
 
                 // Commit.
                 $exhibit->save();
@@ -353,9 +354,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Push errors.
         $this->view->errors =       $errors;
-        $this->view->title =        $exhibit->name;
-        $this->view->slug =         $webExhibit->slug;
-        $this->view->public =       (bool) $webExhibit->public;
+        $this->view->title =        $title;
+        $this->view->slug =         $slug;
+        $this->view->public =       (bool) $exhibit->public;
 
     }
 
