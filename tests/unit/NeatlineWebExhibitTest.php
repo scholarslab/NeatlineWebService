@@ -396,4 +396,50 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * delete() should delete the parent exhibit.
+     *
+     * @return void.
+     */
+    public function testDelete()
+    {
+
+        // Create user.
+        $user = $this->__user();
+
+        // Create NLW exhibit, get parent exhibit.
+        $exhibit = $this->__exhibit($user);
+        $parentExhibit = $exhibit->getExhibit();
+
+        // Get counts.
+        $webExhibitsCount = $this->_webExhibitsTable->count();
+        $nealineExhibitsCount = $this->_exhibitsTable->count();
+
+        // Delete web exhibit.
+        $exhibit->delete();
+
+        // Web exhibit deleted.
+        $this->assertEquals(
+            $this->_webExhibitsTable->count(),
+            $webExhibitsCount - 1
+        );
+
+        // Check for absence.
+        $this->assertNull(
+            $this->_webExhibitsTable->find($parentExhibit->id)
+        );
+
+        // Neatline exhibit deleted.
+        $this->assertEquals(
+            $this->_exhibitsTable->count(),
+            $nealineExhibitsCount - 1
+        );
+
+        // Check for absence.
+        $this->assertNull(
+            $this->_exhibitsTable->find($exhibit->id)
+        );
+
+    }
+
 }

@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Admininistration controller integration tests for the add flow.
+ * Admininistration controller integration tests for the edit flow.
  *
  * PHP version 5
  *
