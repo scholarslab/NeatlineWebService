@@ -361,6 +361,23 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     }
 
     /**
+     * Embed configuration application.
+     *
+     * @return void
+     */
+    public function embedAction()
+    {
+
+        // Get the exhibit.
+        $slug =                 $this->_request->getParam('slug');
+        $exhibit =              $this->_exhibitsTable->findBySlug($slug);
+
+        // Push exhibit.
+        $this->view->exhibit = $exhibit;
+
+    }
+
+    /**
      * Delete exhibit.
      *
      * @return void

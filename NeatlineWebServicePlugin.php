@@ -223,7 +223,7 @@ class NeatlineWebServicePlugin
         $router->addRoute(
             'nlwsEmbed',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . '/:user/embed/:slug',
+                NLWS_SLUG . '/:user/embedded/:slug',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'public',

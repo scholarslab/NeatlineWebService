@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Partial template for the editor top bar.
+ * Public-facing Neatline exhibit.
  *
  * PHP version 5
  *
@@ -25,31 +25,14 @@
  */
 ?>
 
-<a class="omeka-logo" href="http://omeka.org/" target="_blank">powered by omeka</a>
+<?php
+    $head = array('bodyclass' => 'neatline primary', 'title' => $neatline->name);
+    head($head);
+?>
 
-<ul class="nav">
+    <h1><?php echo $neatline->name; ?></h1>
+    <div id="primary">
+        <?php echo $this->partial('neatline/_neatline.php', $neatlineData); ?>
+    </div>
 
-    <li class="dropdown">
-        <a href="" id="configure-items-button" class="dropdown-toggle">Item Settings</a>
-        <div id="configure-items" class="dropdown-content">
-            <?php echo $this->partial('editor/_configure_items.php'); ?>
-        </div>
-    </li>
-
-    <li class="dropdown">
-        <a href="" id="configure-map-button" class="dropdown-toggle">Map Settings</a>
-        <div id="configure-map" class="dropdown-content">
-            <?php echo $this->partial('editor/_configure_map.php', array(
-                'neatline' => $neatline
-            )); ?>
-        </div>
-    </li>
-
-    <li class="dropdown">
-        <a href="" id="configure-layout-button" class="dropdown-toggle">Layout Editor</a>
-        <div id="configure-layout" class="dropdown-content">
-            <?php echo $this->partial('editor/_configure_layout.php'); ?>
-        </div>
-    </li>
-
-</ul>
+<?php foot(); ?>
