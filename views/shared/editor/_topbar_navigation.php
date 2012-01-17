@@ -25,7 +25,7 @@
  */
 ?>
 
-<a class="omeka-logo" href="http://omeka.org/" target="_blank">powered by omeka</a>
+<a class="omeka-logo" href="http://omeka.org/" target="_blank">Powered by Omeka</a>
 
 <ul class="nav">
 
