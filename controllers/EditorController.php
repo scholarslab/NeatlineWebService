@@ -60,12 +60,14 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
     {
 
         // Get the web exhibits table.
-        $_webExhibitsTable = $this->getTable('NeatlineWebExhibit');
+        $_webExhibitsTable =        $this->getTable('NeatlineWebExhibit');
+        $_layersTable =             $this->getTable('NeatlineBaseLayer');
 
         // Get records and shell out defaults.
         $slug =                     $this->_request->getParam('slug');
         $webExhibit =               $_webExhibitsTable->findBySlug($slug);
         $exhibit =                  $webExhibit->getExhibit();
+        $layers =                   $_layersTable->findAll();
 
         // Construct the data array for the exhibit.
         $neatlineData = array(
@@ -82,6 +84,7 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
         $this->view->neatline =     $exhibit;
         $this->view->neatlineData = $neatlineData;
         $this->view->map =          $map;
+        $this->view->layers =       $layers;
 
     }
 

@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Full-screen Neatline exhibit.
+ * Partial template for the editor top bar.
  *
  * PHP version 5
  *
@@ -25,21 +25,4 @@
  */
 ?>
 
-<!-- Custom page header. -->
-<?php echo $this->partial('public/_public_header.php', array(
-    'titlePrefix' => 'Neatline',
-    'title' => $neatline->name
-)); ?>
-
-<!-- The top bar. -->
-<?php echo $this->partial('public/_topbar.php', array(
-    'neatline' => $neatline,
-    'layers' => $layers
-)); ?>
-
-<!-- The core Neatline partial. -->
-<?php echo $this->partial('neatline/_neatline.php', $neatlineData); ?>
-
-<!-- Custom footer. -->
-<?php echo $this->partial('editor/_editor_footer.php'); ?>
-
+<a class="omeka-logo" href="http://omeka.org/">powered by omeka</a>

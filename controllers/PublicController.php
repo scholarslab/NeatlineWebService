@@ -46,7 +46,7 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
 
         // Construct the data array for the exhibit.
         $neatlineData = array(
-            'public' =>             false,
+            'public' =>             true,
             'neatline' =>           $exhibit,
             'dataSources' => array(
                 'timeline' =>       neatline_getTimelineDataUrl($exhibit->id),

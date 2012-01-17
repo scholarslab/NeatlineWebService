@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Full-screen Neatline exhibit.
+ * Page header markup for the editor.
  *
  * PHP version 5
  *
@@ -25,21 +25,25 @@
  */
 ?>
 
-<!-- Custom page header. -->
-<?php echo $this->partial('public/_public_header.php', array(
-    'titlePrefix' => 'Neatline',
-    'title' => $neatline->name
-)); ?>
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $titlePrefix; ?>: <?php echo $title; ?></title>
 
-<!-- The top bar. -->
-<?php echo $this->partial('public/_topbar.php', array(
-    'neatline' => $neatline,
-    'layers' => $layers
-)); ?>
+<!-- Plugin Stuff -->
+<?php plugin_header(); ?>
 
-<!-- The core Neatline partial. -->
-<?php echo $this->partial('neatline/_neatline.php', $neatlineData); ?>
+<!-- Stylesheets -->
+<?php display_css(); ?>
 
-<!-- Custom footer. -->
-<?php echo $this->partial('editor/_editor_footer.php'); ?>
+<!-- JavaScripts -->
+<?php display_js(); ?>
 
+<link href='http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript" src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false"></script>
+
+</head>
+<?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>

@@ -31,7 +31,8 @@ class NeatlineWebServicePlugin
         'install',
         'uninstall',
         'define_routes',
-        'admin_theme_header'
+        'admin_theme_header',
+        'public_theme_header'
     );
 
     // Filters.
@@ -247,7 +248,7 @@ class NeatlineWebServicePlugin
     }
 
     /**
-     * Queue file assets by route.
+     * Queue file assets by route for administrative views.
      *
      * @return void
      */
@@ -275,9 +276,31 @@ class NeatlineWebServicePlugin
         }
 
         // Editor.
-        if ($routeName == 'nlwsEditorIndex') {
+        else if ($routeName == 'nlwsEditorIndex') {
             neatline_queueNeatlineAssets();
             neatline_queueEditorAssets();
+        }
+
+    }
+
+    /**
+     * Queue file assets by route for public views.
+     *
+     * @return void
+     */
+    public function publicThemeHeader($request)
+    {
+
+        // Get the route.
+        $routeName = Zend_Controller_Front
+            ::getInstance()
+            ->getRouter()
+            ->getCurrentRouteName();
+
+        // Fullscreen.
+        if ($routeName == 'nlwsFullscreen') {
+            neatline_queueNeatlineAssets();
+            neatline_queueFullscreenAssets();
         }
 
     }

@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Full-screen Neatline exhibit.
+ * Partial template for the public fullscreen top bar.
  *
  * PHP version 5
  *
@@ -25,21 +25,14 @@
  */
 ?>
 
-<!-- Custom page header. -->
-<?php echo $this->partial('public/_public_header.php', array(
-    'titlePrefix' => 'Neatline',
-    'title' => $neatline->name
-)); ?>
+<div id="topbar" class="neatline-bar topbar">
 
-<!-- The top bar. -->
-<?php echo $this->partial('public/_topbar.php', array(
-    'neatline' => $neatline,
-    'layers' => $layers
-)); ?>
+    <img id="neatline-logo" src="<?php echo img('neatline-logo-editor.png'); ?>" />
+    <span class="top-bar-title"><?php echo $neatline->name; ?></span>
 
-<!-- The core Neatline partial. -->
-<?php echo $this->partial('neatline/_neatline.php', $neatlineData); ?>
+    <?php echo $this->partial('public/_topbar_navigation.php', array(
+        'neatline' => $neatline,
+        'layers' => $layers
+    )); ?>
 
-<!-- Custom footer. -->
-<?php echo $this->partial('editor/_editor_footer.php'); ?>
-
+</div>
