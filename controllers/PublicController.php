@@ -62,15 +62,4 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
 
     }
 
-    /**
-     * Embedded exhibit emitter.
-     *
-     * @return void
-     */
-    public function embedAction()
-    {
-
-
-    }
-
 }

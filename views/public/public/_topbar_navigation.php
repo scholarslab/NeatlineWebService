@@ -25,4 +25,4 @@
  */
 ?>
 
-<a class="omeka-logo" href="http://omeka.org/">powered by omeka</a>
+<a class="omeka-logo" href="http://neatline.org/">Powered by Omeka + Neatline</a>

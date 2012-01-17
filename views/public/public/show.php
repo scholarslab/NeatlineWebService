@@ -42,4 +42,3 @@
 
 <!-- Custom footer. -->
 <?php echo $this->partial('editor/_editor_footer.php'); ?>
-
