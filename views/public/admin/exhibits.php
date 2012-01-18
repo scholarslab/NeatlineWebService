@@ -52,7 +52,7 @@ echo $this->partial('admin/_header.php', array(
                             <a class="exhibit-title" href="<?php echo nlws_url('editor', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
                             <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
                             <span class="action bold"><a href="<?php echo nlws_url('edit', $exhibit->slug); ?>">edit</a> |</span>
-                            <span class="action"><a href="">public</a> |</span>
+                            <span class="action"><a href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>">public</a> |</span>
                             <span class="action"><a href="<?php echo nlws_url('embed', $exhibit->slug); ?>">embed</a> |</span>
                             <span class="action danger"><a href="<?php echo nlws_url('delete', $exhibit->slug); ?>">delete</a></span>
                         </td>
