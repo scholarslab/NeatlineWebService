@@ -20,14 +20,14 @@
 
             <div class="clearfix inline">
                 <label>Width:</label>
-                <div class="input">
+                <div class="input width">
                     <input name="title" type="text" />
                 </div>
             </div>
 
             <div class="clearfix inline">
                 <label>Height:</label>
-                <div class="input">
+                <div class="input height">
                     <input name="title" type="text" />
                 </div>
             </div>
@@ -36,7 +36,7 @@
 
         <div class="clearfix">
             <label>Embed Code:</label>
-            <div class="input">
+            <div class="input code">
                 <textarea class="xxlarge" rows="3"></textarea>
                 <span class="help-block">Copy and paste this code into any context where HTML is allowed.</span>
             </div>

@@ -55,6 +55,20 @@ function nlws_queueAddJs()
 }
 
 /**
+ * Include .js in /embed view.
+ *
+ * @return void.
+ */
+function nlws_queueEmbedJs()
+{
+
+    // Custom .js.
+    queue_js('_constructEmbed');
+    queue_js('embedBuilder');
+
+}
+
+/**
  * Construct the error class (or lack thereof) for an errors array and a
  * specified key.
  *

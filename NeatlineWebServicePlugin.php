@@ -260,6 +260,11 @@ class NeatlineWebServicePlugin
                 nlws_queueAddJs();
             }
 
+            // ** /embed
+            if ($request->getActionName() == 'embed') {
+                nlws_queueEmbedJs();
+            }
+
         }
 
         // Editor.
