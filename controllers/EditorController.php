@@ -37,6 +37,10 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
     public function preDispatch()
     {
 
+        // Get the web exhibits table.
+        $this->_webExhibitsTable =  $this->getTable('NeatlineWebExhibit');
+        $this->_layersTable =       $this->getTable('NeatlineBaseLayer');
+
         // Get the authentication singleton, activate the NLWS storage.
         $auth = Zend_Auth::getInstance();
         $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
@@ -49,10 +53,9 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
             return $this->_redirect(NLWS_SLUG);
         }
 
+        // Push identity into actions
         else {
-
             $this->user = $auth->getIdentity();
-
         }
 
     }
@@ -65,15 +68,18 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
     public function indexAction()
     {
 
-        // Get the web exhibits table.
-        $_webExhibitsTable =        $this->getTable('NeatlineWebExhibit');
-        $_layersTable =             $this->getTable('NeatlineBaseLayer');
-
-        // Get records and shell out defaults.
+        // Get records.
         $slug =                     $this->_request->getParam('slug');
-        $webExhibit =               $_webExhibitsTable->findBySlug($slug, $this->user);
+        $webExhibit =               $this->_webExhibitsTable->findBySlug($slug, $this->user);
+
+        // Block non-owner access.
+        if ($this->user->username != $this->_request->getParam('user')) {
+            return $this->_redirect(nlws_url('exhibits'));
+        }
+
+        // Get Neatline exhibit and base layers.
         $exhibit =                  $webExhibit->getExhibit();
-        $layers =                   $_layersTable->findAll();
+        $layers =                   $this->_layersTable->findAll();
 
         // Construct the data array for the exhibit.
         $neatlineData = array(

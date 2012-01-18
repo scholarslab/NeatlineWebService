@@ -70,11 +70,9 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
             true
         );
 
-        // Hit /exhibits.
-        $this->dispatch(NLWS_SLUG . '/user2/exhibits');
-
-        // Check for redirect and listing absence.
-        $this->assertRedirectTo(nlws_url('exhibits'));
+        // Hit /exhibits, check for redirect.
+        $this->dispatch(NLWS_SLUG . '/user2/editor/test-slug');
+        $this->assertRedirect();
 
     }
 
