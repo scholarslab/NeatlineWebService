@@ -103,7 +103,15 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     public function userOwnsExhibit($user, $exhibit_id)
     {
 
+        // Prepare the select.
+        $select = $this->getSelect()->where(
+            'user_id = ' . $user->id . ' AND exhibit_id = ' . $exhibit_id
+        );
 
+        // Query.
+        $result = $this->fetchObject($select);
+
+        return !is_null($result);
 
     }
 

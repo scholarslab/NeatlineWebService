@@ -213,4 +213,72 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
 
     }
 
+    /**
+     * userOwnsExhibit() should return false if the user does not own
+     * the Neatline exhibit with the passed id.
+     *
+     * @return void.
+     */
+    public function testUserOwnsExhibit()
+    {
+
+        // Create.
+        $user1 = $this->__user('test1', 'test', 'test1@virginia.edu');
+        $user2 = $this->__user('test2', 'test', 'test2@virginia.edu');
+
+        $exhibit1 = new NeatlineWebExhibit($user1);
+        $exhibit1->slug =    'test1';
+        $exhibit1->public =  1;
+        $exhibit1->createParentExhibit();
+        $exhibit1->save();
+
+        $exhibit2 = new NeatlineWebExhibit($user1);
+        $exhibit2->slug =    'test2';
+        $exhibit2->public =  1;
+        $exhibit2->createParentExhibit();
+        $exhibit2->save();
+
+        $exhibit3 = new NeatlineWebExhibit($user1);
+        $exhibit3->slug =    'test3';
+        $exhibit3->public =  1;
+        $exhibit3->createParentExhibit();
+        $exhibit3->save();
+
+        $exhibit4 = new NeatlineWebExhibit($user2);
+        $exhibit4->slug =    'test4';
+        $exhibit4->public =  1;
+        $exhibit4->createParentExhibit();
+        $exhibit4->save();
+
+        // True when owner.
+        $this->assertTrue($this->_webExhibitsTable->userOwnsExhibit(
+            $user1,
+            $exhibit1->getExhibit()->id));
+        $this->assertTrue($this->_webExhibitsTable->userOwnsExhibit(
+            $user1,
+            $exhibit2->getExhibit()->id));
+        $this->assertTrue($this->_webExhibitsTable->userOwnsExhibit(
+            $user1,
+            $exhibit3->getExhibit()->id));
+        $this->assertTrue($this->_webExhibitsTable->userOwnsExhibit(
+            $user2,
+            $exhibit4->getExhibit()->id));
+
+        // False when not owner.
+        $this->assertFalse($this->_webExhibitsTable->userOwnsExhibit(
+            $user2,
+            $exhibit1->getExhibit()->id));
+        $this->assertFalse($this->_webExhibitsTable->userOwnsExhibit(
+            $user2,
+            $exhibit2->getExhibit()->id));
+        $this->assertFalse($this->_webExhibitsTable->userOwnsExhibit(
+            $user2,
+            $exhibit3->getExhibit()->id));
+        $this->assertFalse($this->_webExhibitsTable->userOwnsExhibit(
+            $user1,
+            $exhibit4->getExhibit()->id));
+
+
+    }
+
 }

@@ -68,7 +68,12 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
             if ($routeName == 'nlwsEditorAction') {
 
                 // Get exhibit id.
-                $exhibitId = $this->_request->exhibit_id;
+                $exhibitId = (int) $this->_request->getParam('exhibit_id');
+
+                // Block non-owners.
+                if (!$this->_webExhibitsTable->userOwnsExhibit($this->user, $exhibitId)) {
+                    return $this->_redirect(nlws_url('exhibits'));
+                }
 
             }
 
