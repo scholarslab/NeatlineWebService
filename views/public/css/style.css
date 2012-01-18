@@ -67,3 +67,11 @@ h2.clearfix {
 #delete-form .actions {
     padding-left: 0;
 }
+
+#embed-form {
+    padding-left: 0;
+}
+
+#embed-form input[type="text"] {
+    width: 50px;
+}

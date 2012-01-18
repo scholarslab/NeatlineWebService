@@ -37,7 +37,11 @@ echo $this->partial('admin/_header.php', array(
             <p>Click and drag on the "Height" and "Width" fields to customize the
                 dimensions of the embedded exhibit.</p>
 
-            <iframe width="960" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" class="embed-preview" src="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>" />
+            <?php echo $this->partial('admin/forms/_embed.php'); ?>
+
+            <iframe width="960" height="600" frameborder="0" scrolling="no"
+                marginheight="0" marginwidth="0" class="embed-preview"
+                src="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>" />
 
         </div>
 
