@@ -68,7 +68,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
 
         // Check for the form.
         $this->assertQuery('div.title input[value="Test"]');
@@ -94,7 +94,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -136,7 +136,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -166,7 +166,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -190,7 +190,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -215,7 +215,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -255,7 +255,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
@@ -283,7 +283,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
@@ -311,7 +311,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('neatline/username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.

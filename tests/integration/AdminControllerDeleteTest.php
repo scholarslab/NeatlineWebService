@@ -68,7 +68,7 @@ class NeatlineWebService_AdminControllerDeleteTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch('neatline/username/delete/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/delete/test-slug');
 
         // Check for the form and exhibit title.
         $this->assertQuery('form#delete-form button[type="submit"]');
@@ -97,7 +97,7 @@ class NeatlineWebService_AdminControllerDeleteTest extends NWS_Test_AppTestCase
 
         // Hit the route.
         $this->request->setMethod('POST');
-        $this->dispatch('neatline/username/delete/test-slug');
+        $this->dispatch(NLWS_SLUG . '/username/delete/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Web exhibit deleted.

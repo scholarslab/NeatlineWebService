@@ -46,7 +46,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         'login'
     );
 
-
     /**
      * Get models.
      *
@@ -87,6 +86,12 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
             // If requesting an anonymous action, redirect to browse.
             if (in_array($action, self::$_anonActions)) {
+                return $this->_redirect(nlws_url('exhibits'));
+            }
+
+            // Block non-self editing.
+            else if (in_array($action, self::$_protectedActions) &&
+                $this->view->user->username != $this->_request->getParam('user')) {
                 return $this->_redirect(nlws_url('exhibits'));
             }
 

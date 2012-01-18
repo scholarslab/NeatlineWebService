@@ -64,7 +64,7 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
         // ** /logout
-        $this->dispatch(NLWS_SLUG . '/delete');
+        $this->dispatch(NLWS_SLUG . '/logout');
         $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
 
     }
@@ -108,7 +108,7 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /exhibits
-        $this->dispatch(NLWS_SLUG . '/exhibits');
+        $this->dispatch(NLWS_SLUG . '/david/exhibits');
         $this->assertNotRedirect();
 
     }

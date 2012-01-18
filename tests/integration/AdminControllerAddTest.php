@@ -60,7 +60,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
 
         // Check for the form.
         $this->assertQuery('input[name="title"]');
@@ -86,7 +86,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -131,7 +131,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -164,7 +164,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -188,7 +188,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -213,7 +213,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -230,7 +230,11 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     {
 
         // Create a second user.
-        $user2 = $this->__user();
+        $user2 = $this->__user(
+            'username2',
+            'password',
+            'test@test.com'
+        );
 
         // Create NLW exhibit for user2.
         $exhibit = new NeatlineWebExhibit($user2);
@@ -238,6 +242,12 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         $exhibit->slug = 'taken-slug';
         $exhibit->public = 1;
         $exhibit->save();
+
+        // Starting counts.
+        $user1StartCount = count($this->_webExhibitsTable->
+            getExhibitsByUser($this->user));
+        $user2StartCount = count($this->_webExhibitsTable->
+            getExhibitsByUser($user2));
 
         // Prepare the request.
         $this->request->setMethod('POST')
@@ -249,11 +259,18 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch('neatline/username/add');
+        $this->dispatch(NLWS_SLUG . '/username/add');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
-        // No exhibit created.
-        $this->assertEquals($this->_webExhibitsTable->count(), 2);
+        // Ending counts.
+        $user1EndCount = count($this->_webExhibitsTable->
+            getExhibitsByUser($this->user));
+        $user2EndCount = count($this->_webExhibitsTable->
+            getExhibitsByUser($user2));
+
+        // Check for correct add.
+        $this->assertEquals($user1StartCount + 1, $user1EndCount);
+        $this->assertEquals($user2StartCount, $user2EndCount);
 
     }
 
