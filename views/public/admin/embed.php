@@ -40,7 +40,7 @@ echo $this->partial('admin/_header.php', array(
             <?php echo $this->partial('admin/forms/_embed.php'); ?>
 
             <iframe width="960" height="600" frameborder="0" scrolling="no"
-                marginheight="0" marginwidth="0" class="embed-preview"
+                marginheight="0" marginwidth="0" id="embed-preview"
                 src="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>" />
 
         </div>

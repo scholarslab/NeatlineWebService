@@ -43,12 +43,30 @@
             // Get markup.
             this._body =        $('body');
             this._window =      $(window);
-            this.width =        $('div.width input');
-            this.height =       $('div.height input');
-            this.code =         $('div.code textarea');
+            this.widthInput =   $('div.width input');
+            this.heightInput =  $('div.height input');
+            this.codeInput =    $('div.code textarea');
+            this.preview =      $('#embed-preview');
 
-            // Bind listeners.
+            // Get starting parameters, bind listeners.
+            this._getStartingParams();
             this._addEvents();
+
+            // Set starting code.
+            this.setCode();
+
+        },
+
+        /*
+         * Get starting parameters out of markup.
+         *
+         * - return void.
+         */
+        _getStartingParams: function() {
+
+            this.src =      this.preview.attr('src');
+            this.height =   parseInt(this.preview.attr('height'));
+            this.width =    parseInt(this.preview.attr('width'));
 
         },
 
@@ -61,6 +79,42 @@
 
             var self = this;
 
+            // Height dragger.
+            this.heightInput.integerdragger({
+                def: this.height,
+                px_per_unit: 0.5,
+                change: function(evt, obj) {
+                    self.height = obj.value;
+                    self.setCode();
+                    self.updatePreview()
+                }
+            });
+
+            // Width dragger.
+            this.widthInput.integerdragger({
+                def: this.width,
+                px_per_unit: 0.5,
+                change: function(evt, obj) {
+                    self.width = obj.value;
+                    self.setCode();
+                    self.updatePreview()
+                }
+            });
+
+        },
+
+        /*
+         * Construct the iframe markup.
+         *
+         * - return string          The <iframe>.
+         */
+        _buildIframe: function(width, height, src) {
+
+            return '<iframe width="' + width + '" ' +
+                'height="' + height + '" ' +
+                'frameborder="0" scrolling="no" marginheight="0" marginwidth="0" ' +
+                'src="' + src + '" />';
+
         },
 
 
@@ -72,14 +126,25 @@
 
 
         /*
-         * .
-         *
-         * - param string value:    The value to set.
+         * Build and manifest the embed code.
          *
          * - return void.
          */
-        stub: function() {
+        setCode: function() {
+            var code = this._buildIframe(this.height, this.width, this.src);
+            this.codeInput.val(code);
+        },
 
+        /*
+         * Manifest new dimensions on the preview.
+         *
+         * - return void.
+         */
+        updatePreview: function() {
+            this.preview.attr({
+                height: this.height,
+                width: this.width
+            });
         }
 
     });

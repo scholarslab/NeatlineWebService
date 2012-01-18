@@ -65,6 +65,7 @@ function nlws_queueEmbedJs()
     // Custom .js.
     queue_js('_constructEmbed');
     queue_js('embedBuilder');
+    queue_js('editor/utilities/_integer_dragger');
 
 }
 
