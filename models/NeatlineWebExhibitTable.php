@@ -91,4 +91,20 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
 
     }
 
+    /**
+     * Check whether a user is the owner of a web exhibit that is the
+     * facade of a Neatline native exhibit with a given id.
+     *
+     * @param Omeka_record user     The user.
+     * @param integer exhibit_id    The Neatline exhibit id.
+     *
+     * @return boolean True if the user owns the exhibit.
+     */
+    public function userOwnsExhibit($user, $exhibit_id)
+    {
+
+
+
+    }
+
 }

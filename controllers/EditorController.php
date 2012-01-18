@@ -53,9 +53,25 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
             return $this->_redirect(NLWS_SLUG);
         }
 
-        // Push identity into actions
         else {
+
+            // Push identity into actions
             $this->user = $auth->getIdentity();
+
+            // Get the route.
+            $routeName = Zend_Controller_Front
+                ::getInstance()
+                ->getRouter()
+                ->getCurrentRouteName();
+
+            // If the route is an ajax request.
+            if ($routeName == 'nlwsEditorAction') {
+
+                // Get exhibit id.
+                $exhibitId = $this->_request->exhibit_id;
+
+            }
+
         }
 
     }
