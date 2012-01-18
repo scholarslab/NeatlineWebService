@@ -322,7 +322,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Get the exhibit.
         $slug =                 $this->_request->getParam('slug');
-        $exhibit =              $this->_exhibitsTable->findBySlug($slug);
+        $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
         $title =                $exhibit->getExhibit()->name;
         $slug =                 $exhibit->slug;
 
@@ -375,7 +375,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Get the exhibit.
         $slug =                 $this->_request->getParam('slug');
-        $exhibit =              $this->_exhibitsTable->findBySlug($slug);
+        $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
 
         // Push exhibit.
         $this->view->exhibit = $exhibit;
@@ -392,7 +392,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Get the exhibit.
         $slug =                 $this->_request->getParam('slug');
-        $exhibit =              $this->_exhibitsTable->findBySlug($slug);
+        $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
 
         // Delete.
         if ($this->_request->isPost()) {

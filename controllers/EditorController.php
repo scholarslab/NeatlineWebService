@@ -49,6 +49,12 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
             return $this->_redirect(NLWS_SLUG);
         }
 
+        else {
+
+            $this->user = $auth->getIdentity();
+
+        }
+
     }
 
     /**
@@ -65,7 +71,7 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
 
         // Get records and shell out defaults.
         $slug =                     $this->_request->getParam('slug');
-        $webExhibit =               $_webExhibitsTable->findBySlug($slug);
+        $webExhibit =               $_webExhibitsTable->findBySlug($slug, $this->user);
         $exhibit =                  $webExhibit->getExhibit();
         $layers =                   $_layersTable->findAll();
 

@@ -46,17 +46,30 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     public function testFindBySlugWhenExhibitDoesNotExist()
     {
 
-        // Create user.
-        $user = $this->__user();
+        // Create user two users.
+        $user1 = $this->__user(
+            $username = 'user1',
+            $password = 'password',
+            $email = 'email1@test.com');
+        $user2 = $this->__user(
+            $username = 'user2',
+            $password = 'password',
+            $email = 'email2@test.com');
 
-        // Create NLW exhibits.
-        $exhibit = new NeatlineWebExhibit($user);
-        $exhibit->slug = 'existing-slug';
-        $exhibit->public = 1;
-        $exhibit->save();
+        // Create NLW exhibit for user1.
+        $exhibit1 = new NeatlineWebExhibit($user1);
+        $exhibit1->slug = 'existing-slug';
+        $exhibit1->public = 1;
+        $exhibit1->save();
+
+        // Create NLW exhibit for user2.
+        $exhibit2 = new NeatlineWebExhibit($user2);
+        $exhibit2->slug = 'another-slug';
+        $exhibit2->public = 1;
+        $exhibit2->save();
 
         $this->assertFalse(
-            $this->_webExhibitsTable->findBySlug('non-existent-slug')
+            $this->_webExhibitsTable->findBySlug('another-slug', $user1)
         );
 
     }
@@ -69,26 +82,41 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     public function testFindBySlugWhenExhibitExists()
     {
 
-        // Create user.
-        $user = $this->__user();
+        // Create user two users.
+        $user1 = $this->__user(
+            $username = 'user1',
+            $password = 'password',
+            $email = 'email1@test.com');
+        $user2 = $this->__user(
+            $username = 'user2',
+            $password = 'password',
+            $email = 'email2@test.com');
 
-        // Exhibit 1.
-        $exhibit1 = new NeatlineWebExhibit($user);
-        $exhibit1->slug = 'existing-slug';
+        // Create NLW exhibit for user1.
+        $exhibit1 = new NeatlineWebExhibit($user1);
+        $exhibit1->slug = 'same-slug';
         $exhibit1->public = 1;
         $exhibit1->save();
 
-        // Exhibit 2.
-        $exhibit2 = new NeatlineWebExhibit($user);
-        $exhibit2->slug = 'another-slug';
+        // Create NLW exhibit for user2.
+        $exhibit2 = new NeatlineWebExhibit($user2);
+        $exhibit2->slug = 'same-slug';
         $exhibit2->public = 1;
         $exhibit2->save();
 
-        // Get.
-        $exhibit = $this->_webExhibitsTable->findBySlug('another-slug');
+        // Get out the exhibits.
+        $user1Exhibit = $this->_webExhibitsTable->findBySlug('same-slug', $user1);
+        $user2Exhibit = $this->_webExhibitsTable->findBySlug('same-slug', $user2);
 
-        // Check identity.
-        $this->assertEquals($exhibit2->id, $exhibit->id);
+        // Check 1.
+        $this->assertEquals(
+            $exhibit1->id, $user1Exhibit->id
+        );
+
+        // Check 2.
+        $this->assertEquals(
+            $exhibit2->id, $user2Exhibit->id
+        );
 
     }
 

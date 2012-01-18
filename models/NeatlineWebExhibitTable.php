@@ -29,15 +29,16 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
      * Find an exhibit by its slug.
      *
      * @param string $slug          The slug.
+     * @param Omeka_record $user    The user.
      *
      * @return Omeka_records        The exhibit.
      */
-    public function findBySlug($slug)
+    public function findBySlug($slug, $user)
     {
 
         // Prepare the select.
         $select = $this->getSelect()->where(
-            'slug = "' . $slug . '"'
+            'slug = "' . $slug . '" AND user_id = ' . $user->id
         );
 
         // Query.
