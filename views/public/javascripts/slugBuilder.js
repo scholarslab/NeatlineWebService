@@ -56,6 +56,7 @@
 
             // Bind listeners, set starting styles and root.
             this.setWebRoot();
+            this.setStartingSlug();
             this.setSlugInputToGray();
             this._addEvents();
 
@@ -175,6 +176,15 @@
          */
         setSlugInputToGray: function() {
             this.slug.css('color', this.options.colors.light_gray);
+        },
+
+        /*
+         * Set starting slug.
+         *
+         * - return void.
+         */
+        setStartingSlug: function() {
+            this.setPreview(this.slug.val());
         },
 
         /*
