@@ -402,7 +402,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Push exhibit.
         $this->view->exhibit = $exhibit;
-
     }
 
 
