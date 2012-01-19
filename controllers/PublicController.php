@@ -59,6 +59,7 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
         );
 
         // Push records.
+        $this->view->public =       (bool) $webExhibit->public;
         $this->view->neatline =     $exhibit;
         $this->view->neatlineData = $neatlineData;
         $this->view->map =          $map;
