@@ -25,6 +25,8 @@ jQuery(document).ready(function($) {
     var addForm = $('#add-form');
 
     // Run the slug previewer.
-    addForm.slugBuilder();
+    addForm.slugBuilder({
+        web_root: NeatlineWebService.web_root
+    });
 
 });

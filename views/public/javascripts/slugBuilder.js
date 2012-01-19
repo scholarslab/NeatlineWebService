@@ -26,6 +26,9 @@
 
         options: {
 
+            // The base for the URL previews.
+            web_root: '',
+
             colors: {
                 light_gray: '#a3a3a3',
                 dark_gray: '#3a3a3a'
@@ -46,11 +49,13 @@
             this.title =        $('div.title input');
             this.slug =         $('div.slug input');
             this.preview =      $('#url-slug-preview');
+            this.root =         $('#slug-preview-web-root');
 
             // Trackers.
             this._hasTyped = false;
 
-            // Bind listeners, set starting styles.
+            // Bind listeners, set starting styles and root.
+            this.setWebRoot();
             this.setSlugInputToGray();
             this._addEvents();
 
@@ -170,6 +175,15 @@
          */
         setSlugInputToGray: function() {
             this.slug.css('color', this.options.colors.light_gray);
+        },
+
+        /*
+         * Set the web root.
+         *
+         * - return void.
+         */
+        setWebRoot: function() {
+            this.root.text(this.options.web_root);
         },
 
 

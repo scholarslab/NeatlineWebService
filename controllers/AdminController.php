@@ -309,6 +309,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->title =        $title;
         $this->view->slug =         $slug;
         $this->view->public =       $public;
+        $this->view->webRoot =      get_plugin_ini('NeatlineWebService', 'web_root');
 
     }
 
