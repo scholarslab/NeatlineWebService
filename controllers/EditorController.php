@@ -30,26 +30,16 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
 {
 
     /**
-     * Get tables and instantiate redirector.
-     *
-     * @return void
-     */
-    public function init()
-    {
-
-        // Get the web exhibits and layers tables.
-        $this->_webExhibitsTable =  $this->getTable('NeatlineWebExhibit');
-        $this->_layersTable =       $this->getTable('NeatlineBaseLayer');
-
-    }
-
-    /**
      * Block any requests from not-logged-in users.
      *
      * @return void
      */
     public function preDispatch()
     {
+
+        // Get the web exhibits and layers tables.
+        $this->_webExhibitsTable =  $this->getTable('NeatlineWebExhibit');
+        $this->_layersTable =       $this->getTable('NeatlineBaseLayer');
 
         // Get the authentication singleton, activate the NLWS storage.
         $auth = Zend_Auth::getInstance();
