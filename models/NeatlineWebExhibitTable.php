@@ -92,6 +92,30 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     }
 
     /**
+     * Get exhibits by user for browse view, sorted by modified date.
+     *
+     * @param Omeka_record user     The user.
+     *
+     * @return array of Omeka_record objects.
+     */
+    public function getExhibitsByUserSortedByModified($user)
+    {
+
+        $_db = get_db();
+
+        // Prepare the select.
+        $select = $this->select()
+            ->from(array('e' => $_db->prefix . 'neatline_web_exhibits'))
+            ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'n.id = e.exhibit_id')
+            ->where('user_id = ' . $user->id)
+            ->order('modified DESC');
+
+        // Query.
+        return $this->fetchObjects($select);
+
+    }
+
+    /**
      * Check whether a user is the owner of a web exhibit that is the
      * facade of a Neatline native exhibit with a given id.
      *
