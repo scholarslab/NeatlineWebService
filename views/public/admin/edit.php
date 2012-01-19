@@ -49,3 +49,9 @@ echo $this->partial('admin/_header.php', array(
     </div>
 
 </div>
+
+<script>
+    NeatlineWebService = {
+        web_root: '<?php echo $webRoot; ?>'
+    };
+</script>
