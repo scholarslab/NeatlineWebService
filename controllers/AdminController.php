@@ -255,7 +255,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
         // Get exhibits.
-        $this->view->exhibits = $this->_exhibitsTable->getExhibitsByUser(
+        $this->view->exhibits = $this->_exhibitsTable->getExhibitsByUserSortedByModified(
             $this->view->user
         );
 

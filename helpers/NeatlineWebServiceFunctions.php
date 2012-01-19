@@ -131,3 +131,18 @@ function nlws_getUsername()
     return $auth->getIdentity()->username;
 
 }
+
+/**
+ * Format datetime.
+ *
+ * @param string $date          The date in datetime.
+ *
+ * @return string $date         The formatted date.
+ */
+function nlws_formatDate($date)
+{
+
+    $date = new DateTime($date);
+    return $date->format('F j, Y \a\t g:i a');
+
+}
