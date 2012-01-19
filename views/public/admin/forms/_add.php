@@ -23,7 +23,7 @@
                 <?php if (array_key_exists('title', $errors)): ?>
                     <span class="help-inline"><?php echo $errors['title']; ?></span>
                 <?php endif; ?>
-                <span class="help-block">The title is publically displayed at the top of the exhibit.</span>
+                <span class="help-block">The title is displayed at the top of the exhibit.</span>
             </div>
         </div>
 
