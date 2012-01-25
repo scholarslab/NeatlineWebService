@@ -131,7 +131,7 @@
          * - return void.
          */
         setCode: function() {
-            var code = this._buildIframe(this.height, this.width, this.src);
+            var code = this._buildIframe(this.width, this.height, this.src);
             this.codeInput.val(code);
         },
 
