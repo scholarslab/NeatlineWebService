@@ -75,3 +75,8 @@ h2.clearfix {
 #embed-form input[type="text"] {
     width: 50px;
 }
+
+#embed-preview {
+    margin-bottom: 16em;
+    border: 1px solid #dbdbdb;
+}
