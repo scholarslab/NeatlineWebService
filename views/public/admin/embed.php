@@ -46,7 +46,7 @@ echo $this->partial('admin/_header.php', array(
             </iframe>
 
             <!-- Container for fullscreen link and credit. -->
-            <div id="credit-container"><small><a href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>" target="_blank">View Fullscreen Exhibit</a> |<span>Created with <a href="<?php echo $webRoot; ?>" target="_blank">Neatline</a></span></small></div>
+            <div id="credit-container"><small><a href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>" target="_blank">View Fullscreen Exhibit</a> | <span>Created with <a href="<?php echo $webRoot; ?>" target="_blank">Neatline</a></span></small></div>
 
         </div>
 
