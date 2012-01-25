@@ -27,7 +27,7 @@ echo $this->partial('admin/_header.php', array(
         <?php echo $this->partial('admin/_logout.php', array('user' => $user)); ?>
     </div>
 
-    <div class="row">
+    <div class="row embed">
 
         <div class="span16">
 
@@ -39,9 +39,14 @@ echo $this->partial('admin/_header.php', array(
 
             <?php echo $this->partial('admin/forms/_embed.php'); ?>
 
+            <!-- The iframe. -->
             <iframe width="960" height="600" frameborder="0" scrolling="no"
                 marginheight="0" marginwidth="0" id="embed-preview"
-                src="<?php echo nlws_url('embedded', $exhibit->slug); ?>" />
+                src="<?php echo nlws_url('embedded', $exhibit->slug); ?>" >
+            </iframe>
+
+            <!-- Container for fullscreen link and credit. -->
+            <div id="credit-container"><small><a href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>" target="_blank">View Fullscreen Exhibit</a> |<span>Created with <a href="<?php echo $webRoot; ?>" target="_blank">Neatline</a></span></small></div>
 
         </div>
 

@@ -379,8 +379,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $slug =                 $this->_request->getParam('slug');
         $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
 
-        // Push exhibit.
-        $this->view->exhibit = $exhibit;
+        // Push exhibit and webroot.
+        $this->view->exhibit =      $exhibit;
+        $this->view->webRoot =      get_plugin_ini('NeatlineWebService', 'embed_origin');
 
     }
 

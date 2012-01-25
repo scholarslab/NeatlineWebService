@@ -47,6 +47,7 @@
             this.heightInput =  $('div.height input');
             this.codeInput =    $('div.code textarea');
             this.preview =      $('#embed-preview');
+            this.credit =       $('#credit-container');
 
             // Get starting parameters, bind listeners.
             this._getStartingParams();
@@ -113,7 +114,7 @@
             return '<iframe width="' + width + '" ' +
                 'height="' + height + '" ' +
                 'frameborder="0" scrolling="no" marginheight="0" marginwidth="0" ' +
-                'src="' + src + '" />';
+                'src="' + src + '"></iframe>';
 
         },
 
@@ -131,8 +132,9 @@
          * - return void.
          */
         setCode: function() {
-            var code = this._buildIframe(this.width, this.height, this.src);
-            this.codeInput.val(code);
+            var code =      this._buildIframe(this.width, this.height, this.src);
+            var credit =    this.credit.html();
+            this.codeInput.val(code + credit);
         },
 
         /*
