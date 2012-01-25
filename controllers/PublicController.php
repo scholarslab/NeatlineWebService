@@ -66,4 +66,42 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
 
     }
 
+    /**
+     * Embedded public exhibit view.
+     *
+     * @return void
+     */
+    public function embedAction()
+    {
+
+        // Get the web exhibits table.
+        $_webExhibitsTable =    $this->getTable('NeatlineWebExhibit');
+        $_usersTable =          $this->getTable('NeatlineUser');
+
+        // Get records and shell out defaults.
+        $slug =                     $this->_request->getParam('slug');
+        $username =                 $this->_request->getParam('user');
+        $user =                     $_usersTable->findByUsername($username);
+        $webExhibit =               $_webExhibitsTable->findBySlug($slug, $user);
+        $exhibit =                  $webExhibit->getExhibit();
+
+        // Construct the data array for the exhibit.
+        $neatlineData = array(
+            'public' =>             true,
+            'neatline' =>           $exhibit,
+            'dataSources' => array(
+                'timeline' =>       neatline_getTimelineDataUrl($exhibit->id),
+                'map' =>            neatline_getMapDataUrl($exhibit->id),
+                'undated' =>        neatline_getUndatedItemsDataUrl($exhibit->id)
+            )
+        );
+
+        // Push records.
+        $this->view->public =       (bool) $webExhibit->public;
+        $this->view->neatline =     $exhibit;
+        $this->view->neatlineData = $neatlineData;
+        $this->view->map =          $map;
+
+    }
+
 }
