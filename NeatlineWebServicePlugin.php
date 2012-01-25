@@ -308,6 +308,12 @@ class NeatlineWebServicePlugin
             neatline_queueFullscreenAssets();
         }
 
+        // Embedded.
+        if ($routeName == 'nlwsEmbed') {
+            neatline_queueNeatlineAssets();
+            neatline_queueEmbedAssets();
+        }
+
     }
 
 }
