@@ -304,14 +304,14 @@ class NeatlineWebServicePlugin
 
         // Fullscreen.
         if ($routeName == 'nlwsFullscreen') {
-            neatline_queueNeatlineAssets();
             neatline_queueFullscreenAssets();
+            neatline_queueNeatlineAssets();
         }
 
         // Embedded.
         if ($routeName == 'nlwsEmbed') {
-            neatline_queueNeatlineAssets();
             neatline_queueEmbedAssets();
+            neatline_queueNeatlineAssets();
         }
 
     }
