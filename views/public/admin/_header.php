@@ -27,5 +27,7 @@
 <!-- JavaScripts -->
 <?php display_js(); ?>
 
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans|Neuton:200,300,400,700,400italic|Sorts+Mill+Goudy|PT+Serif:400,700,400italic|Buenard|Ovo|Droid+Serif:400,700,400italic|Lusitana:400,700|Patua+One|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300|Comfortaa:400,300,700|Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
+
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>

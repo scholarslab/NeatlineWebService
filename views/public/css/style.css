@@ -13,7 +13,7 @@
 
 .login-info {
     float: right;
-    margin-top: 14px;
+    margin-top: 12px;
 }
 
 #slug-preview {
@@ -30,7 +30,7 @@ a.no-underline:hover {
 }
 
 a.exhibit-title {
-    font-size: 1.6em;
+    font-size: 1.4em;
     font-weight: bold;
 }
 
@@ -57,7 +57,7 @@ span.action.bold a {
 }
 
 span.action.danger a {
-  color: #C43C35;
+  color: #C43C35 !important;
 }
 
 h2.clearfix {
@@ -82,4 +82,23 @@ h2.clearfix {
 
 div.row.embed {
     margin-bottom: 20em;
+}
+
+h1.logo a {
+    font-family: 'Crimson Text', Georgia, serif !important;
+    font-size: 1.3em;
+}
+
+h1.logo small {
+    font-size: 0.8em;
+}
+
+table#exhibits-table th {
+    font-size: 16px;
+}
+
+table#exhibits-table td {
+    font-size: 16px;
+    padding: 16px 10px 9px;
+    line-height: 22px;
 }

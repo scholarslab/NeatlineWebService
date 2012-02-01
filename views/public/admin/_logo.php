@@ -12,14 +12,14 @@
  */
 ?>
 
-<h1>
+<h1 class="logo">
 
     <?php if (Zend_Auth::getInstance()->hasIdentity()): ?>
-        <a href="<?php echo nlws_url('exhibits'); ?>">Neatline</a>
+        <a href="<?php echo nlws_url('exhibits'); ?>">NEATLINE</a>
     <?php else: ?>
-        <a href="<?php echo WEB_ROOT . '/' . NLWS_SLUG; ?>">Neatline</a>
+        <a href="<?php echo WEB_ROOT . '/' . NLWS_SLUG; ?>">NEATLINE</a>
     <?php endif; ?>
 
-    <small>plot the world in space and time.</small>
+    <small>Plot the world in space and time.</small>
 
 </h1>
