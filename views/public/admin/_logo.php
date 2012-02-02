@@ -20,6 +20,6 @@
         <a href="<?php echo WEB_ROOT . '/' . NLWS_SLUG; ?>">NEATLINE</a>
     <?php endif; ?>
 
-    <small>Plot the world in space and time.</small>
+    <small>Plot your course in space and time.</small>
 
 </h1>
