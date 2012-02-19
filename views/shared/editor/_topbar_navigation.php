@@ -25,8 +25,6 @@
  */
 ?>
 
-<a class="omeka-logo" href="http://omeka.org/" target="_blank">Powered by Omeka</a>
-
 <ul class="nav">
 
     <li class="dropdown">
@@ -51,6 +49,10 @@
         <div id="configure-layout" class="dropdown-content">
             <?php echo $this->partial('editor/_configure_layout.php'); ?>
         </div>
+    </li>
+
+    <li>
+      <a id="save-button" href="">Save Exhibit</a>
     </li>
 
 </ul>
