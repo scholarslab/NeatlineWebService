@@ -113,22 +113,22 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function registerAction()
     {
 
-        $user =                 new NeatlineUser;
-        $errors =               array();
-        $username =             '';
-        $password =             '';
-        $confirm =              '';
-        $email =                '';
+        $user = new NeatlineUser;
+        $errors = array();
+        $username = '';
+        $password = '';
+        $confirm = '';
+        $email = '';
 
         // Process submission.
         if ($this->_request->isPost()) {
 
             // Gather $_POST.
-            $_post =            $this->_request->getPost();
-            $username =         $_post['username'];
-            $password =         $_post['password'];
-            $confirm =          $_post['confirm'];
-            $email =            $_post['email'];
+            $_post = $this->_request->getPost();
+            $username = $_post['username'];
+            $password = $_post['password'];
+            $confirm = $_post['confirm'];
+            $email = $_post['email'];
 
             // Register the credentials, capture errors.
             $errors = $user->_validateRegistration(
@@ -152,14 +152,14 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $user->save();
 
                 // Get the adapter and authentication singleton.
-                $adapter =      $this->getAuthAdapter($username, $password);
-                $auth =         Zend_Auth::getInstance();
+                $adapter = $this->getAuthAdapter($username, $password);
+                $auth = Zend_Auth::getInstance();
 
                 // Set session namespace.
                 $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
 
                 // Authenticate.
-                $result =       $auth->authenticate($adapter);
+                $result = $auth->authenticate($adapter);
 
                 // Redirect to root.
                 if ($result->isValid()) {
@@ -171,12 +171,12 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         }
 
         // Push user and errors.
-        $this->view->user =         $user;
-        $this->view->errors =       $errors;
-        $this->view->username =     $username;
-        $this->view->password =     $password;
-        $this->view->confirm =      $confirm;
-        $this->view->email =        $email;
+        $this->view->user = $user;
+        $this->view->errors = $errors;
+        $this->view->username = $username;
+        $this->view->password = $password;
+        $this->view->confirm = $confirm;
+        $this->view->email = $email;
 
     }
 
@@ -188,17 +188,17 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function loginAction()
     {
 
-        $errors =               array();
-        $username =             '';
-        $password =             '';
+        $errors = array();
+        $username = '';
+        $password = '';
 
         // Process submission.
         if ($this->_request->isPost()) {
 
             // Gather $_POST.
-            $_post =            $this->_request->getPost();
-            $username =         $_post['username'];
-            $password =         $_post['password'];
+            $_post = $this->_request->getPost();
+            $username = $_post['username'];
+            $password = $_post['password'];
 
             // Register the credentials, capture errors.
             $errors = $this->_usersTable->_validateLogin(
@@ -210,14 +210,14 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             if (count($errors) == 0) {
 
                 // Get the adapter and authentication singleton.
-                $adapter =      $this->getAuthAdapter($username, $password);
-                $auth =         Zend_Auth::getInstance();
+                $adapter = $this->getAuthAdapter($username, $password);
+                $auth = Zend_Auth::getInstance();
 
                 // Set session namespace.
                 $auth->setStorage(new Zend_Auth_Storage_Session('Neatline'));
 
                 // Authenticate.
-                $result =       $auth->authenticate($adapter);
+                $result = $auth->authenticate($adapter);
 
                 // Redirect to root.
                 if ($result->isValid()) {
@@ -229,9 +229,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         }
 
         // Push errors.
-        $this->view->errors =       $errors;
-        $this->view->username =     $username;
-        $this->view->password =     $password;
+        $this->view->errors = $errors;
+        $this->view->username = $username;
+        $this->view->password = $password;
 
     }
 
@@ -255,8 +255,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
         // Get exhibits.
-        $this->view->exhibits = $this->_exhibitsTable->getExhibitsByUserSortedByModified(
-            $this->view->user
+        $this->view->exhibits = $this->_exhibitsTable
+            ->getExhibitsByUserSortedByModified(
+                $this->view->user
         );
 
     }
@@ -269,20 +270,20 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function addAction()
     {
 
-        $exhibit =              new NeatlineWebExhibit($this->view->user);
-        $errors =               array();
-        $title =                '';
-        $slug =                 '';
-        $public =               false;
+        $exhibit = new NeatlineWebExhibit($this->view->user);
+        $errors = array();
+        $title = '';
+        $slug = '';
+        $public = false;
 
         // Process submission.
         if ($this->_request->isPost()) {
 
             // Gather $_POST.
-            $_post =            $this->_request->getPost();
-            $title =            $_post['title'];
-            $slug =             $_post['slug'];
-            $public =           array_key_exists('public', $_post);
+            $_post = $this->_request->getPost();
+            $title = $_post['title'];
+            $slug = $_post['slug'];
+            $public = array_key_exists('public', $_post);
 
             // Register the credentials, capture errors.
             $errors = $exhibit->_validateAdd($title, $slug);
@@ -305,11 +306,11 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         }
 
         // Push errors.
-        $this->view->errors =       $errors;
-        $this->view->title =        $title;
-        $this->view->slug =         $slug;
-        $this->view->public =       $public;
-        $this->view->webRoot =      get_plugin_ini('NeatlineWebService', 'web_root');
+        $this->view->errors = $errors;
+        $this->view->title = $title;
+        $this->view->slug = $slug;
+        $this->view->public = $public;
+        $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
 
     }
 
@@ -322,10 +323,10 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
         // Get the exhibit.
-        $slug =                 $this->_request->getParam('slug');
-        $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
-        $title =                $exhibit->getExhibit()->name;
-        $slug =                 $exhibit->slug;
+        $slug = $this->_request->getParam('slug');
+        $exhibit = $this->_exhibitsTable->findBySlug($slug, $this->view->user);
+        $title = $exhibit->getExhibit()->name;
+        $slug = $exhibit->slug;
 
         // Shell for errors.
         $errors = array();
@@ -334,10 +335,10 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         if ($this->_request->isPost()) {
 
             // Gather $_POST.
-            $_post =            $this->_request->getPost();
-            $title =            $_post['title'];
-            $slug =             $_post['slug'];
-            $public =           array_key_exists('public', $_post);
+            $_post = $this->_request->getPost();
+            $title = $_post['title'];
+            $slug = $_post['slug'];
+            $public = array_key_exists('public', $_post);
 
             // Register the credentials, capture errors.
             $errors = $exhibit->_validateAdd($title, $slug);
@@ -359,11 +360,11 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         }
 
         // Push errors.
-        $this->view->errors =       $errors;
-        $this->view->title =        $title;
-        $this->view->slug =         $slug;
-        $this->view->public =       (bool) $exhibit->public;
-        $this->view->webRoot =      get_plugin_ini('NeatlineWebService', 'web_root');
+        $this->view->errors = $errors;
+        $this->view->title = $title;
+        $this->view->slug = $slug;
+        $this->view->public = (bool) $exhibit->public;
+        $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
 
     }
 
@@ -376,12 +377,12 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
         // Get the exhibit.
-        $slug =                 $this->_request->getParam('slug');
-        $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
+        $slug = $this->_request->getParam('slug');
+        $exhibit = $this->_exhibitsTable->findBySlug($slug, $this->view->user);
 
         // Push exhibit and webroot.
-        $this->view->exhibit =      $exhibit;
-        $this->view->webRoot =      get_plugin_ini('NeatlineWebService', 'embed_origin');
+        $this->view->exhibit = $exhibit;
+        $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'embed_origin');
 
     }
 
@@ -394,8 +395,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
 
         // Get the exhibit.
-        $slug =                 $this->_request->getParam('slug');
-        $exhibit =              $this->_exhibitsTable->findBySlug($slug, $this->view->user);
+        $slug = $this->_request->getParam('slug');
+        $exhibit = $this->_exhibitsTable->findBySlug($slug, $this->view->user);
 
         // Delete.
         if ($this->_request->isPost()) {
