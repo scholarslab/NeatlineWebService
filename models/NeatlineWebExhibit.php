@@ -63,6 +63,8 @@ class NeatlineWebExhibit extends Omeka_record
 
         // Create Neatline exhibit.
         $exhibit = new NeatlineExhibit;
+        $exhibit->slug =            'test-slug';
+        $exhibit->public =          1;
         $exhibit->top_element =     'map';
         $exhibit->items_h_pos =     'right';
         $exhibit->items_v_pos =     'bottom';
