@@ -36,10 +36,14 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     public function findBySlug($slug, $user)
     {
 
+        // Get database.
+        $_db = get_db();
+
         // Prepare the select.
-        $select = $this->getSelect()->where(
-            'slug = "' . $slug . '" AND user_id = ' . $user->id
-        );
+        $select = $this->select()
+            ->from(array('w' => $_db->prefix . 'neatline_web_exhibits'))
+            ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'w.exhibit_id = n.id')
+            ->where('n.slug = "' . $slug . '" AND w.user_id = ' . $user->id);
 
         // Query.
         $result = $this->fetchObject($select);
@@ -59,10 +63,14 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     public function slugIsAvailable($user, $slug)
     {
 
+        // Get database.
+        $_db = get_db();
+
         // Prepare the select.
-        $select = $this->getSelect()->where(
-            'slug = "' . $slug . '" AND user_id = ' . $user->id
-        );
+        $select = $this->select()
+            ->from(array('w' => $_db->prefix . 'neatline_web_exhibits'))
+            ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'w.exhibit_id = n.id')
+            ->where('n.slug = "' . $slug . '" AND w.user_id = ' . $user->id);
 
         // Query.
         $result = $this->fetchObject($select);

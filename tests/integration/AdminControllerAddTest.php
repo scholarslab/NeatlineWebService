@@ -117,10 +117,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     {
 
         // Create NLW exhibit for the user.
-        $exhibit = new NeatlineWebExhibit($this->user);
-        $exhibit->slug = 'taken-slug';
-        $exhibit->public = 1;
-        $exhibit->save();
+        $exhibit = $this->__exhibit($this->user, 'Test Title', 'taken-slug', 1);
 
         // Prepare the request.
         $this->request->setMethod('POST')

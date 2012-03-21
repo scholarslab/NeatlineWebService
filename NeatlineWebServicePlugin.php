@@ -107,8 +107,6 @@ class NeatlineWebServicePlugin
                 `id`                    int(10) unsigned not null auto_increment,
                 `user_id`               int(10) unsigned NULL,
                 `exhibit_id`            int(10) unsigned NULL,
-                `slug`                  varchar(100) NOT NULL,
-                `public`                tinyint(1) NOT NULL,
                  PRIMARY KEY (`id`)
                ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 

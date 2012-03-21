@@ -56,18 +56,16 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
             $password = 'password',
             $email = 'email2@test.com');
 
-        // Create NLW exhibit for user1.
-        $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->slug = 'existing-slug';
-        $exhibit1->public = 1;
-        $exhibit1->save();
+        // Create NLW exhibits.
+        $exhibit1 = $this->__exhibit($user1, 'Test Title 1', 'existing-slug', 1);
+        $exhibit2 = $this->__exhibit($user2, 'Test Title 2', 'another-slug', 1);
 
-        // Create NLW exhibit for user2.
-        $exhibit2 = new NeatlineWebExhibit($user2);
-        $exhibit2->slug = 'another-slug';
-        $exhibit2->public = 1;
-        $exhibit2->save();
+        // False for non-existent slug.
+        $this->assertFalse(
+            $this->_webExhibitsTable->findBySlug('unused-slug', $user1)
+        );
 
+        // False for slug reserved by another user's exhibit.
         $this->assertFalse(
             $this->_webExhibitsTable->findBySlug('another-slug', $user1)
         );
@@ -92,17 +90,9 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
             $password = 'password',
             $email = 'email2@test.com');
 
-        // Create NLW exhibit for user1.
-        $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->slug = 'same-slug';
-        $exhibit1->public = 1;
-        $exhibit1->save();
-
-        // Create NLW exhibit for user2.
-        $exhibit2 = new NeatlineWebExhibit($user2);
-        $exhibit2->slug = 'same-slug';
-        $exhibit2->public = 1;
-        $exhibit2->save();
+        // Create NLW exhibits.
+        $exhibit1 = $this->__exhibit($user1, 'Test Title 1', 'same-slug', 1);
+        $exhibit2 = $this->__exhibit($user2, 'Test Title 2', 'same-slug', 1);
 
         // Get out the exhibits.
         $user1Exhibit = $this->_webExhibitsTable->findBySlug('same-slug', $user1);
@@ -134,17 +124,14 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         // Create NLW exhibit for user1.
-        $exhibit = new NeatlineWebExhibit($user1);
-        $exhibit->slug = 'taken-slug';
-        $exhibit->public = 1;
-        $exhibit->save();
+        $exhibit = $this->__exhibit($user1, 'Test Title', 'taken-slug', 1);
 
         // False when user1 is passed.
         $this->assertFalse(
             $this->_webExhibitsTable->slugIsAvailable($user1, 'taken-slug')
         );
 
-        // True
+        // True when user2 is passed.
         $this->assertTrue(
             $this->_webExhibitsTable->slugIsAvailable($user2, 'taken-slug')
         );

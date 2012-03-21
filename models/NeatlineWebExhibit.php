@@ -32,8 +32,6 @@ class NeatlineWebExhibit extends Omeka_record
 
     public $user_id;
     public $exhibit_id;
-    public $slug;
-    public $public;
 
 
     /**
@@ -177,13 +175,11 @@ class NeatlineWebExhibit extends Omeka_record
     public function _apply($title, $slug, $public)
     {
 
-        // Set local columns.
-        $this->slug =   strtolower($slug);
-        $this->public = $public ? 1 : 0;
-
-        // Set the parent exhibit title.
+        // Set the parent exhibit attributes.
         $parentExhibit = $this->getExhibit();
-        $parentExhibit->name = $title;
+        $parentExhibit->name =    $title;
+        $parentExhibit->slug =    strtolower($slug);
+        $parentExhibit->public =  $public ? 1 : 0;
         $parentExhibit->save();
 
     }

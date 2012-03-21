@@ -186,11 +186,12 @@ class NeatlineWebService_AdminControllerNonSelfBlockingTest extends NWS_Test_App
 
         // Get out the exhibit.
         $exhibit = $this->_webExhibitsTable->find($exhibit->id);
+        $parentExhibit = $exhibit->getExhibit();
 
         // Check for no edit.
-        $this->assertEquals($exhibit->getExhibit()->name, 'Test');
-        $this->assertEquals($exhibit->slug, 'test-slug');
-        $this->assertEquals($exhibit->public, 1);
+        $this->assertEquals($parentExhibit->name, 'Test');
+        $this->assertEquals($parentExhibit->slug, 'test-slug');
+        $this->assertEquals($parentExhibit->public, 1);
 
     }
 

@@ -122,10 +122,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
     {
 
         // Create NLW exhibit for the user.
-        $exhibit = new NeatlineWebExhibit($this->user);
-        $exhibit->slug = 'taken-slug';
-        $exhibit->public = 1;
-        $exhibit->save();
+        $exhibit = $this->__exhibit($this->user, 'Test Title', 'taken-slug', 1);
 
         // Prepare the request.
         $this->request->setMethod('POST')
@@ -260,9 +257,10 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
 
         // Check for updated values.
         $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $this->assertEquals($updatedExhibit->getExhibit()->name, 'New Title');
-        $this->assertEquals($updatedExhibit->slug, 'different-slug');
-        $this->assertEquals($updatedExhibit->public, 0);
+        $parentExhibit = $updatedExhibit->getExhibit();
+        $this->assertEquals($parentExhibit->name, 'New Title');
+        $this->assertEquals($parentExhibit->slug, 'different-slug');
+        $this->assertEquals($parentExhibit->public, 0);
 
     }
 
@@ -288,9 +286,10 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
 
         // Check for updated values.
         $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $this->assertEquals($updatedExhibit->getExhibit()->name, 'New Title');
-        $this->assertEquals($updatedExhibit->slug, 'test-slug');
-        $this->assertEquals($updatedExhibit->public, 0);
+        $parentExhibit = $updatedExhibit->getExhibit();
+        $this->assertEquals($parentExhibit->name, 'New Title');
+        $this->assertEquals($parentExhibit->slug, 'test-slug');
+        $this->assertEquals($parentExhibit->public, 0);
 
     }
 
@@ -316,9 +315,10 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
 
         // Check for updated values.
         $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $this->assertEquals($updatedExhibit->getExhibit()->name, 'New Title');
-        $this->assertEquals($updatedExhibit->slug, 'new-slug');
-        $this->assertEquals($updatedExhibit->public, 0);
+        $parentExhibit = $updatedExhibit->getExhibit();
+        $this->assertEquals($parentExhibit->name, 'New Title');
+        $this->assertEquals($parentExhibit->slug, 'new-slug');
+        $this->assertEquals($parentExhibit->public, 0);
 
 
 

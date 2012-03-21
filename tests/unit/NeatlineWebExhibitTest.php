@@ -177,10 +177,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         // Create NLW exhibit for user1.
-        $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->slug = 'taken-slug';
-        $exhibit1->public = 1;
-        $exhibit1->save();
+        $exhibit1 = $this->__exhibit($user1, 'Test Title 1', 'taken-slug', 1);
 
         // Create NLW exhibit for user2.
         $exhibit2 = new NeatlineWebExhibit($user1);
@@ -304,8 +301,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
 
         // Check.
         $this->assertEquals($newExhibit->name, 'Test Title');
-        $this->assertEquals($exhibit->slug, 'test-title');
-        $this->assertEquals($exhibit->public, 1);
+        $this->assertEquals($newExhibit->slug, 'test-title');
+        $this->assertEquals($newExhibit->public, 1);
 
     }
 
@@ -332,8 +329,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
 
         // Check.
         $this->assertEquals($newExhibit->name, 'Test Title');
-        $this->assertEquals($exhibit->slug, 'test-title');
-        $this->assertEquals($exhibit->public, 1);
+        $this->assertEquals($newExhibit->slug, 'test-title');
+        $this->assertEquals($newExhibit->public, 1);
 
     }
 
