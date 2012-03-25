@@ -78,7 +78,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $count = $this->_exhibitsTable->count();
 
         // Create.
-        $exhibit->createParentExhibit();
+        $exhibit->createParentExhibit('Test Title', 'test-slug', true);
 
         // +1.
         $this->assertEquals($this->_exhibitsTable->count(), $count + 1);
@@ -290,8 +290,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $user = $this->__user();
 
         // Create NLW exhibit and parent exhibit.
-        $exhibit = new NeatlineWebExhibit($user);
-        $exhibit->createParentExhibit();
+        $exhibit = $this->__exhibit($user);
 
         // Apply.
         $exhibit->_apply('Test Title', 'test-title', true);
@@ -318,18 +317,17 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $user = $this->__user();
 
         // Create NLW exhibit and parent exhibit.
-        $exhibit = new NeatlineWebExhibit($user);
-        $exhibit->createParentExhibit();
+        $exhibit = $this->__exhibit($user);
 
         // Apply.
-        $exhibit->_apply('Test Title', 'Test-Title', true);
+        $exhibit->_apply('Test Title', 'New-Test-Slug', true);
 
         // Get the new exhibit.
         $newExhibit = $exhibit->getExhibit();
 
         // Check.
         $this->assertEquals($newExhibit->name, 'Test Title');
-        $this->assertEquals($newExhibit->slug, 'test-title');
+        $this->assertEquals($newExhibit->slug, 'new-test-slug');
         $this->assertEquals($newExhibit->public, 1);
 
     }
@@ -346,8 +344,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $user = $this->__user();
 
         // Create NLW exhibit.
-        $exhibit = new NeatlineWebExhibit($user);
-        $exhibit->createParentExhibit();
+        $exhibit = $this->__exhibit($user);
 
         // Check.
         $this->assertEquals($exhibit->getNumberOfRecords(), 0);
@@ -366,10 +363,8 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $user = $this->__user();
 
         // Create NLW exhibit, get parent exhibit.
-        $exhibit1 = new NeatlineWebExhibit($user);
-        $exhibit2 = new NeatlineWebExhibit($user);
-        $exhibit1->createParentExhibit();
-        $exhibit2->createParentExhibit();
+        $exhibit1 = $this->__exhibit($user, 'Test Title 1', true);
+        $exhibit2 = $this->__exhibit($user, 'Test Title 1', true);
         $parentExhibit1 = $exhibit1->getExhibit();
         $parentExhibit2 = $exhibit2->getExhibit();
 

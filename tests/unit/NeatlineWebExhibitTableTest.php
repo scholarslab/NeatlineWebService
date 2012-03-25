@@ -151,39 +151,27 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->slug =    'test1';
-        $exhibit1->public =  1;
-        $exhibit1->createParentExhibit();
+        $exhibit1->createParentExhibit('Exhibit 1', 'test1', true);
         $exhibit1->save();
 
         $exhibit2 = new NeatlineWebExhibit($user1);
-        $exhibit2->slug =    'test2';
-        $exhibit2->public =  1;
-        $exhibit2->createParentExhibit();
+        $exhibit2->createParentExhibit('Exhibit 2', 'test2', true);
         $exhibit2->save();
 
         $exhibit3 = new NeatlineWebExhibit($user1);
-        $exhibit3->slug =    'test3';
-        $exhibit3->public =  1;
-        $exhibit3->createParentExhibit();
+        $exhibit3->createParentExhibit('Exhibit 3', 'test3', true);
         $exhibit3->save();
 
         $exhibit4 = new NeatlineWebExhibit($user1);
-        $exhibit4->slug =    'test4';
-        $exhibit4->public =  1;
-        $exhibit4->createParentExhibit();
+        $exhibit4->createParentExhibit('Exhibit 4', 'test4', true);
         $exhibit4->save();
 
         $exhibit5 = new NeatlineWebExhibit($user2);
-        $exhibit5->slug =    'test5';
-        $exhibit5->public =  1;
-        $exhibit5->createParentExhibit();
+        $exhibit5->createParentExhibit('Exhibit 5', 'test5', true);
         $exhibit5->save();
 
         $exhibit6 = new NeatlineWebExhibit($user2);
-        $exhibit6->slug =    'test6';
-        $exhibit6->public =  1;
-        $exhibit6->createParentExhibit();
+        $exhibit6->createParentExhibit('Exhibit 6', 'test6', true);
         $exhibit6->save();
 
         // Get.
@@ -214,39 +202,27 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
 
         $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->slug =    'test1';
-        $exhibit1->public =  1;
-        $exhibit1->createParentExhibit();
+        $exhibit1->createParentExhibit('Exhibit 1', 'test1', true);
         $exhibit1->save();
 
         $exhibit2 = new NeatlineWebExhibit($user1);
-        $exhibit2->slug =    'test2';
-        $exhibit2->public =  1;
-        $exhibit2->createParentExhibit();
+        $exhibit2->createParentExhibit('Exhibit 2', 'test2', true);
         $exhibit2->save();
 
         $exhibit3 = new NeatlineWebExhibit($user1);
-        $exhibit3->slug =    'test3';
-        $exhibit3->public =  1;
-        $exhibit3->createParentExhibit();
+        $exhibit3->createParentExhibit('Exhibit 3', 'test3', true);
         $exhibit3->save();
 
         $exhibit4 = new NeatlineWebExhibit($user1);
-        $exhibit4->slug =    'test4';
-        $exhibit4->public =  1;
-        $exhibit4->createParentExhibit();
+        $exhibit4->createParentExhibit('Exhibit 4', 'test4', true);
         $exhibit4->save();
 
         $exhibit5 = new NeatlineWebExhibit($user2);
-        $exhibit5->slug =    'test5';
-        $exhibit5->public =  1;
-        $exhibit5->createParentExhibit();
+        $exhibit5->createParentExhibit('Exhibit 5', 'test5', true);
         $exhibit5->save();
 
         $exhibit6 = new NeatlineWebExhibit($user2);
-        $exhibit6->slug =    'test6';
-        $exhibit6->public =  1;
-        $exhibit6->createParentExhibit();
+        $exhibit6->createParentExhibit('Exhibit 6', 'test6', true);
         $exhibit6->save();
 
         // Get parent exhibits.
@@ -303,27 +279,19 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
         $user2 = $this->__user('test2', 'test', 'test2@virginia.edu');
 
         $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->slug =    'test1';
-        $exhibit1->public =  1;
-        $exhibit1->createParentExhibit();
+        $exhibit1->createParentExhibit('Exhibit 1', 'test1', true);
         $exhibit1->save();
 
         $exhibit2 = new NeatlineWebExhibit($user1);
-        $exhibit2->slug =    'test2';
-        $exhibit2->public =  1;
-        $exhibit2->createParentExhibit();
+        $exhibit2->createParentExhibit('Exhibit 2', 'test2', true);
         $exhibit2->save();
 
         $exhibit3 = new NeatlineWebExhibit($user1);
-        $exhibit3->slug =    'test3';
-        $exhibit3->public =  1;
-        $exhibit3->createParentExhibit();
+        $exhibit3->createParentExhibit('Exhibit 3', 'test3', true);
         $exhibit3->save();
 
         $exhibit4 = new NeatlineWebExhibit($user2);
-        $exhibit4->slug =    'test4';
-        $exhibit4->public =  1;
-        $exhibit4->createParentExhibit();
+        $exhibit4->createParentExhibit('Exhibit 4', 'test4', true);
         $exhibit4->save();
 
         // True when owner.

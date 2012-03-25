@@ -292,8 +292,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             if (count($errors) == 0) {
 
                 // Create parent exhibit and set columns.
-                $exhibit->createParentExhibit();
-                $exhibit->_apply($title, $slug, $public);
+                $exhibit->createParentExhibit($title, $slug, $public);
 
                 // Commit.
                 $exhibit->save();

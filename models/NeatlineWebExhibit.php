@@ -56,13 +56,14 @@ class NeatlineWebExhibit extends Omeka_record
      *
      * @return void.
      */
-    public function createParentExhibit()
+    public function createParentExhibit($title, $slug, $public)
     {
 
         // Create Neatline exhibit.
         $exhibit = new NeatlineExhibit;
-        $exhibit->slug =            'test-slug';
-        $exhibit->public =          1;
+        $exhibit->name =            $title;
+        $exhibit->slug =            $slug;
+        $exhibit->public =          $public ? 1 : 0;
         $exhibit->top_element =     'map';
         $exhibit->items_h_pos =     'right';
         $exhibit->items_v_pos =     'bottom';
