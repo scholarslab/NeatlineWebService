@@ -349,7 +349,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 $exhibit->_apply($title, $slug, $public);
 
                 // Commit.
-                $exhibit->save();
+                // $exhibit->save();
 
                 // Redirect to root.
                 return $this->_redirect(nlws_url('exhibits'));
