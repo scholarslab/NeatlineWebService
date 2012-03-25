@@ -102,21 +102,8 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
         $exhibit =                  $webExhibit->getExhibit();
         $layers =                   $this->_layersTable->findAll();
 
-        // Construct the data array for the exhibit.
-        $neatlineData = array(
-            'public' =>             false,
-            'neatline' =>           $exhibit,
-            'dataSources' => array(
-                'timeline' =>       neatline_getTimelineDataUrl($exhibit->id),
-                'map' =>            neatline_getMapDataUrl($exhibit->id),
-                'undated' =>        neatline_getUndatedItemsDataUrl($exhibit->id)
-            )
-        );
-
         // Push records.
-        $this->view->neatline =     $exhibit;
-        $this->view->neatlineData = $neatlineData;
-        $this->view->map =          $map;
+        $this->view->exhibit =      $exhibit;
         $this->view->layers =       $layers;
 
     }
