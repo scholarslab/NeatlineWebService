@@ -42,6 +42,7 @@ echo $this->partial('admin/_header.php', array(
                 'title' => $title,
                 'slug' => $slug,
                 'public' => $public,
+                'description' => $description,
                 'submit' => 'Save'
             )); ?>
         </div>

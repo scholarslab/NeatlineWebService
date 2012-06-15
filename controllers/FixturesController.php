@@ -46,6 +46,7 @@ class NeatlineWebService_FixturesController extends Omeka_Controller_Action
             'errors' =>             array(),
             'title' =>              '',
             'slug' =>               '',
+            'description' =>        '',
             'public' =>             true,
             'user' =>               $user,
             'submit' =>             'Create'

@@ -80,8 +80,9 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>   '',
-                'slug' =>   '',
+                'title' => '',
+                'slug' => '',
+                'description' => ''
             )
         );
 
@@ -122,8 +123,9 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>   '',
-                'slug' =>   'taken-slug'
+                'title' => '',
+                'slug' => 'taken-slug',
+                'description' => ''
             )
         );
 
@@ -155,8 +157,9 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>  'Title',
-                'slug' =>   ''
+                'title' => 'Title',
+                'slug' => '',
+                'description' => ''
             )
         );
 
@@ -179,8 +182,9 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>  '',
-                'slug' =>   'test-title'
+                'title' => '',
+                'slug' => 'test-title',
+                'description' => ''
             )
         );
 
@@ -203,9 +207,10 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         // Prepare the request.
         $this->request->setMethod('POST')
             ->setPost(array(
-                'title' =>  '',
-                'slug' =>   '',
-                'public' => 'on'
+                'title' => '',
+                'slug' => '',
+                'public' => 'on',
+                'description' => ''
             )
         );
 
@@ -235,7 +240,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
 
         // Create NLW exhibit for user2.
         $exhibit = new NeatlineWebExhibit($user2);
-        $exhibit->createParentExhibit('Test Title', 'taken-slug', true);
+        $exhibit->createParentExhibit('Test Title', 'taken-slug', true, 'Test description.');
         $exhibit->save();
 
         // Starting counts.
@@ -249,7 +254,8 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>  'Test Title',
                 'slug' =>   'new-slug',
-                'public' => 'on'
+                'public' => 'on',
+                'description' => 'Test description.'
             )
         );
 

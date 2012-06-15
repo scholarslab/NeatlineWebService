@@ -109,14 +109,16 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
      * @param string $title         The title.
      * @param string $slug          The slug.
      * @param boolean $public       The public status.
+     * @param string $description   The description.
      *
      * @return Omeka_record $user The exhibit.
      */
     public function __exhibit(
         $user =     null,
-        $title =    'Test Title',
-        $slug =     'test-slug',
-        $public =   true
+        $title =        'Test Title',
+        $slug =         'test-slug',
+        $public =       true,
+        $description =  'Test description'
     )
     {
 
@@ -125,7 +127,7 @@ class NWS_Test_AppTestCase extends Omeka_Test_AppTestCase
         }
 
         $exhibit = new NeatlineWebExhibit($user);
-        $exhibit->createParentExhibit($title, $slug, $public);
+        $exhibit->createParentExhibit($title, $slug, $public, $description);
         $exhibit->save();
 
         return $exhibit;

@@ -274,6 +274,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $errors = array();
         $title = '';
         $slug = '';
+        $description = '';
         $public = false;
 
         // Process submission.
@@ -283,6 +284,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             $_post = $this->_request->getPost();
             $title = $_post['title'];
             $slug = $_post['slug'];
+            $description = $_post['description'];
             $public = array_key_exists('public', $_post);
 
             // Register the credentials, capture errors.
@@ -292,7 +294,12 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             if (count($errors) == 0) {
 
                 // Create parent exhibit and set columns.
-                $exhibit->createParentExhibit($title, $slug, $public);
+                $exhibit->createParentExhibit(
+                    $title,
+                    $slug,
+                    $public,
+                    $description
+                );
 
                 // Commit.
                 $exhibit->save();
@@ -309,6 +316,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->title = $title;
         $this->view->slug = $slug;
         $this->view->public = $public;
+        $this->view->description = $description;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
 
     }
@@ -326,6 +334,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $exhibit = $this->_exhibitsTable->findBySlug($slug, $this->view->user);
         $title = $exhibit->getExhibit()->name;
         $slug = $exhibit->slug;
+        $public = (bool) $exhibit->public;
+        $description = $exhibit->description;
 
         // Shell for errors.
         $errors = array();
@@ -337,6 +347,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             $_post = $this->_request->getPost();
             $title = $_post['title'];
             $slug = $_post['slug'];
+            $description = $_post['description'];
             $public = array_key_exists('public', $_post);
 
             // Register the credentials, capture errors.
@@ -346,7 +357,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
             if (count($errors) == 0) {
 
                 // Set columns.
-                $exhibit->_apply($title, $slug, $public);
+                $exhibit->_apply($title, $slug, $public, $description);
 
                 // Redirect to root.
                 return $this->_redirect(nlws_url('exhibits'));
@@ -359,7 +370,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->errors = $errors;
         $this->view->title = $title;
         $this->view->slug = $slug;
-        $this->view->public = (bool) $exhibit->public;
+        $this->view->public = $public;
+        $this->view->description = $description;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
 
     }

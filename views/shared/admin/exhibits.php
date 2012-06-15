@@ -42,6 +42,7 @@ echo $this->partial('admin/_header.php', array(
                 <thead>
                     <tr>
                         <th>exhibit</th>
+                        <th>slug</th>
                         <th>modified</th>
                         <th># items</th>
                         <th>public</th>
@@ -52,10 +53,10 @@ echo $this->partial('admin/_header.php', array(
                     <tr>
                         <td>
                             <a class="exhibit-title" href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
-                            <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
                             <span class="action bold"><a href="<?php echo nlws_url('edit', $exhibit->slug); ?>">edit details</a> |</span>
                             <span class="action danger"><a href="<?php echo nlws_url('delete', $exhibit->slug); ?>">delete</a></span>
                         </td>
+                        <td><div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div></td>
                         <td><?php echo nlws_formatDate($exhibit->modified); ?></td>
                         <td><?php echo $exhibit->getNumberOfRecords(); ?></td>
                         <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>

@@ -30,6 +30,7 @@ a.no-underline:hover {
 }
 
 a.exhibit-title {
+    display: block;
     font-size: 1.4em;
     font-weight: bold;
 }

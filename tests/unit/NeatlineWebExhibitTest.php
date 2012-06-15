@@ -78,7 +78,12 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $count = $this->_exhibitsTable->count();
 
         // Create.
-        $exhibit->createParentExhibit('Test Title', 'test-slug', true);
+        $exhibit->createParentExhibit(
+            'Test Title',
+            'test-slug',
+            true,
+            'Test description.'
+        );
 
         // +1.
         $this->assertEquals($this->_exhibitsTable->count(), $count + 1);
@@ -91,6 +96,12 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
             $exhibit->exhibit_id,
             $newExhibit->id
         );
+
+        // Check parameters.
+        $this->assertEquals($newExhibit->name, 'Test Title');
+        $this->assertEquals($newExhibit->slug, 'test-slug');
+        $this->assertEquals($newExhibit->description, 'Test description.');
+        $this->assertEquals($newExhibit->public, 1);
 
     }
 
@@ -293,7 +304,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $exhibit = $this->__exhibit($user);
 
         // Apply.
-        $exhibit->_apply('Test Title', 'test-title', true);
+        $exhibit->_apply('Test Title', 'test-title', true, 'Test description.');
 
         // Get the new exhibit.
         $newExhibit = $exhibit->getExhibit();
@@ -301,6 +312,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Check.
         $this->assertEquals($newExhibit->name, 'Test Title');
         $this->assertEquals($newExhibit->slug, 'test-title');
+        $this->assertEquals($newExhibit->description, 'Test description.');
         $this->assertEquals($newExhibit->public, 1);
 
     }
@@ -320,7 +332,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         $exhibit = $this->__exhibit($user);
 
         // Apply.
-        $exhibit->_apply('Test Title', 'New-Test-Slug', true);
+        $exhibit->_apply('Test Title', 'New-Test-Slug', true, 'Test description.');
 
         // Get the new exhibit.
         $newExhibit = $exhibit->getExhibit();
@@ -328,6 +340,7 @@ class Neatline_NeatlineWebExhibitTest extends NWS_Test_AppTestCase
         // Check.
         $this->assertEquals($newExhibit->name, 'Test Title');
         $this->assertEquals($newExhibit->slug, 'new-test-slug');
+        $this->assertEquals($newExhibit->description, 'Test description.');
         $this->assertEquals($newExhibit->public, 1);
 
     }
