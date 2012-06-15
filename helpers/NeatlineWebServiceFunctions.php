@@ -103,7 +103,7 @@ function nlws_url(
 {
 
     // URL root for all actions.
-    $path = NLWS_SLUG . '/' . nlws_getUsername();
+    $path = NLWS_SLUG . nlws_getUsername();
 
     // If action passed.
     if (!is_null($action)) {

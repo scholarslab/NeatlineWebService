@@ -48,24 +48,24 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
     {
 
         // ** /exhibits
-        $this->dispatch(NLWS_SLUG . '/exhibits');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
+        $this->dispatch(NLWS_SLUG . 'exhibits');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'login');
 
         // ** /add
-        $this->dispatch(NLWS_SLUG . '/add');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
+        $this->dispatch(NLWS_SLUG . 'add');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'login');
 
         // ** /edit
-        $this->dispatch(NLWS_SLUG . '/edit');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
+        $this->dispatch(NLWS_SLUG . 'edit');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'login');
 
         // ** /delete
-        $this->dispatch(NLWS_SLUG . '/delete');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
+        $this->dispatch(NLWS_SLUG . 'delete');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'login');
 
         // ** /logout
-        $this->dispatch(NLWS_SLUG . '/logout');
-        $this->assertRedirectTo('/' . NLWS_SLUG . '/login');
+        $this->dispatch(NLWS_SLUG . 'logout');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'login');
 
     }
 
@@ -84,11 +84,11 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /login
-        $this->dispatch(NLWS_SLUG . '/login');
+        $this->dispatch(NLWS_SLUG . 'login');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // ** /register
-        $this->dispatch(NLWS_SLUG . '/register');
+        $this->dispatch(NLWS_SLUG . 'register');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
     }
@@ -108,7 +108,7 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /exhibits
-        $this->dispatch(NLWS_SLUG . '/david/exhibits');
+        $this->dispatch(NLWS_SLUG . 'david/exhibits');
         $this->assertNotRedirect();
 
     }
