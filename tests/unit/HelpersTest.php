@@ -22,6 +22,15 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
+
+if (!defined('NLWS_PLUGIN_DIR')) {
+    define('NLWS_PLUGIN_DIR', dirname(__FILE__) . '/../..');
+}
+
+require_once APP_DIR . '/models/Plugin.php';
+require_once NLWS_PLUGIN_DIR . '/tests/NWS_Test_AppTestCase.php';
+
+
 class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
 {
 

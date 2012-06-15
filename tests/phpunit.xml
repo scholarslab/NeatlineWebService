@@ -1,7 +1,14 @@
 <phpunit bootstrap="../../../application/tests/bootstrap.php"
          convertErrorsToExceptions="true"
-         convertWarningsToExceptions="true">
+         convertWarningsToExceptions="true"
+         verbose="true">
+    <php>
+      <includePath>..</includePath>
+      <includePath>../../..</includePath>
+    </php>
     <testsuite name="Neatline Web Service Tests">
-        <file>AllTests.php</file>
+        <directory>unit</directory>
+        <directory>integration</directory>
+        <directory>fixtures</directory>
     </testsuite>
 </phpunit>

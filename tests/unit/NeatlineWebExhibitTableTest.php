@@ -73,7 +73,7 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
     }
 
     /**
-     * findBySlug() should return false when there is no exhibit with the passed slug.
+     * findBySlug() should return the exhibit when one exists with the passed slug.
      *
      * @return void.
      */
@@ -185,83 +185,6 @@ class Neatline_NeatlineWebExhibitTableTest extends NWS_Test_AppTestCase
 
         // Count.
         $this->assertEquals(count($exhibits), 2);
-
-    }
-
-    /**
-     * getExhibitsByUserSortedByModified() should return exhibits belonging
-     * to the passed user, joined with the exhibit table and ordered by 'modified'.
-     *
-     * @return void.
-     */
-    public function testGetExhibitsByUserSortedByModified()
-    {
-
-        // Create 2 users.
-        $user1 = $this->__user('test1', 'test1', 'test1@virginia.edu');
-        $user2 = $this->__user('test2', 'test2', 'test2@virginia.edu');
-
-        $exhibit1 = new NeatlineWebExhibit($user1);
-        $exhibit1->createParentExhibit('Exhibit 1', 'test1', true);
-        $exhibit1->save();
-
-        $exhibit2 = new NeatlineWebExhibit($user1);
-        $exhibit2->createParentExhibit('Exhibit 2', 'test2', true);
-        $exhibit2->save();
-
-        $exhibit3 = new NeatlineWebExhibit($user1);
-        $exhibit3->createParentExhibit('Exhibit 3', 'test3', true);
-        $exhibit3->save();
-
-        $exhibit4 = new NeatlineWebExhibit($user1);
-        $exhibit4->createParentExhibit('Exhibit 4', 'test4', true);
-        $exhibit4->save();
-
-        $exhibit5 = new NeatlineWebExhibit($user2);
-        $exhibit5->createParentExhibit('Exhibit 5', 'test5', true);
-        $exhibit5->save();
-
-        $exhibit6 = new NeatlineWebExhibit($user2);
-        $exhibit6->createParentExhibit('Exhibit 6', 'test6', true);
-        $exhibit6->save();
-
-        // Get parent exhibits.
-        $parent1 = $exhibit1->getExhibit();
-        $parent2 = $exhibit2->getExhibit();
-        $parent3 = $exhibit3->getExhibit();
-        $parent4 = $exhibit4->getExhibit();
-        $parent5 = $exhibit5->getExhibit();
-        $parent6 = $exhibit6->getExhibit();
-
-        // Set modifications.
-        $parent2->modified = '2012-01-05 00:00:00';
-        $parent2->parentSave();
-        $parent1->modified = '2012-01-04 05:00:00';
-        $parent1->parentSave();
-        $parent4->modified = '2012-01-04 04:00:00';
-        $parent4->parentSave();
-        $parent3->modified = '2012-01-03 00:00:00';
-        $parent3->parentSave();
-        $parent5->modified = '2012-01-02 00:00:00';
-        $parent5->parentSave();
-        $parent6->modified = '2012-01-01 00:00:00';
-        $parent6->parentSave();
-
-        // Get.
-        $exhibits = $this->_webExhibitsTable->getExhibitsByUserSortedByModified($user1);
-
-        // Check order.
-        $this->assertEquals($exhibits[0]->id, $exhibit2->id);
-        $this->assertEquals($exhibits[1]->id, $exhibit1->id);
-        $this->assertEquals($exhibits[2]->id, $exhibit4->id);
-        $this->assertEquals($exhibits[3]->id, $exhibit3->id);
-
-        // Get.
-        $exhibits = $this->_webExhibitsTable->getExhibitsByUserSortedByModified($user2);
-
-        // Check order.
-        $this->assertEquals($exhibits[0]->id, $exhibit5->id);
-        $this->assertEquals($exhibits[1]->id, $exhibit6->id);
 
     }
 

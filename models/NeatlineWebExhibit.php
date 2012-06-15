@@ -71,6 +71,7 @@ class NeatlineWebExhibit extends Omeka_record
         $exhibit->is_map =          1;
         $exhibit->is_timeline =     1;
         $exhibit->is_items =        1;
+        $exhibit->is_context_band = 1;
         $exhibit->save();
 
         // Set the exhibit key.
