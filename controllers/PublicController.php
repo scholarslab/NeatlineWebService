@@ -36,30 +36,8 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
     public function showAction()
     {
 
-        // Get the web exhibits table.
-        $_webExhibitsTable =    $this->getTable('NeatlineWebExhibit');
-        $_usersTable =          $this->getTable('NeatlineUser');
-
-        // Get records and shell out defaults.
-        $slug =                     $this->_request->getParam('slug');
-        $username =                 $this->_request->getParam('user');
-        $user =                     $_usersTable->findByUsername($username);
-        $webExhibit =               $_webExhibitsTable->findBySlug($slug, $user);
-        $exhibit =                  $webExhibit->getExhibit();
-
-        // Push records.
-        $this->view->public =       (bool) $webExhibit->public;
-        $this->view->exhibit =      $exhibit;
-
-    }
-
-    /**
-     * Embedded public exhibit view.
-     *
-     * @return void
-     */
-    public function embedAction()
-    {
+        // Supress the default Zend layout-sniffer functionality.
+        $this->_helper->viewRenderer->setNoRender(true);
 
         // Get the web exhibits table.
         $_webExhibitsTable =    $this->getTable('NeatlineWebExhibit');
@@ -72,9 +50,10 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
         $webExhibit =               $_webExhibitsTable->findBySlug($slug, $user);
         $exhibit =                  $webExhibit->getExhibit();
 
-        // Push records.
-        $this->view->public =       (bool) $webExhibit->public;
-        $this->view->exhibit =      $exhibit;
+        // Render the view as a partial.
+        echo $this->view->partial('index/show.php', array(
+            'neatlineexhibit' => $exhibit
+        ));
 
     }
 

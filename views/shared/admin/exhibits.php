@@ -31,7 +31,7 @@ echo $this->partial('admin/_header.php', array(
 
         <div class="span16">
 
-            <h2 class="clearfix">Browse Exhibits</h2>
+            <!--<h2 class="clearfix">Browse Exhibits</h2>-->
             <a class="no-underline" href="<?php echo nlws_url('add'); ?>">
                 <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
             </a>
@@ -42,24 +42,29 @@ echo $this->partial('admin/_header.php', array(
                 <thead>
                     <tr>
                         <th>exhibit</th>
+                        <th>slug</th>
                         <th>modified</th>
                         <th># items</th>
                         <th>public</th>
+                        <th>edit</th>
                     </tr>
                 </thead>
                 <?php foreach ($exhibits as $exhibit): ?>
                     <tr>
                         <td>
-                            <a class="exhibit-title" href="<?php echo nlws_url('editor', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
-                            <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
+                            <a class="exhibit-title" href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
                             <span class="action bold"><a href="<?php echo nlws_url('edit', $exhibit->slug); ?>">edit details</a> |</span>
-                            <span class="action"><a href="<?php echo nlws_url('fullscreen', $exhibit->slug); ?>">public</a> |</span>
-                            <span class="action"><a href="<?php echo nlws_url('embed', $exhibit->slug); ?>">embed</a> |</span>
                             <span class="action danger"><a href="<?php echo nlws_url('delete', $exhibit->slug); ?>">delete</a></span>
                         </td>
+                        <td><div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div></td>
                         <td><?php echo nlws_formatDate($exhibit->modified); ?></td>
                         <td><?php echo $exhibit->getNumberOfRecords(); ?></td>
                         <td><?php echo $exhibit->public ? 'yes' : 'no'; ?></td>
+                        <td>
+                            <a class="no-underline" href="<?php echo nlws_url('editor', $exhibit->slug); ?>">
+                                <button id="edit-exhibit-button" class="btn large primary icon alternative">Edit</button>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </table>

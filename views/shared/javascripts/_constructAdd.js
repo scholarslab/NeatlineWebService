@@ -23,10 +23,14 @@ jQuery(document).ready(function($) {
 
     // Get markup.
     var addForm = $('#add-form');
+    var description = $('textarea[name="description"]');
 
     // Run the slug previewer.
     addForm.slugBuilder({
         web_root: NeatlineWebService.web_root
     });
+
+    // Text editor on description.
+    description.redactor();
 
 });

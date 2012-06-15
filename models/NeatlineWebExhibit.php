@@ -54,14 +54,20 @@ class NeatlineWebExhibit extends Omeka_record
     /**
      * Create a parent Neatline exhibit.
      *
+     * @param string $title: Title.
+     * @param string $slug: Slug.
+     * @param boolean $public: Public.
+     * @param string $description: Description.
+     *
      * @return void.
      */
-    public function createParentExhibit($title, $slug, $public)
+    public function createParentExhibit($title, $slug, $public, $description)
     {
 
         // Create Neatline exhibit.
         $exhibit = new NeatlineExhibit;
         $exhibit->name =            $title;
+        $exhibit->description =     $description;
         $exhibit->slug =            $slug;
         $exhibit->public =          $public ? 1 : 0;
         $exhibit->top_element =     'map';
@@ -171,17 +177,19 @@ class NeatlineWebExhibit extends Omeka_record
      * @param string $title         The title.
      * @param string $slug          The slug.
      * @param boolean $public       Public or private.
+     * @param string $description   The description.
      *
      * @return void.
      */
-    public function _apply($title, $slug, $public)
+    public function _apply($title, $slug, $public, $description)
     {
 
         // Set the parent exhibit attributes.
         $parentExhibit = $this->getExhibit();
-        $parentExhibit->name =    $title;
-        $parentExhibit->slug =    strtolower($slug);
-        $parentExhibit->public =  $public ? 1 : 0;
+        $parentExhibit->name =        $title;
+        $parentExhibit->description = $description;
+        $parentExhibit->slug =        strtolower($slug);
+        $parentExhibit->public =      $public ? 1 : 0;
         $parentExhibit->save();
 
     }
@@ -201,9 +209,8 @@ class NeatlineWebExhibit extends Omeka_record
      *
      * @return void.
      */
-    public function delete()
+    public function beforeDelete()
     {
-        parent::delete();
         $this->getExhibit()->delete();
     }
 

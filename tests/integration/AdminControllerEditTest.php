@@ -54,7 +54,8 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             $this->user,
             'Test',
             'test-slug',
-            true
+            true,
+            'Test description.'
         );
 
     }
@@ -74,6 +75,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->assertQuery('div.title input[value="Test"]');
         $this->assertQuery('div.slug input[value="test-slug"]');
         $this->assertQuery('div.public input[checked="checked"]');
+        $this->assertQueryContentContains('div.description textarea', 'Test description.');
 
     }
 
@@ -90,6 +92,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>   '',
                 'slug' =>   '',
+                'description' => ''
             )
         );
 
@@ -128,7 +131,8 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->request->setMethod('POST')
             ->setPost(array(
                 'title' =>   '',
-                'slug' =>   'taken-slug'
+                'slug' =>   'taken-slug',
+                'description' => ''
             )
         );
 
@@ -158,7 +162,8 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->request->setMethod('POST')
             ->setPost(array(
                 'title' =>  'Title',
-                'slug' =>   ''
+                'slug' =>   '',
+                'description' => ''
             )
         );
 
@@ -182,7 +187,8 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->request->setMethod('POST')
             ->setPost(array(
                 'title' =>  '',
-                'slug' =>   'test-title'
+                'slug' =>   'test-title',
+                'description' => ''
             )
         );
 
@@ -191,6 +197,31 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
+
+    }
+
+    /**
+     * /edit should persist a description on form re-display.
+     *
+     * @return void.
+     */
+    public function testDescriptionSlugPersistence()
+    {
+
+        // Prepare the request.
+        $this->request->setMethod('POST')
+            ->setPost(array(
+                'title' =>  '',
+                'slug' =>   'test-title',
+                'description' => 'Test description.'
+            )
+        );
+
+        // Hit the route.
+        $this->dispatch(NLWS_SLUG . '/username/edit/test-slug');
+
+        // Check for the value.
+        $this->assertQueryContentContains('div.description textarea', 'Test description.');
 
     }
 
@@ -207,7 +238,8 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>  '',
                 'slug' =>   '',
-                'public' => 'on'
+                'public' => 'on',
+                'description' => ''
             )
         );
 
@@ -248,6 +280,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>  'New Title',
                 'slug' =>   'different-slug',
+                'description' => ''
             )
         );
 
@@ -277,6 +310,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>  'New Title',
                 'slug' =>   'test-slug',
+                'description' => ''
             )
         );
 
@@ -306,6 +340,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
             ->setPost(array(
                 'title' =>  'New Title',
                 'slug' =>   'new-slug',
+                'description' => 'New description.'
             )
         );
 
@@ -318,6 +353,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $parentExhibit = $updatedExhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'new-slug');
+        $this->assertEquals($parentExhibit->description, 'New description.');
         $this->assertEquals($parentExhibit->public, 0);
 
 

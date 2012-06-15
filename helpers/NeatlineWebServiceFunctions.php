@@ -36,6 +36,7 @@ function nlws_queueCss()
     // Custom CSS.
     queue_css('style');
     queue_css('bootstrap.xtra.min');
+    queue_css('redactor/redactor');
     queue_css('_overrides');
 
 }
@@ -50,6 +51,7 @@ function nlws_queueAddJs()
 
     // Custom .js.
     queue_js('_constructAdd');
+    queue_js('lib/redactor/redactor.min');
     queue_js('slugBuilder');
 
 }

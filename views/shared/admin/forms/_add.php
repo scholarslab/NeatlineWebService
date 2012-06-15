@@ -27,6 +27,14 @@
             </div>
         </div>
 
+        <div class="clearfix">
+            <label for="username">Description: *</label>
+            <div class="input description">
+                <textarea name="description" rows="10"><?php echo $description; ?></textarea>
+                <span class="help-block">The description is displayed below the exhibit in the public view.</span>
+            </div>
+        </div>
+
         <div class="clearfix <?php echo nlws_getErrorClass($errors, 'slug', 'error'); ?>">
             <label for="slug">URL Slug: *</label>
             <div class="input slug">
