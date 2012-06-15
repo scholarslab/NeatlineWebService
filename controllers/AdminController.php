@@ -348,9 +348,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                 // Set columns.
                 $exhibit->_apply($title, $slug, $public);
 
-                // Commit.
-                // $exhibit->save();
-
                 // Redirect to root.
                 return $this->_redirect(nlws_url('exhibits'));
 
@@ -364,24 +361,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->slug = $slug;
         $this->view->public = (bool) $exhibit->public;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
-
-    }
-
-    /**
-     * Embed configuration application.
-     *
-     * @return void
-     */
-    public function embedAction()
-    {
-
-        // Get the exhibit.
-        $slug = $this->_request->getParam('slug');
-        $exhibit = $this->_exhibitsTable->findBySlug($slug, $this->view->user);
-
-        // Push exhibit and webroot.
-        $this->view->exhibit = $exhibit;
-        $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'embed_origin');
 
     }
 
@@ -425,6 +404,5 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     {
         return new NeatlineAuthAdapter($username, $password);
     }
-
 
 }
