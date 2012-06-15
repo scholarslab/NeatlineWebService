@@ -201,9 +201,9 @@ class NeatlineWebExhibit extends Omeka_record
      *
      * @return void.
      */
-    // public function afterDelete()
-    // {
-    //     $this->getExhibit()->delete();
-    // }
+    public function beforeDelete()
+    {
+        $this->getExhibit()->delete();
+    }
 
 }
