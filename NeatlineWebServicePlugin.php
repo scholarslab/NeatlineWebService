@@ -1,5 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * Manager class.
@@ -32,7 +32,9 @@ class NeatlineWebServicePlugin
         'uninstall',
         'define_routes',
         'admin_theme_header',
-        'public_theme_header'
+        'public_theme_header',
+        'config_form',
+        'config'
     );
 
     // Filters.
@@ -92,23 +94,23 @@ class NeatlineWebServicePlugin
 
         // Users table.
         $sql = "CREATE TABLE IF NOT EXISTS `{$this->_db->prefix}neatline_users` (
-                `id`                    int(10) unsigned not null auto_increment,
-                `username`              varchar(30) NOT NULL UNIQUE,
-                `password`              varchar(40) NOT NULL,
-                `salt`                  varchar(16) NULL,
-                `email`                 varchar(80) NOT NULL,
-                 PRIMARY KEY (`id`)
-               ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+            `id`                    int(10) unsigned not null auto_increment,
+            `username`              varchar(30) NOT NULL UNIQUE,
+            `password`              varchar(40) NOT NULL,
+            `salt`                  varchar(16) NULL,
+            `email`                 varchar(80) NOT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
         $this->_db->query($sql);
 
         // Exhibits table.
         $sql = "CREATE TABLE IF NOT EXISTS `{$this->_db->prefix}neatline_web_exhibits` (
-                `id`                    int(10) unsigned not null auto_increment,
-                `user_id`               int(10) unsigned NULL,
-                `exhibit_id`            int(10) unsigned NULL,
-                 PRIMARY KEY (`id`)
-               ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+            `id`                    int(10) unsigned not null auto_increment,
+            `user_id`               int(10) unsigned NULL,
+            `exhibit_id`            int(10) unsigned NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=innodb DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
         $this->_db->query($sql);
 
@@ -132,10 +134,36 @@ class NeatlineWebServicePlugin
 
     }
 
+    public function config()
+    {
+        set_option(
+            'web_service_home_page',
+            (int)(boolean)$_POST['web_service_home_page']
+        );
+    }
+
+    public function configForm()
+    {
+        include 'config_form.php';
+    }
+
+    /**
+     * Stub for future upgrades
+     *
+     * @param string $oldVersion Older version number
+     * @param string $newVersion New version number
+     *
+     * @return void
+     */
+    public function upgrade($oldVersion, $newVersion)
+    {
+
+    }
+
     /**
      * Register routes.
      *
-     * @param object $router    Router passed in by the front controller.
+     * @param object $router Router passed in by the front controller.
      *
      * @return void
      */
@@ -243,6 +271,21 @@ class NeatlineWebServicePlugin
             )
         );
 
+        // option to set root route
+        if (get_option('web_service_home_page') && !is_admin_theme()) {
+            $router->addRoute(
+                'nlws_home_page',
+                new Zend_Controller_Router_Route(
+                    '/',
+                    array(
+                        'module'     => 'neatline-web-service',
+                        'controller' => 'admin',
+                        'action'     => 'exhibits'
+                    )
+                )
+            );
+        }
+
     }
 
     /**
@@ -267,9 +310,11 @@ class NeatlineWebServicePlugin
             // ** /add or /edit
             if (in_array(
                 $request->getActionName(),
-                array('add', 'edit'))) {
-                nlws_queueAddJs();
-            }
+                array(
+                    'add',
+                    'edit'))) {
+                    nlws_queueAddJs();
+                }
 
             // ** /embed
             if ($request->getActionName() == 'embed') {
@@ -288,6 +333,8 @@ class NeatlineWebServicePlugin
 
     /**
      * Queue file assets by route for public views.
+     *
+     * @param Zend_Request $request Request 
      *
      * @return void
      */

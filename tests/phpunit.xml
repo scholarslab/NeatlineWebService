@@ -1,14 +1,23 @@
-<phpunit bootstrap="../../../application/tests/bootstrap.php"
-         convertErrorsToExceptions="true"
-         convertWarningsToExceptions="true"
-         verbose="true">
-    <php>
-      <includePath>..</includePath>
-      <includePath>../../..</includePath>
-    </php>
-    <testsuite name="Neatline Web Service Tests">
-        <directory>unit</directory>
-        <directory>integration</directory>
-        <directory>fixtures</directory>
-    </testsuite>
+<phpunit bootstrap="bootstrap.php"
+  convertErrorsToExceptions="true"
+  convertWarningsToExceptions="true"
+  verbose="true">
+  <php>
+    <includePath>..</includePath>
+    <includePath>../../..</includePath>
+  </php>
+  <testsuite name="Neatline Web Service Tests">
+    <directory>unit</directory>
+    <directory>integration</directory>
+    <directory>fixtures</directory>
+  </testsuite>
+
+  <logging>
+    <log type="coverage-html"
+      target="build/coverage"
+      charset="UTF-8" yui="true"
+      highlight="true"
+      lowUpperBound="35"
+      highLowerBound="70" />
+  </logging>
 </phpunit>
