@@ -31,7 +31,7 @@ echo $this->partial('admin/_header.php', array(
 
         <div class="span16">
 
-            <h2 class="clearfix">Browse Exhibits</h2>
+            <!--<h2 class="clearfix">Browse Exhibits</h2>-->
             <a class="no-underline" href="<?php echo nlws_url('add'); ?>">
                 <button id="new-exhibit-button" class="btn large primary icon alternative arrowup">New Exhibit</button>
             </a>
