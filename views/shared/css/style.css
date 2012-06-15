@@ -109,3 +109,7 @@ h4.no-exhibits {
     font-size: 1.4em;
     margin-left: 0.4em;
 }
+
+input[type="text"] {
+    background: white;
+}
