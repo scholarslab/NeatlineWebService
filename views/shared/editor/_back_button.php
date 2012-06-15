@@ -2,7 +2,9 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
 
 /**
- * Static markup for the item browser application.
+ * Partial template for editor back button. This is broken out of the
+ * _topbar_navigation template because it needs to be overridden by the
+ * webservice.
  *
  * PHP version 5
  *
@@ -25,23 +27,4 @@
  */
 ?>
 
-<div id="item-browser">
-
-    <div id="items-list-header">
-
-        <input type="text" placeholder="Search items" id="search-box" />
-        <span id="search-cancel">x</span>
-        <button id="new-item-button" class="btn icon add">New Record</button>
-        <div class="columns">
-            <div id="items-header" class="col-1 col-cell col-header"><a class="header" title="Items"></a></div>
-            <div id="space-header" class="col-2 col-cell col-header"><a class="header" title="Map"></a></div>
-            <div id="time-header" class="col-3 col-cell col-header"><a class="header" title="Timeline"></a></div>
-        </div>
-
-    </div>
-
-    <div id="items-list-container"></div>
-
-    <?php echo $this->partial('editor/_edit_form.php'); ?>
-
-</div>
+<a class="omeka-logo" href="<?php echo nlws_url('exhibits'); ?>">Back to Your Exhibits</a>
