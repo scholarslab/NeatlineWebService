@@ -69,6 +69,8 @@ echo $this->partial('admin/_header.php', array(
                 <?php endforeach; ?>
             </table>
 
+        <?php else: ?>
+            <h4 class="no-exhibits">You don't have any exhibits yet. Click "New Exhibit" to get started!</h4>
         <?php endif; ?>
 
         </div>

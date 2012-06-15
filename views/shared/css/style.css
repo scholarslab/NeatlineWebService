@@ -102,3 +102,10 @@ table#exhibits-table td {
     padding: 16px 10px 9px;
     line-height: 22px;
 }
+
+h4.no-exhibits {
+    color: #BFBFBF;
+    font-weight: normal;
+    font-size: 1.4em;
+    margin-left: 0.4em;
+}

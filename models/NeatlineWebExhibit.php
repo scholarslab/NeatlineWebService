@@ -22,7 +22,7 @@
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
 
-class NeatlineWebExhibit extends Omeka_record
+class NeatlineWebExhibit extends Omeka_Record
 {
 
 
