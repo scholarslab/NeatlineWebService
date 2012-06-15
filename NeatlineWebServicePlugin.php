@@ -271,7 +271,7 @@ class NeatlineWebServicePlugin
             )
         );
 
-        // option to set root route
+        // Option to set root route.
         if (get_option('web_service_home_page') && !is_admin_theme()) {
             $router->addRoute(
                 'nlws_home_page',
