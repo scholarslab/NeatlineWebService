@@ -42,7 +42,7 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
         // Prepare the select.
         $select = $this->select()
             ->from(array('w' => $_db->prefix . 'neatline_web_exhibits'))
-            ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'w.exhibit_id = n.id')
+            ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'n.id = w.exhibit_id', array('slug', 'public', 'description'))
             ->where('n.slug = "' . $slug . '" AND w.user_id = ' . $user->id);
 
         // Query.
