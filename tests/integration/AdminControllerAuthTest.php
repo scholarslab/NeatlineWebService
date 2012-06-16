@@ -48,24 +48,24 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
     {
 
         // ** /exhibits
-        $this->dispatch(NLWS_SLUG . 'admin/exhibits');
-        $this->assertRedirectTo('/' . NLWS_SLUG . 'admin/login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/exhibits');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'nl-admin/login');
 
         // ** /add
-        $this->dispatch(NLWS_SLUG . 'admin/add');
-        $this->assertRedirectTo('/' . NLWS_SLUG . 'admin/login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/add');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'nl-admin/login');
 
         // ** /edit
-        $this->dispatch(NLWS_SLUG . 'admin/edit');
-        $this->assertRedirectTo('/' . NLWS_SLUG . 'admin/login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/edit');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'nl-admin/login');
 
         // ** /delete
-        $this->dispatch(NLWS_SLUG . 'admin/delete');
-        $this->assertRedirectTo('/' . NLWS_SLUG . 'admin/login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/delete');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'nl-admin/login');
 
         // ** /logout
-        $this->dispatch(NLWS_SLUG . 'admin/logout');
-        $this->assertRedirectTo('/' . NLWS_SLUG . 'admin/login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/logout');
+        $this->assertRedirectTo('/' . NLWS_SLUG . 'nl-admin/login');
 
     }
 
@@ -84,11 +84,11 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /login
-        $this->dispatch(NLWS_SLUG . 'admin/login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // ** /register
-        $this->dispatch(NLWS_SLUG . 'admin/register');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/register');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
     }
@@ -108,7 +108,7 @@ class NeatlineWebService_AdminControllerAuthTest extends NWS_Test_AppTestCase
         $auth->authenticate($adapter);
 
         // ** /exhibits
-        $this->dispatch(NLWS_SLUG . 'admin/david/exhibits');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/david/exhibits');
         $this->assertNotRedirect();
 
     }

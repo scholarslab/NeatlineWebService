@@ -71,7 +71,7 @@ class NeatlineWebService_AdminControllerNonSelfBlockingTest extends NWS_Test_App
         );
 
         // Hit /exhibits.
-        $this->dispatch(NLWS_SLUG . 'admin/user2/exhibits');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/exhibits');
 
         // Check for redirect and listing absence.
         $this->assertRedirectTo(nlws_url('exhibits'));
@@ -100,7 +100,7 @@ class NeatlineWebService_AdminControllerNonSelfBlockingTest extends NWS_Test_App
 
         // Form delete request.
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/delete/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/delete/test-slug');
 
         // Web exhibit not deleted.
         $this->assertEquals(
@@ -142,7 +142,7 @@ class NeatlineWebService_AdminControllerNonSelfBlockingTest extends NWS_Test_App
         );
 
         // Hit.
-        $this->dispatch(NLWS_SLUG . 'admin/user2/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/add');
 
         // No web exhibit added.
         $this->assertEquals(
@@ -182,7 +182,7 @@ class NeatlineWebService_AdminControllerNonSelfBlockingTest extends NWS_Test_App
             )
         );
 
-        $this->dispatch(NLWS_SLUG . 'admin/user2/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/edit/test-slug');
 
         // Get out the exhibit.
         $exhibit = $this->_webExhibitsTable->find($exhibit->id);

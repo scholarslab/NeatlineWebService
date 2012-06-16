@@ -69,7 +69,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
      */
     public function testBlockIndex()
     {
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -80,7 +80,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
      */
     public function testBlockItems()
     {
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/items');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/items');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -91,7 +91,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
      */
     public function testBlockForm()
     {
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/form');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/form');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -103,7 +103,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockSave()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/save');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/save');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -115,7 +115,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockStatus()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/status');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/status');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -127,7 +127,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockOrder()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/order');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/order');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -139,7 +139,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockPositions()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/positions');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/positions');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -151,7 +151,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockArrangement()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/arrangement');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/arrangement');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -163,7 +163,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockFocus()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/focus');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/focus');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -175,7 +175,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockMapsettings()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/mapsettings');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/mapsettings');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -187,7 +187,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockAdd()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/add');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -199,7 +199,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockResetstyles()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/resetstyles');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/resetstyles');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 
@@ -211,7 +211,7 @@ class NeatlineWebService_EditorControllerNonSelfBlockingTest extends NWS_Test_Ap
     public function testBlockDelete()
     {
         $this->request->setMethod('POST');
-        $this->dispatch(NLWS_SLUG . 'admin/user2/editor/ajax/delete');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/user2/editor/ajax/delete');
         $this->assertRedirectTo(nlws_url('exhibits'));
     }
 

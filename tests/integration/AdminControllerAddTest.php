@@ -60,7 +60,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
 
         // Check for the form.
         $this->assertQuery('input[name="title"]');
@@ -87,7 +87,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -130,7 +130,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -164,7 +164,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -189,7 +189,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -215,7 +215,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -260,7 +260,7 @@ class NeatlineWebService_AdminControllerAddTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch(NLWS_SLUG . 'admin/username/add');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/add');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Ending counts.

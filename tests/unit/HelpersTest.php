@@ -145,19 +145,19 @@ class Neatline_NeatlineHelpersTest extends NWS_Test_AppTestCase
         // When just username is passed.
         $this->assertEquals(
             nlws_url(),
-            $common . 'admin/username'
+            $common . 'nl-admin/username'
         );
 
         // When a username and action are passed.
         $this->assertEquals(
             nlws_url('edit'),
-            $common . 'admin/username/edit'
+            $common . 'nl-admin/username/edit'
         );
 
         // When a username, action, and slug are passed.
         $this->assertEquals(
             nlws_url('edit', 'test-slug'),
-            $common . 'admin/username/edit/test-slug'
+            $common . 'nl-admin/username/edit/test-slug'
         );
 
     }
