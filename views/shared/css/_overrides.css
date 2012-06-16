@@ -20,6 +20,7 @@ body {
 
 a {
     color: rgba(90, 60, 110, 1) !important;
+    font-weight: bold;
 }
 
 .container {

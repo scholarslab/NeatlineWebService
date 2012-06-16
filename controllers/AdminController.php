@@ -75,7 +75,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // If not logged in and requesting protected action, block.
         if (!$hasIdentity && in_array($action, self::$_protectedActions)) {
-            return $this->_redirect(NLWS_SLUG . 'login');
+            return $this->_redirect(NLWS_SLUG . 'admin/login');
         }
 
         // If logged in.
@@ -243,7 +243,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-        return $this->_redirect(NLWS_SLUG . 'login');
+        return $this->_redirect(NLWS_SLUG . 'admin/login');
     }
 
     /**

@@ -50,7 +50,7 @@
         <div class="clearfix">
             <label for="slug">URL Preview:</label>
             <div id="slug-preview">
-                <span id="slug-preview-web-root"></span>/<span id="url-slug-preview"></span>
+                <span id="slug-preview-web-root"></span>/<?php echo $user->username; ?>/<span id="url-slug-preview"></span>
             </div>
         </div>
 
