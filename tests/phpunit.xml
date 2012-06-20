@@ -2,19 +2,21 @@
   convertErrorsToExceptions="true"
   convertWarningsToExceptions="true"
   verbose="true">
-  <php>
-    <includePath>..</includePath>
-    <includePath>../../..</includePath>
-  </php>
+
   <testsuite name="Neatline Web Service Tests">
     <directory>unit</directory>
     <directory>integration</directory>
     <directory>fixtures</directory>
   </testsuite>
 
+  <php>
+    <includePath>..</includePath>
+    <includePath>../../</includePath>
+    <includePath>../../../</includePath>
+  </php>
   <logging>
     <log type="coverage-html"
-      target="build/coverage"
+      target="../build/coverage"
       charset="UTF-8" yui="true"
       highlight="true"
       lowUpperBound="35"
