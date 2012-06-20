@@ -132,6 +132,8 @@ class NeatlineWebServicePlugin
         $sql = "DROP TABLE IF EXISTS `{$this->_db->prefix}neatline_web_exhibits`";
         $this->_db->query($sql);
 
+        delete_option('web_service_home_page');
+
     }
 
     public function config()

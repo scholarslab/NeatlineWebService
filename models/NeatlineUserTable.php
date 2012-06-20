@@ -1,5 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * User table class.
@@ -62,7 +62,7 @@ class NeatlineUserTable extends Omeka_Db_Table
     /**
      * Retrieve a user record by username
      *
-     * @param string $username  Username.
+     * @param string $username Username.
      *
      * @return Omeka_record     The record, if one exists, false if
      * there is no user with the supplied name.
@@ -71,7 +71,7 @@ class NeatlineUserTable extends Omeka_Db_Table
     {
 
         // Prepare the select and query.
-        $select = $this->getSelect()->where('username = "' . $username . '"');
+        $select = $this->getSelect()->where('username = ?', $username);
         $result = $this->fetchObject($select);
 
         return !is_null($result) ? $result : false;
@@ -102,9 +102,7 @@ class NeatlineUserTable extends Omeka_Db_Table
                 'NeatlineWebService',
                 'username_absent'
             );
-        }
-
-        else {
+        } else {
 
             // Try to get the user.
             $user = $this->findByUsername($username);
@@ -115,22 +113,19 @@ class NeatlineUserTable extends Omeka_Db_Table
                     'NeatlineWebService',
                     'username_does_not_exist'
                 );
-            }
+            } else if ($password == '') {
+                /**
+                 * PASSWORD
+                 */
 
-            /**
-             * PASSWORD
-             */
+                // If no password.
 
-            // If no password.
-            else if ($password == '') {
                 $errors['password'] = get_plugin_ini(
                     'NeatlineWebService',
                     'password_absent'
                 );
-            }
-
-            // If user exists, check password.
-            else if (!$user->checkPassword($password)) {
+            } else if (!$user->checkPassword($password)) {
+// If user exists, check password.
                 $errors['password'] = get_plugin_ini(
                     'NeatlineWebService',
                     'password_incorrect'
