@@ -289,8 +289,8 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
-        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $parentExhibit = $updatedExhibit->getExhibit();
+        // $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
+        $parentExhibit = $this->exhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'different-slug');
         $this->assertEquals($parentExhibit->public, 0);
@@ -319,8 +319,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
-        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $parentExhibit = $updatedExhibit->getExhibit();
+        $parentExhibit = $this->exhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'test-slug');
         $this->assertEquals($parentExhibit->public, 0);
@@ -349,8 +348,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
-        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $parentExhibit = $updatedExhibit->getExhibit();
+        $parentExhibit = $this->exhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'new-slug');
         $this->assertEquals($parentExhibit->description, 'New description.');

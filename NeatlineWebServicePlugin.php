@@ -189,8 +189,8 @@ class NeatlineWebServicePlugin
             new Zend_Controller_Router_Route(
                 NLWS_SLUG . ':user/:slug',
                 array(
-                    'module'        => 'neatline-web-service',
-                    'controller'    => 'public',
+                    'module'        => 'neatline',
+                    'controller'    => 'index',
                     'action'        => 'show'
                 )
             )
