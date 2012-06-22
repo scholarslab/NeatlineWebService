@@ -297,6 +297,7 @@ class NeatlineWebServicePlugin
      */
     public function adminThemeHeader($request)
     {
+        $exhibit = get_current_neatline();
 
         // Get the route.
         $routeName = Zend_Controller_Front
@@ -327,7 +328,7 @@ class NeatlineWebServicePlugin
 
         // Editor.
         else if ($routeName == 'nlwsEditorIndex') {
-            neatline_queueNeatlineAssets();
+            neatline_queueNeatlineAssets($exhibit);
             neatline_queueEditorAssets();
         }
 
@@ -342,6 +343,7 @@ class NeatlineWebServicePlugin
      */
     public function publicThemeHeader($request)
     {
+        $exhibit = get_current_neatline();
 
         // Get the route.
         $routeName = Zend_Controller_Front
@@ -352,13 +354,13 @@ class NeatlineWebServicePlugin
         // Fullscreen.
         if ($routeName == 'nlwsFullscreen') {
             neatline_queueFullscreenAssets();
-            neatline_queueNeatlineAssets();
+            neatline_queueNeatlineAssets($exhibit);
         }
 
         // Embedded.
         if ($routeName == 'nlwsEmbed') {
             neatline_queueEmbedAssets();
-            neatline_queueNeatlineAssets();
+            neatline_queueNeatlineAssets($exhibit);
         }
 
     }

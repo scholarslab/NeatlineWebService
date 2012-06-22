@@ -105,6 +105,7 @@ class NeatlineWebService_EditorController extends Neatline_EditorController
         // Push records.
         $this->view->exhibit =      $exhibit;
         $this->view->layers =       $layers;
+        set_current_neatline($exhibit);
 
     }
 

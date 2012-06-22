@@ -28,6 +28,21 @@
 class NeatlineWebService_PublicController extends Omeka_Controller_Action
 {
 
+    public function preDispatch()
+    {
+        $_webExhibitsTable =    $this->getTable('NeatlineWebExhibit');
+        $_usersTable =          $this->getTable('NeatlineUser');
+
+        // Get records and shell out defaults.
+        $slug =                     $this->_request->getParam('slug');
+        $username =                 $this->_request->getParam('user');
+        $user =                     $_usersTable->findByUsername($username);
+        $webExhibit =               $_webExhibitsTable->findBySlug($slug, $user);
+        $exhibit =                  $webExhibit->getExhibit();
+
+        set_current_neatline($exhibit);
+    }
+
     /**
      * Native-environment public exhibit view.
      *
