@@ -47,7 +47,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the form.
         $this->assertQuery('input[name="username"]');
@@ -72,7 +72,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the error classe.
         $this->assertQuery('div.error input[name="username"]');
@@ -108,7 +108,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="password"]');
@@ -141,7 +141,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="username"]');
@@ -177,7 +177,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="password"]');
@@ -210,7 +210,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the value.
         $this->assertQuery('div.username input[value="david"]');
@@ -234,7 +234,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
 
         // Check for the value.
         $this->assertQuery('div.password input[value="poesypure"]');
@@ -262,7 +262,7 @@ class NeatlineWebService_AdminControllerLoginTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route and check for redirect.
-        $this->dispatch(NLWS_SLUG . 'login');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/login');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Login.

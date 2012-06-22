@@ -69,7 +69,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
     {
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the form.
         $this->assertQuery('div.title input[value="Test"]');
@@ -97,7 +97,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the error classes.
         $this->assertQuery('div.error input[name="title"]');
@@ -137,7 +137,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the error class.
         $this->assertQuery('div.error input[name="slug"]');
@@ -168,7 +168,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.title input[value="Title"]');
@@ -193,7 +193,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.slug input[value="test-title"]');
@@ -218,7 +218,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQueryContentContains('div.description textarea', 'Test description.');
@@ -244,7 +244,7 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
 
         // Check for the value.
         $this->assertQuery('div.public input[checked="checked"]');
@@ -285,12 +285,12 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
-        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $parentExhibit = $updatedExhibit->getExhibit();
+        // $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
+        $parentExhibit = $this->exhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'different-slug');
         $this->assertEquals($parentExhibit->public, 0);
@@ -315,12 +315,11 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
-        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $parentExhibit = $updatedExhibit->getExhibit();
+        $parentExhibit = $this->exhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'test-slug');
         $this->assertEquals($parentExhibit->public, 0);
@@ -345,12 +344,11 @@ class NeatlineWebService_AdminControllerEditTest extends NWS_Test_AppTestCase
         );
 
         // Hit the route, check for redirect.
-        $this->dispatch(NLWS_SLUG . 'username/edit/test-slug');
+        $this->dispatch(NLWS_SLUG . 'nl-admin/username/edit/test-slug');
         $this->assertRedirectTo(nlws_url('exhibits'));
 
         // Check for updated values.
-        $updatedExhibit = $this->_webExhibitsTable->find($this->exhibit->id);
-        $parentExhibit = $updatedExhibit->getExhibit();
+        $parentExhibit = $this->exhibit->getExhibit();
         $this->assertEquals($parentExhibit->name, 'New Title');
         $this->assertEquals($parentExhibit->slug, 'new-slug');
         $this->assertEquals($parentExhibit->description, 'New description.');

@@ -31,7 +31,7 @@ a.no-underline:hover {
 
 a.exhibit-title {
     display: block;
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
@@ -101,4 +101,15 @@ table#exhibits-table td {
     font-size: 16px;
     padding: 16px 10px 9px;
     line-height: 22px;
+}
+
+h4.no-exhibits {
+    color: #BFBFBF;
+    font-weight: normal;
+    font-size: 1.4em;
+    margin-left: 0.4em;
+}
+
+input[type="text"] {
+    background: white;
 }

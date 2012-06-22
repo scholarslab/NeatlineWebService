@@ -1,5 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4; */
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * Web exhibit table class.
@@ -28,8 +28,8 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     /**
      * Find an exhibit by its slug.
      *
-     * @param string $slug          The slug.
-     * @param Omeka_record $user    The user.
+     * @param string       $slug The slug.
+     * @param Omeka_record $user The user.
      *
      * @return Omeka_records        The exhibit.
      */
@@ -43,7 +43,8 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
         $select = $this->select()
             ->from(array('w' => $_db->prefix . 'neatline_web_exhibits'))
             ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'w.exhibit_id = n.id')
-            ->where('n.slug = "' . $slug . '" AND w.user_id = ' . $user->id);
+            ->where('n.slug = ?', $slug)
+            ->where('w.user_id = ?', $user->id);
 
         // Query.
         $result = $this->fetchObject($select);
@@ -55,8 +56,8 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     /**
      * Check to see if the supplied slug is available for a given user.
      *
-     * @param Omeka_record user     The user.
-     * @param string $slug          The slug.
+     * @param Omeka_record $user The user.
+     * @param string       $slug The slug.
      *
      * @return boolean True if the slug is available.
      */
@@ -70,7 +71,8 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
         $select = $this->select()
             ->from(array('w' => $_db->prefix . 'neatline_web_exhibits'))
             ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'w.exhibit_id = n.id')
-            ->where('n.slug = "' . $slug . '" AND w.user_id = ' . $user->id);
+            ->where('n.slug = ?', $slug)
+            ->where('w.user_id = ?', $user->id);
 
         // Query.
         $result = $this->fetchObject($select);
@@ -90,9 +92,7 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     {
 
         // Prepare the select.
-        $select = $this->getSelect()->where(
-            'user_id = ' . $user->id
-        );
+        $select = $this->getSelect()->where('user_id = ?', $user->id);
 
         // Query.
         return $this->fetchObjects($select);
@@ -115,7 +115,7 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
         $select = $this->select()
             ->from(array('e' => $_db->prefix . 'neatline_web_exhibits'))
             ->joinLeft(array('n' => $_db->prefix . 'neatline_exhibits'), 'n.id = e.exhibit_id')
-            ->where('user_id = ' . $user->id)
+            ->where('user_id = ?', $user->id)
             ->order('modified DESC');
 
         // Query.
@@ -127,8 +127,8 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
      * Check whether a user is the owner of a web exhibit that is the
      * facade of a Neatline native exhibit with a given id.
      *
-     * @param Omeka_record user     The user.
-     * @param integer exhibit_id    The Neatline exhibit id.
+     * @param Omeka_record $user       The user.
+     * @param integer      $exhibit_id The Neatline exhibit id.
      *
      * @return boolean True if the user owns the exhibit.
      */
@@ -136,9 +136,9 @@ class NeatlineWebExhibitTable extends Omeka_Db_Table
     {
 
         // Prepare the select.
-        $select = $this->getSelect()->where(
-            'user_id = ' . $user->id . ' AND exhibit_id = ' . $exhibit_id
-        );
+        $select = $this->getSelect()
+            ->where('user_id = ?', $user->id)
+            ->where('exhibit_id = ?', $exhibit_id);
 
         // Query.
         $result = $this->fetchObject($select);

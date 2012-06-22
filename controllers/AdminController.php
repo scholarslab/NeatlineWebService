@@ -21,9 +21,6 @@
  * @copyright   2012 The Board and Visitors of the University of Virginia
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache 2 License
  */
-?>
-
-<?php
 
 class NeatlineWebService_AdminController extends Omeka_Controller_Action
 {
@@ -75,7 +72,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // If not logged in and requesting protected action, block.
         if (!$hasIdentity && in_array($action, self::$_protectedActions)) {
-            return $this->_redirect(NLWS_SLUG . 'login');
+            return $this->_redirect(NLWS_SLUG . 'nl-admin/login');
         }
 
         // If logged in.
@@ -243,7 +240,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-        return $this->_redirect(NLWS_SLUG . 'login');
+        return $this->_redirect(NLWS_SLUG . 'nl-admin/login');
     }
 
     /**
@@ -318,6 +315,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->public = $public;
         $this->view->description = $description;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
+        // $this->view->webRoot = $_SERVER['SERVER_NAME'];
 
     }
 
@@ -373,6 +371,7 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->public = $public;
         $this->view->description = $description;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
+        // $this->view->webRoot = $_SERVER['SERVER_NAME'];
 
     }
 
@@ -407,8 +406,8 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
     /**
      * Construct the session adapter.
      *
-     * @param string $username      Username.
-     * @param string $password      Password.
+     * @param string $username Username.
+     * @param string $password Password.
      *
      * @return void
      */

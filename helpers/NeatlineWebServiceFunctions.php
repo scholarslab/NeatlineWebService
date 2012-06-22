@@ -103,7 +103,7 @@ function nlws_url(
 {
 
     // URL root for all actions.
-    $path = NLWS_SLUG . nlws_getUsername();
+    $path = NLWS_SLUG . 'nl-admin/' . nlws_getUsername();
 
     // If action passed.
     if (!is_null($action)) {
@@ -117,6 +117,18 @@ function nlws_url(
 
     return $noRoot ? $path : WEB_ROOT . '/' . $path;
 
+}
+
+/**
+ * Build public exhibit url.
+ *
+ * @param string $slug          The exhibit slug.
+ *
+ * @return void.
+ */
+function nlws_show_url($slug)
+{
+    return WEB_ROOT . '/' . NLWS_SLUG . nlws_getUsername() . '/' . $slug;
 }
 
 /**

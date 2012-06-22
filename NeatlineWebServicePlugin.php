@@ -172,11 +172,37 @@ class NeatlineWebServicePlugin
     public function defineRoutes($router)
     {
 
+        // Default webservice slug.
+        $router->addRoute(
+            'nlwsSlug',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG,
+                array(
+                    'module'        => 'neatline-web-service',
+                    'controller'    => 'admin',
+                    'action'        => 'exhibits'
+                )
+            )
+        );
+
+        // Native show.
+        $router->addRoute(
+            'nlwsFullscreen',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . ':user/:slug',
+                array(
+                    'module'        => 'neatline',
+                    'controller'    => 'index',
+                    'action'        => 'show'
+                )
+            )
+        );
+
         // Admin slug.
         $router->addRoute(
             'nlwsAdmin',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/:action',
+                NLWS_SLUG . 'nl-admin/:user/:action',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'admin',
@@ -189,7 +215,7 @@ class NeatlineWebServicePlugin
         $router->addRoute(
             'nlwsAdminAnon',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':action',
+                NLWS_SLUG . 'nl-admin/:action',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'admin',
@@ -202,7 +228,7 @@ class NeatlineWebServicePlugin
         $router->addRoute(
             'nlwsAdminExhibitSlug',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/:action/:slug',
+                NLWS_SLUG . 'nl-admin/:user/:action/:slug',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'admin'
@@ -214,7 +240,7 @@ class NeatlineWebServicePlugin
         $router->addRoute(
             'nlwsEditorIndex',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/editor/:slug',
+                NLWS_SLUG . 'nl-admin/:user/editor/:slug',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'editor',
@@ -227,36 +253,10 @@ class NeatlineWebServicePlugin
         $router->addRoute(
             'nlwsEditorAction',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/editor/ajax/:action',
+                NLWS_SLUG . 'nl-admin/:user/editor/ajax/:action',
                 array(
                     'module'        => 'neatline-web-service',
                     'controller'    => 'editor'
-                )
-            )
-        );
-
-        // Native show.
-        $router->addRoute(
-            'nlwsFullscreen',
-            new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/fullscreen/:slug',
-                array(
-                    'module'        => 'neatline-web-service',
-                    'controller'    => 'public',
-                    'action'        => 'show'
-                )
-            )
-        );
-
-        // Embed show.
-        $router->addRoute(
-            'nlwsEmbed',
-            new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/embedded/:slug',
-                array(
-                    'module'        => 'neatline-web-service',
-                    'controller'    => 'public',
-                    'action'        => 'embed'
                 )
             )
         );
@@ -265,7 +265,7 @@ class NeatlineWebServicePlugin
         $router->addRoute(
             'nlwsSimileHistoryOverride',
             new Zend_Controller_Router_Route(
-                NLWS_SLUG . ':user/editor/__history__.html',
+                NLWS_SLUG . 'nl-admin/:user/editor/__history__.html',
                 array(
                     'module'        => 'neatline',
                     'controller'    => 'data'
@@ -273,7 +273,7 @@ class NeatlineWebServicePlugin
             )
         );
 
-        // Option to set root route.
+        // Optionall, take control of top-level route.
         if (get_option('web_service_home_page') && !is_admin_theme()) {
             $router->addRoute(
                 'nlws_home_page',
@@ -313,9 +313,7 @@ class NeatlineWebServicePlugin
             // ** /add or /edit
             if (in_array(
                 $request->getActionName(),
-                array(
-                    'add',
-                    'edit'))) {
+                array('add', 'edit'))) {
                     nlws_queueAddJs();
                 }
 
