@@ -34,7 +34,8 @@ class NeatlineWebServicePlugin
         'admin_theme_header',
         'public_theme_header',
         'config_form',
-        'config'
+        'config',
+        'define_acl'
     );
 
     // Filters.
@@ -361,6 +362,49 @@ class NeatlineWebServicePlugin
             neatline_queueNeatlineAssets($exhibit);
         }
 
+    }
+
+    /**
+     * This clobbers the ACL of the Neatline plugin.
+     *
+     * @return void
+     * @author Eric Rochester <erochest@virginia.edu>
+     **/
+    public function defineAcl($acl)
+    {
+        $resourceList = array(
+            'Neatline_Index' => array(
+                'add',
+                'browse',
+                'edit',
+                'query',
+                'delete',
+                'show',
+                'showNotPublic',
+                'udi',
+                'simile',
+                'openlayers'
+              ),
+            'Neatline_Editor' => array(
+                'index',
+                'items',
+                'form',
+                'save',
+                'status',
+                'order',
+                'positions',
+                'arrangement',
+                'focus',
+                'mapsettings',
+                'timelinesettings',
+                'resetstyles',
+                'dcdefault'
+            )
+        );
+
+        foreach ($resourceList as $resource => $privileges) {
+            $acl->allow(null, $resource);
+        }
     }
 
 }
