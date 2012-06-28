@@ -188,13 +188,26 @@ class NeatlineWebServicePlugin
 
         // Native show.
         $router->addRoute(
-            'nlwsFullscreen',
+            'nlwsShow',
             new Zend_Controller_Router_Route(
                 NLWS_SLUG . ':user/:slug',
                 array(
                     'module'        => 'neatline',
                     'controller'    => 'index',
                     'action'        => 'show'
+                )
+            )
+        );
+
+        // Fullscreen show.
+        $router->addRoute(
+            'nlwsFullscreen',
+            new Zend_Controller_Router_Route(
+                NLWS_SLUG . ':user/:slug/fullscreen',
+                array(
+                    'module'        => 'neatline',
+                    'controller'    => 'index',
+                    'action'        => 'fullscreen'
                 )
             )
         );

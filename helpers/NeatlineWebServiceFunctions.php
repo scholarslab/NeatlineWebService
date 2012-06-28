@@ -126,9 +126,16 @@ function nlws_url(
  *
  * @return void.
  */
-function nlws_show_url($slug)
+function nlws_show_url($slug, $fullscreen=false)
 {
-    return WEB_ROOT . '/' . NLWS_SLUG . nlws_getUsername() . '/' . $slug;
+
+    $url = WEB_ROOT . '/' . NLWS_SLUG . nlws_getUsername() . '/' . $slug;
+    if ($fullscreen) {
+        $url .= '/fullscreen';
+    }
+
+    return $url;
+
 }
 
 /**
