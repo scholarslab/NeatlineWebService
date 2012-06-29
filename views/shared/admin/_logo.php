@@ -17,7 +17,7 @@
     <?php if (Zend_Auth::getInstance()->hasIdentity()): ?>
         <a href="<?php echo nlws_url('exhibits'); ?>">NEATLINE</a>
     <?php else: ?>
-        <a href="<?php echo WEB_ROOT . '/' . NLWS_SLUG . 'admin'; ?>">NEATLINE</a>
+        <a href="<?php echo WEB_ROOT . '/' . NLWS_SLUG . 'nl-admin'; ?>">NEATLINE</a>
     <?php endif; ?>
 
     <small>Plot your course in space and time.</small>
