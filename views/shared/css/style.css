@@ -111,7 +111,7 @@ h4.no-exhibits {
 }
 
 input[type="text"], input[type="password"] {
-    background: white;
+    background: white !important;
 }
 
 p.intro {
