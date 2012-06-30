@@ -38,7 +38,7 @@ echo $this->partial('admin/_header.php', array(
             <p>Welcome to Neatline! To get started, enter a username, password,
                and email address.</p>
             <p>We'll never give your email address away. For more information,
-               read our <a href="">Privacy Policy</a>.
+               read our <a href="">Terms of Service</a>.
         </div>
 
         <div class="span12">
