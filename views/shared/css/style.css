@@ -110,6 +110,6 @@ h4.no-exhibits {
     margin-left: 0.4em;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
     background: white;
 }
