@@ -13,7 +13,6 @@
 
 queue_js('jquery.complexify.min');
 queue_js('complexify');
-
 queue_css('complexify');
 ?>
 
