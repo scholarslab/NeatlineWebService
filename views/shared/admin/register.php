@@ -36,8 +36,8 @@ echo $this->partial('admin/_header.php', array(
             <h2>Create an Account</h2>
             <p>To get started, enter a username, password,
                and email address.</p>
-            <p>We'll never give your email address away. For more information,
-               read our <a href="">Terms of Service</a>.
+            <p>We'll never give your email address away except to comply
+                with the law. For more information, read our <a href="">Terms of Service</a>.
         </div>
 
         <div class="span12">
