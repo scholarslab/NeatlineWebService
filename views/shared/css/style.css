@@ -113,3 +113,9 @@ h4.no-exhibits {
 input[type="text"], input[type="password"] {
     background: white;
 }
+
+p.intro {
+    font-size: 17px;
+    line-height: 24px;
+    padding-left: 20px;
+}

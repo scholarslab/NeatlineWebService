@@ -34,7 +34,7 @@ echo $this->partial('admin/_header.php', array(
 
         <div class="span4">
             <h2>Create an Account</h2>
-            <p>Welcome to Neatline! To get started, enter a username, password,
+            <p>To get started, enter a username, password,
                and email address.</p>
             <p>We'll never give your email address away. For more information,
                read our <a href="">Terms of Service</a>.
