@@ -1,13 +1,10 @@
 #progressbar {
-  width: 388px;
-  height: 48px;
+  width: 228px;
+  height: 10px;
   display: block;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  border: 1px solid #ccc;
   overflow: hidden;
+  border-radius: 3px;
 }
 
 #progress {
@@ -35,28 +32,22 @@
 }
 
 #status {
-  height:150px;
-  width:388px;
-  border:1px solid #ccc;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
+  margin: 3px 0 8px;
+  width:228px;
+  color: #b3b3b3;
 }
 
 #complexityLabel {
+  display: inline;
   width:100%;
-  text-align:center;
-  margin-top:10px;
-  font-size:20px;
-  line-height:30px;
+  font-size:12px;
 }
 
 #complexity {
+  display: inline;
   width:100%;
-  text-align:center;
   font-family:"Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-weight:bold;
-  font-size:70px;
-  line-height:80px;
-  margin-top:10px;
+  font-size:14px;
 }
 

@@ -39,6 +39,14 @@
             </div>
         </div>
 
+        <div id="progressbar">
+            <div id="progress"></div>
+        </div>
+        <div id="status">
+            <div id="complexity">0%</div>
+            <div id="complexityLabel">Password Complexity</div>
+        </div>
+
         <div class="clearfix <?php echo nlws_getErrorClass($errors, 'confirm', 'error'); ?>">
             <label for="confirm">Confirm Password: *</label>
             <div class="input confirm">
@@ -55,10 +63,5 @@
         <button type="submit" class="btn primary large">Sign Up</button>
     </div>
 
-    <div id="progressbar"><div id="progress"></div></div>
-		<div id="status">
-		    <div id="complexity">0%</div>
-		    <div id="complexityLabel">Password Complexity</div>
-		</div>
 </form>
 
