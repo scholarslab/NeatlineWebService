@@ -41,10 +41,7 @@ echo $this->partial('admin/_header.php', array(
         </div>
 
         <div class="span12">
-            <p class="intro">Welcome to the Neatline Sandbox! This is a hosted, demo version of
-                Neatline that lets you build simple exhibits on modern-geography base layers.
-                If you like what you see, head over to the <a href="http://23.21.98.97/plugins/neatline/">Neatline download page</a>
-                and get the plugin for <a href="http://omeka.org/">Omeka</a>.</p>
+            <?php echo $this->partial('admin/_welcome.php'); ?>
             <?php echo $this->partial('admin/forms/_register.php', array(
                 'username' => $username,
                 'email' => $email,
