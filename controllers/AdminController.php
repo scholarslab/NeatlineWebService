@@ -145,8 +145,9 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
                     $email
                 );
 
-                // Commit.
+                // Commit, fire hook.
                 $user->save();
+                fire_plugin_hook('nlws_new_user');
 
                 // Get the adapter and authentication singleton.
                 $adapter = $this->getAuthAdapter($username, $password);

@@ -31,6 +31,7 @@ class NeatlineWebServicePlugin
         'install',
         'uninstall',
         'define_routes',
+        'nlws_new_user',
         'admin_theme_header',
         'public_theme_header',
         'config_form',
@@ -305,12 +306,23 @@ class NeatlineWebServicePlugin
     }
 
     /**
+     * Install sample exhibit to new user's account.
+     *
+     * @return void
+     */
+    public function nlwsNewUser()
+    {
+
+    }
+
+    /**
      * Queue file assets by route for administrative views.
      *
      * @return void
      */
     public function adminThemeHeader($request)
     {
+
         $exhibit = get_current_neatline();
 
         // Get the route.
