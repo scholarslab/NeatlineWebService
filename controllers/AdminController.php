@@ -316,7 +316,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->public = $public;
         $this->view->description = $description;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
-        // $this->view->webRoot = $_SERVER['SERVER_NAME'];
 
     }
 
@@ -372,7 +371,6 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
         $this->view->public = $public;
         $this->view->description = $description;
         $this->view->webRoot = get_plugin_ini('NeatlineWebService', 'web_root');
-        // $this->view->webRoot = $_SERVER['SERVER_NAME'];
 
     }
 
@@ -396,6 +394,17 @@ class NeatlineWebService_AdminController extends Omeka_Controller_Action
 
         // Push exhibit.
         $this->view->exhibit = $exhibit;
+
+    }
+
+    /**
+     * Terms of service.
+     *
+     * @return void
+     */
+    public function termsOfServiceAction()
+    {
+
     }
 
 
