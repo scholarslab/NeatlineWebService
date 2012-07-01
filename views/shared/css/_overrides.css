@@ -95,17 +95,18 @@ input, textarea, select, .uneditable-input {
 }
 
 .btn.primary {
-  background-color: hsl(280, 29%, 38%);
+  background-color: hsl(299, 17%, 28%) !important;
   background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(280, 29%, 58%)), to(hsl(280, 29%, 38%)));
-  background-image: -moz-linear-gradient(top, hsl(280, 29%, 58%), hsl(280, 29%, 38%));
-  background-image: -ms-linear-gradient(top, hsl(280, 29%, 58%), hsl(280, 29%, 38%));
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(280, 29%, 58%)), color-stop(100%, hsl(280, 29%, 38%)));
-  background-image: -webkit-linear-gradient(top, hsl(280, 29%, 58%), hsl(280, 29%, 38%));
-  background-image: -o-linear-gradient(top, hsl(280, 29%, 58%), hsl(280, 29%, 38%));
-  background-image: linear-gradient(top, hsl(280, 29%, 58%), hsl(280, 29%, 38%));
-  border-color: hsl(280, 29%, 38%) hsl(280, 29%, 38%) hsl(280, 29%, 33%);
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#644765", endColorstr="#533b53");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#644765), to(#533b53));
+  background-image: -moz-linear-gradient(top, #644765, #533b53);
+  background-image: -ms-linear-gradient(top, #644765, #533b53);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #644765), color-stop(100%, #533b53));
+  background-image: -webkit-linear-gradient(top, #644765, #533b53);
+  background-image: -o-linear-gradient(top, #644765, #533b53);
+  background-image: linear-gradient(#644765, #533b53);
+  border-color: #533b53 #533b53 hsl(299, 17%, 26.5%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.09);
   -webkit-font-smoothing: antialiased;
 }
