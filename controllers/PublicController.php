@@ -66,7 +66,7 @@ class NeatlineWebService_PublicController extends Omeka_Controller_Action
         $exhibit =                  $webExhibit->getExhibit();
 
         // Render the view as a partial.
-        echo $this->view->partial('index/show.php', array(
+        echo $this->view->partial('index/fullscreen.php', array(
             'neatlineexhibit' => $exhibit
         ));
 

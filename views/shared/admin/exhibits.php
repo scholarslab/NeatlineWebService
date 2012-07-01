@@ -50,7 +50,7 @@ echo $this->partial('admin/_header.php', array(
                 <?php foreach ($exhibits as $exhibit): ?>
                     <tr>
                         <td>
-                            <a class="exhibit-title" href="<?php echo nlws_show_url($exhibit->slug, true); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
+                            <a class="exhibit-title" href="<?php echo nlws_show_url($exhibit->slug); ?>"><?php echo $exhibit->getExhibit()->name; ?></a>
                             <div class="exhibit-slug">/<?php echo $exhibit->slug; ?></div>
                             <span class="action bold"><a href="<?php echo nlws_url('edit', $exhibit->slug); ?>">edit details</a> |</span>
                             <span class="action danger"><a href="<?php echo nlws_url('delete', $exhibit->slug); ?>">delete</a></span>
