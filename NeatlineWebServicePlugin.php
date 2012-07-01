@@ -308,11 +308,13 @@ class NeatlineWebServicePlugin
     /**
      * Install sample exhibit to new user's account.
      *
+     * @param Omeka_Record $user The new use.
+     *
      * @return void
      */
-    public function nlwsNewUser()
+    public function nlwsNewUser($user)
     {
-
+        nlws_installSampleExhibit($user);
     }
 
     /**

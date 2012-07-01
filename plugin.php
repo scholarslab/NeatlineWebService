@@ -53,6 +53,7 @@ if (!defined('NLWS_SLUG')) {
 require_once NLWS_PLUGIN_DIR . '/NeatlineWebServicePlugin.php';
 require_once NLWS_PLUGIN_DIR . '/helpers/NeatlineWebServiceFunctions.php';
 require_once NLWS_PLUGIN_DIR . '/helpers/NeatlineAuthAdapter.php';
+require_once NLWS_PLUGIN_DIR . '/helpers/SampleExhibit.php';
 require_once NLWS_PLUGIN_DIR . '/../Neatline/controllers/EditorController.php';
 // }}}
 
