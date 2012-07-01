@@ -56,7 +56,7 @@ function nlws_installSampleExhibit($user)
     $exhibit->is_timeline = 0;
     $exhibit->is_items = 0;
     $exhibit->is_context_band = 0;
-    $exhibit->default_map_bounds = '-8739028.5349162, 4584325.7846613';
+    $exhibit->default_map_bounds = '-8739048.8385019, 4584417.1507967';
     $exhibit->default_map_zoom = 18;
     $exhibit->default_vector_color = '#3313d4';
     $exhibit->default_stroke_color = '#f2b42e';
