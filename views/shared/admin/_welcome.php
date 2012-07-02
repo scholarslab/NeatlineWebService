@@ -14,5 +14,5 @@
 
 <p class="intro">Welcome to the Neatline Sandbox! This is a hosted, demo version of
 Neatline that lets you create simple exhibits on modern-geography base layers.
-If you like what you see, head over to the <a href="http://23.21.98.97/plugins/neatline/">Neatline download page</a>
+If you like what you see, head over to the <a href="http://neatline.org/plugins/neatline/">Neatline download page</a>
 and get the plugin for <a href="http://omeka.org/">Omeka</a>.</p>
