@@ -39,7 +39,9 @@ echo $this->partial('admin/_header.php', array(
             <p>All contributions to the Neatline sandbox environment are published under a Creative Commons Attribution-ShareAlike Public Use License. Under the terms of this license, you permit free distribution, display, and/or performance of your submitted works of authorship, so long as you are credited by name each time your content is utilized. This license does not interfere with your personal ability to reuse or republish content you post here, either in a commercial or noncommercial context.</p>
 
             <h2>Preservation</h2>
-            <p>The University of Virginia Library does not promise backup, restoration, continued maintenance, or dedicated archiving of content created in this temporary sandbox environment. Any questions about these policies should be directed to Bethany Nowviskie, Director of Digital Research & Scholarship, UVa Library.</p>
+            <p>The University of Virginia Library does not promise backup, restoration, continued maintenance, or dedicated archiving of content created in this temporary sandbox environment. Any questions about these policies should be directed to 
+<a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#110;&#101;&#97;&#116;&#108;&#105;&#110;&#101;&#64;&#99;&#111;&#108;&#108;&#97;&#98;&#46;&#105;&#116;&#99;&#46;&#118;&#105;&#114;&#103;&#105;&#110;&#105;&#97;&#46;&#101;&#100;&#117;'>&#110;&#101;&#97;&#116;&#108;&#105;&#110;&#101;&#64;&#99;&#111;&#108;&#108;&#97;&#98;&#46;&#105;&#116;&#99;&#46;&#118;&#105;&#114;&#103;&#105;&#110;&#105;&#97;&#46;&#101;&#100;&#117;</a>
+.</p>
             <p>YOUR CREATION OF A NEATLINE SANDBOX ACCOUNT INDICATES YOUR AGREEMENT WITH THE ABOVE TERMS.</p>
 
         </div>
